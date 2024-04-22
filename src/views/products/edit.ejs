@@ -36,8 +36,10 @@
                 <select class="form-select mb-3" id="categories" name="categories" multiple="multiple">
                     <% categories.forEach(category => { %>
                         <option
-                                value="<%= category._id %>"
-                                <% if (product.categories && product.categories.includes(category._id.toString())) { %>selected<% } %>
+                            value="<%= category._id %>"
+                            <% product.categories.forEach(cat => { %>
+                                 <% if (cat._id.toString() === category._id.toString()) { %> selected <% } %>
+                            <% }) %>
                         >
                             <%= category.name %>
                         </option>
@@ -46,7 +48,6 @@
 
                 <label for="manufacturers" class="form-label">Manufacturers</label>
                 <select class="form-select mb-3" id="manufacturer" name="manufacturer">
-                    <option></option>
                     <% manufacturers.forEach(manufacturer => { %>
                         <option
                                 value="<%= manufacturer._id %>"
