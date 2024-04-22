@@ -1,0 +1,12 @@
+<div class="row">
+    <label class="text-end col-sm-9 col-form-label">on page:</label>
+    <div class="col-sm-3">
+        <select id="select-limit-on-page" class="form-control">
+            <option value="2" <% if (parseInt(pagesLimit) === 2) { %> selected="selected" <% } %> >2</option>
+            <option value="5" <% if (parseInt(pagesLimit) === 5) { %> selected="selected" <% } %> >5</option>
+            <option value="10" <% if (parseInt(pagesLimit) === 10) { %> selected="selected" <% } %> >10</option>
+            <option value="50" <% if (parseInt(pagesLimit) === 50) { %> selected="selected" <% } %> >50</option>
+            <option value="100" <% if (parseInt(pagesLimit) === 100) { %> selected="selected" <% } %> >100</option>
+        </select>
+    </div>
+</div>

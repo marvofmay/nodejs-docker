@@ -1,0 +1,79 @@
+<html lang="en">
+    <%- include("../shared/header.ejs") %>
+    <body>
+        <%- include("../shared/navigation.ejs") %>
+        <div class="content"  id="content-category-list">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Categories</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <%- include("../shared/message.ejs") %>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="filter-phrase" value="<%= phraseToSearch %>">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-info" href="/categories/create">add new</a>
+                </div>
+            </div>
+            <% if (categories.length > 0) { %>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="name"></i>
+                                name
+                                <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="name"></i>
+                            </th>
+                            <th class="col-2">action</th>
+                        </tr>
+                    <% let index = 1; %>
+                    <% categories.forEach(category => { %>
+                        <tr>
+                            <td><%= index + (page - 1) * pagesLimit %></td>
+                            <td><%= category.name %></td>
+                            <td>
+                                <a href="/categories/info/<%= category._id %>">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a href="/categories/edit/<%= category._id %>">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a class="btn-delete btn-delete-category" data-doc="<%= category._id %>">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <% index++; %>
+                    <% }) %>
+                    </table>
+                    <div class="row">
+                        <div class="col-5">
+                            <%- include("../shared/pagination.ejs") %>
+                        </div>
+                        <div class="col-3">
+                            <div class="mt-2 text-center">total results: <%= allResults %></div>
+                        </div>
+                        <div class="col-4">
+                        <%- include('../shared/itemsOnPage.ejs'); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+              <p>There are no categories to display...</p>
+            <% } %>
+        </div>
+        <%- include("../shared/footer.ejs") %>
+        <script src="./js/index.js"></script>
+    </body>
+</html>

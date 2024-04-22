@@ -1,0 +1,109 @@
+<html lang="en">
+    <%- include("../shared/header.ejs") %>
+    <body>
+        <%- include("../shared/navigation.ejs") %>
+        <div class="create-manufacturer content">
+        <%- include("../shared/message.ejs") %>
+        <%- include("../shared/validationErrors.ejs") %>
+            <div class="content">
+                    <form action="/manufacturers/store" method="POST">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row mb-3">
+                                    <label for="name" class="col-sm-3 col-form-label">name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="short-name" class="col-sm-3 col-form-label">short name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="short-name" name="shortName">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="nip" class="col-sm-3 col-form-label">NIP</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="nip" name="nip">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="regon" class="col-sm-3 col-form-label">REGON</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="regon" name="regon">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="parentManufacturer" class="col-sm-3 col-form-label">parent manufacturer</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select mb-3" id="parentManufacturer" name="parentManufacturer">
+                                            <option></option>
+                                            <% manufacturers.forEach(manufacturer => { %>
+                                                <option value="<%= manufacturer._id %>"><%= manufacturer.name %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row mb-3">
+                                    <label for="email" class="col-sm-3 col-form-label">email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" id="email" name="email">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="www" class="col-sm-3 col-form-label">www</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="www" name="www">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12 mt-5 g-3">
+                            <hr />
+                            <div class="col-4">
+                                <label for="street" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="street" name="address[street]">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" name="address[city]">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="state" class="form-label">Country</label>
+                                <select id="country" class="form-select" name="address[country]">
+                                    <option>Choose...</option>
+                                    <option value="Poland">Poland</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="France">France</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="zipcode" class="form-label">Zip</label>
+                                <input type="text" class="form-control" id="zipcode" name="address[zipcode]">
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="offset-10 col-2 text-end">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <%- include("../shared/footer.ejs") %>
+        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="/select2/dist/css/select2.css">
+        <script src="/jquery/dist/jquery.js"></script>
+        <script src="/select2/dist/js/select2.full.min.js"></script>
+        <script>
+            $(() => {
+                $('#parentManufacturer').select2({
+                    placeholder: "Select a parent manufacturer",
+                    allowClear: true
+                });
+            })
+        </script>
+    </body>
+</html>

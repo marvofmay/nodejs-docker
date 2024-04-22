@@ -1,0 +1,37 @@
+<html lang="en">
+    <%- include("../shared/header.ejs") %>
+    <body>
+        <%- include("../shared/navigation.ejs") %>
+        <div class="info-category content">
+            <h2><%= category.name %></h2>
+            <div class="content">
+                <p><%= category.description %></p>
+            </div>
+            <a class="btn-delete btn-delete-category" data-doc="<%= category._id %>">
+                <i class="bi bi-trash3-fill"></i>
+            </a>
+        </div>
+        <%- include("../shared/footer.ejs") %>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const btnDeleteCategories = document.querySelectorAll('a.btn-delete-category');
+                btnDeleteCategories.forEach(btnDeleteCategory => {
+                    btnDeleteCategory.addEventListener('click', (e) => {
+                        const shouldDelete = confirm('Czy na pewno chcesz usunąć tę kategorię?');
+                        if (shouldDelete) {
+                            const endpoint = `/categories/${btnDeleteCategory.dataset.doc}`;
+                            fetch(endpoint, {
+                                method: 'DELETE',
+                            })
+                                .then(response => response.json())
+                                .then(data => window.location.href = data.redirect)
+                                .catch(err => console.log(err));
+                        } else {
+                            e.preventDefault();
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

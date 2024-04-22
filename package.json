@@ -1,0 +1,39 @@
+{
+  "name": "nodejs-api",
+  "version": "1.0.0",
+  "description": "a nodejs api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "mj",
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.3",
+    "bootstrap5-tags": "^1.6.16",
+    "dropzone": "^6.0.0-beta.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "formidable": "^3.5.1",
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.1.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "select2": "^4.1.0-rc.0",
+    "toastify-js": "^1.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

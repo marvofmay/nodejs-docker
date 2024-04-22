@@ -1,0 +1,19 @@
+<html lang="en">
+    <%- include("../shared/header.ejs") %>
+    <body>
+        <%- include("../shared/navigation.ejs") %>
+        <div class="create-category content">
+        <%- include("../shared/message.ejs") %>
+        <%- include("../shared/validationErrors.ejs") %>
+            <form action="/categories/store" method="POST">
+                <label for="name">name:</label>
+                <input type="text" id="name" name="name" >
+                <label for="description">description:</label>
+                <textarea id="description" name="description"></textarea>
+                <button class="btn btn-success">Save</button>
+            </form>
+        </div>
+        <%- include("../shared/footer.ejs") %>
+        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

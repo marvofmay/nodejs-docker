@@ -1,0 +1,60 @@
+<ul class="pagination align-items-center">
+    <% if (page > 5 + 1) { %>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="First" data-page="1">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous" data-page="<%= page - 1 %>">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    <% } %>
+
+    <!-- Strony na lewo od obecnej strony -->
+    <% for (let i = page - 5; i < page; i++) { %>
+        <% if (i > 0) { %>
+            <li class="page-item">
+                <a class="page-link" href="#" data-page="<%= i %>"><%= i %></a>
+            </li>
+        <% } %>
+    <% } %>
+
+    <!-- Obecna strona -->
+    <li class="page-item active" aria-current="page">
+        <span class="page-link"><%= page %></span>
+    </li>
+
+    <!-- Strony na prawo od obecnej strony -->
+    <% for (let i = page + 1; i <= page + 5; i++) { %>
+        <% if (i <= totalPages) { %>
+        <li class="page-item">
+            <a class="page-link" href="#" data-page="<%= i %>"><%= i %></a>
+        </li>
+        <% } %>
+    <% } %>
+
+    <% if (page < totalPages - 5 && totalPages > 11) { %>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next" data-page="<%= page + 1 %>">
+                <span  aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Last" data-page="<%= totalPages %>">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+        </li>
+    <% } %>
+</ul>
+<style>
+    .pagination {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .pagination .page-link {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>

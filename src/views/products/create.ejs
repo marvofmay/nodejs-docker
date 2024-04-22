@@ -1,0 +1,110 @@
+<html lang="en">
+    <%- include("../shared/header.ejs") %>
+    <body>
+        <%- include("../shared/navigation.ejs") %>
+        <div class="create-product content">
+            <%- include("../shared/message.ejs") %>
+            <%- include("../shared/validationErrors.ejs") %>
+            <form action="/products/store" id="addProductForm" enctype="multipart/form-data" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control mb-3" name="name" id="name" value="<%= product.name %>">
+
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control mb-3" id="description" name="description" rows="3"><%= product.description %></textarea>
+
+                            <label for="ean" class="form-label">EAN</label>
+                            <input type="text" class="form-control mb-3" id="ean" name="ean" value="<%= product.ean %>">
+
+                            <label for="price" class="form-label">Price</label>
+                            <input type="text" class="form-control mb-3" name="price" id="price" value="<%= product.price ?? 0 %>">
+
+                            <label for="bonusPercent" class="form-label">Bonus percent</label>
+                            <input type="number" step="5" min="0" max="99" class="form-control mb-3" name="bonusPercent" id="bonusPercent" value="<%= product.bonusPercent ?? 0 %>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="vat" class="form-label">VAT</label>
+                            <select class="form-select select-with-tags mb-3" id="vat" name="vat" >
+                                <option value="0" <% if (product.vat == 0) { %> selected <% } %>>0%</option>
+                                <option value="7" <% if (product.vat == 7) { %> selected <% } %>>7%</option>
+                                <option value="23" <% if (product.vat == 23) { %> selected <% } %> >23%</option>
+                            </select>
+
+                            <label for="categories" class="form-label">Categories</label>
+                            <select class="form-select mb-3" id="categories" name="categories" multiple="multiple">
+                                <% categories.forEach(category => { %>
+                                    <option
+                                        value="<%= category._id %>"
+                                        <% if (product.categories && product.categories.includes(category._id.toString())) { %>selected<% } %>
+                                    >
+                                        <%= category.name %>
+                                    </option>
+                                <% }) %>
+                            </select>
+
+                            <label for="manufacturers" class="form-label">Manufacturers</label>
+                            <select class="form-select mb-3" id="manufacturer" name="manufacturer">
+                                <option></option>
+                                <% manufacturers.forEach(manufacturer => { %>
+                                    <option
+                                        value="<%= manufacturer._id %>"
+                                        <% if (product.manufacturer && product.manufacturer === manufacturer._id.toString()) { %>selected<% } %>
+                                    >
+                                        <%= manufacturer.name %>
+                                    </option>
+                                <% }) %>
+                            </select>
+
+                            <label class="form-check-label" for="active">Active</label>
+                            <input class="form-check-input" type="checkbox" id="active" name="active">
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="mb-3">
+                            <label for="photos" class="form-label">Photos</label>
+                            <input class="form-control" type="file" id="photos" name="photos" multiple>
+                        </div>
+                    </div>
+                    <div class="row offset-10 col-2 text-end">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" id="btnSendForm" class="btn btn-success">Save</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" id="btnClearForm" class="btn btn-primary">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+        <link rel="stylesheet" href="/select2/dist/css/select2.css">
+        <link rel="stylesheet" href="/dropzone/dist/dropzone.css">
+        <script src="/jquery/dist/jquery.js"></script>
+        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/select2/dist/js/select2.full.min.js"></script>
+        <script src="/dropzone/dist/dropzone-min.js"></script>
+        <script>
+            $(() => {
+                $('#categories').select2({
+                    placeholder: 'choose...',
+                });
+                $('#manufacturer').select2({
+                    placeholder: 'choose...',
+                });
+            })
+
+            document.getElementById('price').addEventListener('input', function() {
+                let value = this.value;
+
+                value = value.replace(',', '.');
+                if (!/^\d*\.?\d{0,2}$/.test(value)) {
+                    value = value.slice(0, -1);
+                }
+
+                this.value = value;
+            });
+        </script>
+        <%- include("../shared/footer.ejs") %>
+    </body>
+</html>
