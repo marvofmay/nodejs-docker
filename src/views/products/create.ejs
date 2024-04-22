@@ -32,7 +32,7 @@
                             </select>
 
                             <label for="categories" class="form-label">Categories</label>
-                            <select class="form-select mb-3" id="categories" name="categories" multiple="multiple">
+                            <select class="form-select mb-3" id="categories" name="categories[]" multiple="multiple">
                                 <% categories.forEach(category => { %>
                                     <option
                                         value="<%= category._id %>"

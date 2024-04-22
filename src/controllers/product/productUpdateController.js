@@ -10,7 +10,8 @@ const productRepository = require("../../repositories/product/repository");
 const productUpdate = async (req, res) => {
     try {
         const errors = validationResult(req);
-        const product = await productRepository.getProductById(id);
+        let editProductDTO = new EditProductDTO(req.body);
+        const product = await productRepository.getProductById(editProductDTO._id);
 
         const categoriesFromDB = await categoryRepository.getAllCategoriesForSelectOptions();
         const categoriesForSelect = categoriesFromDB.map(category => ({
@@ -23,13 +24,15 @@ const productUpdate = async (req, res) => {
             name: manufacturer.name
         }));
 
-        let editProductDTO = new EditProductDTO(req.body);
         const productService = new ProductService();
         const photoService = new PhotoService();
 
+
+        console.log('editProductDTO.categories update', editProductDTO.categories);
+
         if (! errors.isEmpty()) {
             return res.render('products/edit', {
-                title: 'Edit a new product',
+                title: 'Edit product',
                 product: editProductDTO,
                 categories: categoriesForSelect,
                 manufacturers: manufacturersForSelect,
@@ -38,24 +41,6 @@ const productUpdate = async (req, res) => {
             });
         }
 
-        let photos = [];
-        for (const { originalname, encoding, mimetype, buffer, size } of req.files) {
-            const createPhotoDTO = new CreatePhotoDTO(originalname, encoding, mimetype, buffer, size);
-            const createPhotoResult = await photoService.createPhoto(createPhotoDTO);
-            photos.push(createPhotoResult.photoId);
-        }
-
-        editProductDTO = new EditProductDTO(req.body, photos);
-        const createResult = await productService.createProduct(editProductDTO);
-
-        return res.render('products/edit', {
-            title: 'Update product',
-            product: {},
-            categories: categoriesForSelect,
-            manufacturers: manufacturersForSelect,
-            errors: [],
-            actionResult: createResult,
-        })
     } catch (err) {
         console.error(err);
 

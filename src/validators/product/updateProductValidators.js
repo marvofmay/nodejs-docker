@@ -26,7 +26,7 @@ const isEAN = (value) => {
 };
 
 
-const createProductValidator = [
+const updateProductValidator = [
     body('name')
         .trim()
         .notEmpty().withMessage('Name is required.')
@@ -59,4 +59,4 @@ const createProductValidator = [
         .notEmpty().withMessage('Categories are required.'),
 ];
 
-module.exports = { createProductValidator };
+module.exports = { updateProductValidator };

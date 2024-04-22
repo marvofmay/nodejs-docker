@@ -33,13 +33,15 @@
                 </select>
 
                 <label for="categories" class="form-label">Categories</label>
-                <select class="form-select mb-3" id="categories" name="categories" multiple="multiple">
+                <select class="form-select mb-3" id="categories" name="categories[]" multiple="multiple">
                     <% categories.forEach(category => { %>
                         <option
                             value="<%= category._id %>"
-                            <% product.categories.forEach(cat => { %>
-                                 <% if (cat._id.toString() === category._id.toString()) { %> selected <% } %>
-                            <% }) %>
+                            <% if (product.categories) { %>
+                                <% product.categories.forEach(cat => { %>
+                                     <% if (typeof cat === 'object' && cat._id.toString() === category._id.toString()) { %> selected <% } %>
+                                <% }) %>
+                            <% } %>
                         >
                             <%= category.name %>
                         </option>
@@ -59,7 +61,7 @@
                 </select>
 
                 <label class="form-check-label" for="active">Active</label>
-                <input class="form-check-input" type="checkbox" id="active" name="active">
+                <input class="form-check-input" type="checkbox" id="active" name="active" <% if (product.active) { %> checked <% } %>>
             </div>
         </div>
 

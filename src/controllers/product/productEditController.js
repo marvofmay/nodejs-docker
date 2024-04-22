@@ -7,6 +7,8 @@ const productEdit = async (req, res) => {
         const id = req.params.id;
         const product = await productRepository.getProductById(id);
 
+        console.log('product.categories edit: ', product.categories);
+
         const categories = await categoryRepository.getAllCategoriesForSelectOptions();
         const categoriesForSelect = categories.map(category => ({
             _id: category._id,
