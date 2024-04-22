@@ -79,15 +79,23 @@
                         <div class="ratio ratio-4x3">
                             <img src="data:<%= photo.mimeType %>;base64,<%= photo.buffer.toString('base64') %>" class="card-img-top" alt="<%= photo.originalFileName %>">
                         </div>
-                        <button class="btn btn-secondary"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#photo-details-<%= photo._id %>"
-                                aria-expanded="false"
-                                aria-controls="photo-details-<%= photo._id %>"
-                        >
-                            Details
-                        </button>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-secondary"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#photo-details-<%= photo._id %>"
+                                    aria-expanded="false"
+                                    aria-controls="photo-details-<%= photo._id %>"
+                            >
+                                Details
+                            </button>
+                            <button class="btn btn-danger"
+                                    type="button"
+                                    data-photoId="<%= photo._id %>"
+                            >
+                                Delete
+                            </button>
+                        </div>
                         <div class="collapse" id="photo-details-<%= photo._id %>">
                             <div class="card-body photo-details">
                                 <p class="card-text">OriginalFileName: <%= photo.originalFileName %></p>
