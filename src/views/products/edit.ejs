@@ -89,9 +89,9 @@
                             >
                                 Details
                             </button>
-                            <button class="btn btn-danger"
+                            <button class="btn btn-danger btn-delete-photo"
                                     type="button"
-                                    data-photoId="<%= photo._id %>"
+                                    data-photo-id="<%= photo._id %>"
                             >
                                 Delete
                             </button>
@@ -122,10 +122,12 @@
 </div>
 <link rel="stylesheet" href="/select2/dist/css/select2.css">
 <link rel="stylesheet" href="/dropzone/dist/dropzone.css">
+<link rel="stylesheet" href="/toastify-js/src/toastify.css">
 <script src="/jquery/dist/jquery.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/select2/dist/js/select2.full.min.js"></script>
 <script src="/dropzone/dist/dropzone-min.js"></script>
+<script src="/toastify-js/src/toastify.js"></script>
 <script>
     $(() => {
         $('#categories').select2({
@@ -145,6 +147,24 @@
         }
 
         this.value = value;
+    });
+
+    const deleteButtons = document.querySelectorAll('.btn-delete-photo');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const photoId = button.dataset.photoId;
+
+            Toastify({
+                text: photoId,
+                duration: 3000,
+                newWindow: true,
+                gravity: 'top',
+                position: 'right',
+                style: {
+                    background: "linear-gradient(to right, hsl(120, 50%, 50%), hsl(120, 30%, 30%))",
+                }
+            }).showToast();
+        });
     });
 </script>
 <%- include("../shared/footer.ejs") %>
