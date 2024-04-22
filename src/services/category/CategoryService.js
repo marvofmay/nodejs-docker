@@ -44,7 +44,7 @@ class CategoryService {
 
     async deleteCategory (categoryId) {
         try {
-            const result = await Category.findByIdAndDelete(categoryId);
+            const result = await Category.findByIdAndDelete(categoryId, null);
             if (result) {
                 return { success: true, message: 'Category deleted successfully.' };
             } else {

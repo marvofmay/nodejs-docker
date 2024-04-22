@@ -1,8 +1,10 @@
 const express = require('express');
-const photoController = require('../controllers/photoController');
+const photoIndexController = require('../controllers/photo/photoIndexController');
+const photoDeleteController = require('../controllers/photo/photoDeleteController');
 
 const router = express.Router();
 
-router.get('/', photoController.photoIndex);
+router.get('/', photoIndexController.photoIndex);
+router.get('/:id', photoDeleteController.photoDelete);
 
 module.exports = router;

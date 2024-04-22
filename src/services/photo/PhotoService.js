@@ -27,6 +27,21 @@ class PhotoService {
             throw new Error('Failed to create product.');
         }
     }
+
+    async deletePhoto (photoId) {
+        try {
+            const result = await Photo.findByIdAndDelete(photoId, null);
+            if (result) {
+                return { success: true, message: 'Photo deleted successfully.' };
+            } else {
+                return { success: false, message: 'Photo not found.' };
+            }
+        } catch (err) {
+            console.error(err);
+
+            throw new Error('Failed to delete photo.');
+        }
+    }
 }
 
 module.exports = PhotoService;
