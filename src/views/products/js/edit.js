@@ -31,8 +31,10 @@ deleteButtons.forEach(buttonDeletePhoto => {
                 })
                     .then(response => response.json())
                     .then(data => {
-
-                        //remove div with photo
+                        const photoCard =  document.getElementById(`photo-id-${photoId}`);
+                        if (photoCard) {
+                            photoCard.remove();
+                        }
 
                         Toastify({
                             text: data.actionResult.message,
