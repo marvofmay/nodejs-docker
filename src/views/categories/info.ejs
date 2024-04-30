@@ -3,6 +3,11 @@
     <body>
         <%- include("../shared/navigation.ejs") %>
         <div class="info-category content">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><%= title %> | <%= action %></h2>
+                </div>
+            </div>
             <h2><%= category.name %></h2>
             <div class="content">
                 <p><%= category.description %></p>

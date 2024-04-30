@@ -5,7 +5,16 @@ const categoryInfo = async (req, res) => {
         const id = req.params.id;
         const category = await categoryRepository.getCategoryById(id);
 
-        res.render('categories/info', { category: category, title: 'Info category', errors: [], actionResult: {}, });
+        res.render(
+            'categories/info',
+            {
+                category: category,
+                title: 'Categories',
+                action: 'Info category',
+                errors: [],
+                actionResult: {},
+            }
+        );
 
     } catch(err) {
         console.log(err);

@@ -2,6 +2,11 @@
     <%- include("../shared/header.ejs") %>
     <body>
         <%- include("../shared/navigation.ejs") %>
+        <div class="row">
+            <div class="col-md-12">
+                <h2><%= title %> | <%= action %></h2>
+            </div>
+        </div>
         <%- include("../shared/message.ejs") %>
         <%- include("../shared/validationErrors.ejs") %>
         <div class="edit-category content">

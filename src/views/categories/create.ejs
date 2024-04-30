@@ -3,8 +3,13 @@
     <body>
         <%- include("../shared/navigation.ejs") %>
         <div class="create-category content">
-        <%- include("../shared/message.ejs") %>
-        <%- include("../shared/validationErrors.ejs") %>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><%= title %> | <%= action %></h2>
+                </div>
+            </div>
+            <%- include("../shared/message.ejs") %>
+            <%- include("../shared/validationErrors.ejs") %>
             <form action="/categories/store" method="POST">
                 <label for="name">name:</label>
                 <input type="text" id="name" name="name" >
