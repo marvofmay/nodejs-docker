@@ -1,7 +1,7 @@
 class CreateCategoryDTO {
-    constructor(name, description) {
-        this.name = name;
-        this.description = description;
+    constructor(request) {
+        this.name = request.name;
+        this.description = request.description;
     }
 }
 

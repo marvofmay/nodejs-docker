@@ -15,8 +15,7 @@ const categoryStore = async (req, res) => {
             });
         }
 
-        const { name, description } = req.body;
-        const createCategoryDTO = new CreateCategoryDTO(name, description);
+        const createCategoryDTO = new CreateCategoryDTO(req.body);
         const createResult = await categoryService.createCategory(createCategoryDTO);
 
         return res.render('categories/create', {
