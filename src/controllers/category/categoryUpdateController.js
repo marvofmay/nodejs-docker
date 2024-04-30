@@ -7,8 +7,7 @@ const categoryUpdate = async (req, res) => {
     try {
         const errors = validationResult(req);
         const categoryService = new CategoryService();
-        const { _id, name, description } = req.body;
-        let updateCategoryDTO = new UpdateCategoryDTO(_id, name, description);
+        let updateCategoryDTO = new UpdateCategoryDTO(req.body);
 
         if (! errors.isEmpty()) {
             return res.render('categories/edit', {
