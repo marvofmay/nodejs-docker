@@ -1,4 +1,4 @@
-class EditProductDTO {
+class UpdateProductDTO {
     constructor(reqBody, photos) {
         this.categories = [];
         this.photos = photos ?? [];
@@ -22,4 +22,4 @@ class EditProductDTO {
     }
 }
 
-module.exports = EditProductDTO;
+module.exports = UpdateProductDTO;

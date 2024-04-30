@@ -1,4 +1,4 @@
-const EditProductDTO = require('../../dto/product/EditProductDTO');
+const UpdateProductDTO = require('../../dto/product/UpdateProductDTO');
 const { validationResult } = require('express-validator');
 const categoryRepository = require("../../repositories/category/repository");
 const manufacturerRepository = require("../../repositories/manufacturer/repository");
@@ -12,7 +12,7 @@ const productUpdate = async (req, res) => {
         const errors = validationResult(req);
         let product = await productRepository.getProductById(req.params.id);
         const currentProductPhotos = product.photos;
-        let editProductDTO = new EditProductDTO(req.body, currentProductPhotos);
+        let updateProductDTO = new UpdateProductDTO(req.body, currentProductPhotos);
 
         const categoriesFromDB = await categoryRepository.getAllCategoriesForSelectOptions();
         const categoriesForSelect = categoriesFromDB.map(category => ({
@@ -31,7 +31,7 @@ const productUpdate = async (req, res) => {
         if (! errors.isEmpty()) {
             return res.render('products/edit', {
                 title: 'Edit product',
-                product: editProductDTO,
+                product: updateProductDTO,
                 categories: categoriesForSelect,
                 manufacturers: manufacturersForSelect,
                 errors: errors.array(),
@@ -50,8 +50,8 @@ const productUpdate = async (req, res) => {
             photos.push(photo._id);
         }
 
-        editProductDTO = new EditProductDTO(req.body, photos);
-        const updateResult = await productService.updateProduct(editProductDTO);
+        updateProductDTO = new UpdateProductDTO(req.body, photos);
+        const updateResult = await productService.updateProduct(updateProductDTO);
         product = await productRepository.getProductById(req.params.id);
 
         return res.render('products/edit', {
