@@ -2,10 +2,15 @@ const categoryRepository = require('../../repositories/category/repository');
 
 const categoryEdit = async (req, res) => {
     try {
-        const id = req.params.id;
-        const category = await categoryRepository.getCategoryById(id);
+        const categoryId = req.params.id;
+        const category = await categoryRepository.getCategoryById(categoryId);
 
-        res.render('categories/edit', { category: category, title: 'Edit category', errors: [], actionResult: {}, });
+        res.render('categories/edit', {
+            category: category,
+            title: 'Edit category',
+            errors: [],
+            actionResult: {},
+        });
 
     } catch(err) {
         console.log(err);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Product = require('./product');
 
 const photoSchema = new Schema({
     title: {
@@ -39,6 +40,10 @@ const photoSchema = new Schema({
         default: null,
     },
 }, { timestamps: true });
+
+photoSchema.post('findOneAndDelete', async function(doc) {
+    await Product.updateMany({ photos: doc._id }, { $pull: { photos: doc._id } });
+});
 
 const Photo = mongoose.model('Photo', photoSchema);
 

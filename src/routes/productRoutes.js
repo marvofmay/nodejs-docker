@@ -17,6 +17,6 @@ router.get('/info/:id', productInfoController.productInfo);
 router.get('/edit/:id', productEditController.productEdit);
 router.get('/', productIndexController.productIndex);
 router.post('/store', upload.array('photos'), createProductValidator, productStoreController.productStore);
-router.put('/', updateProductValidator, productUpdateController.productUpdate);
+router.put('/:id', upload.array('photos'), updateProductValidator, productUpdateController.productUpdate);
 
 module.exports = router;

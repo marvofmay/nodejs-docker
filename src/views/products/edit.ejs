@@ -5,7 +5,7 @@
         <div class="create-product content">
             <%- include("../shared/message.ejs") %>
             <%- include("../shared/validationErrors.ejs") %>
-            <form action="/products?_method=PUT" method="POST">
+            <form action="/products/<%= product._id %>?_method=PUT" enctype="multipart/form-data" method="POST">
                 <input type="hidden" name="_id" value="<%= product._id %>">
                 <div class="row">
                     <div class="col-md-6">

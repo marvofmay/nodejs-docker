@@ -35,8 +35,6 @@ const getProductById = async (id) => {
                 }
             ]).exec();
 
-            console.log('productWithPhotos: ', productWithRelations);
-
             return productWithRelations[0];
         } else {
             console.log("Produkt o podanym ID nie został znaleziony.");

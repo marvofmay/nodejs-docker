@@ -23,7 +23,7 @@ class CategoryService {
 
     async updateCategory(updateCategoryDTO) {
         try {
-            const categoryId = updateCategoryDTO.id;
+            const categoryId = updateCategoryDTO._id;
             const newData = {
                 name: updateCategoryDTO.name,
                 description: updateCategoryDTO.description,

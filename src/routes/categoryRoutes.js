@@ -18,7 +18,7 @@ router.get('/edit/:id', categoryEditController.categoryEdit);
 router.get('/', categoryIndexController.categoryIndex);
 router.post('/ajaxList', categoryAjaxListController.categoryAjaxList);
 router.post('/store', createCategoryValidator, categoryStoreController.categoryStore);
-router.put('/', updateCategoryValidator, categoryUpdateController.categoryUpdate);
+router.put('/:id', updateCategoryValidator, categoryUpdateController.categoryUpdate);
 router.delete('/:id', categoryDeleteController.categoryDelete);
 
 module.exports = router;

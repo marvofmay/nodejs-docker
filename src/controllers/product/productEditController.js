@@ -4,11 +4,8 @@ const manufacturerRepository = require("../../repositories/manufacturer/reposito
 
 const productEdit = async (req, res) => {
     try {
-        const id = req.params.id;
-        const product = await productRepository.getProductById(id);
-
-        console.log('product.categories edit: ', product.categories);
-
+        const productId = req.params.id;
+        const product = await productRepository.getProductById(productId);
         const categories = await categoryRepository.getAllCategoriesForSelectOptions();
         const categoriesForSelect = categories.map(category => ({
             _id: category._id,

@@ -5,12 +5,12 @@
         <%- include("../shared/message.ejs") %>
         <%- include("../shared/validationErrors.ejs") %>
         <div class="edit-category content">
-            <form action="/categories?_method=PUT" method="POST">
+            <form action="/categories/<%= category._id %>?_method=PUT" method="POST">
+                <input type="hidden" name="_id" value="<%= category._id %>">
                 <label for="title">name:</label>
                 <input type="text" id="name" name="name" value="<%= category.name %>" >
                 <label for="description">description:</label>
                 <textarea id="description" name="description"><%= category.description %></textarea>
-                <input type="hidden" name="_id" value="<%= category._id %>">
                 <button class="btn btn-warning">Update</button>
             </form>
         </div>

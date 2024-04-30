@@ -1,17 +1,18 @@
 const EditProductDTO = require('../../dto/product/EditProductDTO');
-const CreatePhotoDTO = require('../../dto/photo/CreatePhotoDTO');
 const { validationResult } = require('express-validator');
 const categoryRepository = require("../../repositories/category/repository");
 const manufacturerRepository = require("../../repositories/manufacturer/repository");
 const ProductService = require('../../services/product/ProductService');
 const PhotoService = require('../../services/photo/PhotoService');
 const productRepository = require("../../repositories/product/repository");
+const CreatePhotoDTO = require("../../dto/photo/CreatePhotoDTO");
 
 const productUpdate = async (req, res) => {
     try {
         const errors = validationResult(req);
-        let editProductDTO = new EditProductDTO(req.body);
-        const product = await productRepository.getProductById(editProductDTO._id);
+        let product = await productRepository.getProductById(req.params.id);
+        const currentProductPhotos = product.photos;
+        let editProductDTO = new EditProductDTO(req.body, currentProductPhotos);
 
         const categoriesFromDB = await categoryRepository.getAllCategoriesForSelectOptions();
         const categoriesForSelect = categoriesFromDB.map(category => ({
@@ -27,9 +28,6 @@ const productUpdate = async (req, res) => {
         const productService = new ProductService();
         const photoService = new PhotoService();
 
-
-        console.log('editProductDTO.categories update', editProductDTO.categories);
-
         if (! errors.isEmpty()) {
             return res.render('products/edit', {
                 title: 'Edit product',
@@ -40,6 +38,30 @@ const productUpdate = async (req, res) => {
                 actionResult: {},
             });
         }
+
+        let photos = [];
+        for (const { originalname, encoding, mimetype, buffer, size } of req.files) {
+            const createPhotoDTO = new CreatePhotoDTO(originalname, encoding, mimetype, buffer, size);
+            const createPhotoResult = await photoService.createPhoto(createPhotoDTO);
+            photos.push(createPhotoResult.photoId);
+        }
+
+        for (const photo of currentProductPhotos) {
+            photos.push(photo._id);
+        }
+
+        editProductDTO = new EditProductDTO(req.body, photos);
+        const updateResult = await productService.updateProduct(editProductDTO);
+        product = await productRepository.getProductById(req.params.id);
+
+        return res.render('products/edit', {
+            title: 'Edit product',
+            product: product,
+            categories: categoriesForSelect,
+            manufacturers: manufacturersForSelect,
+            errors: [],
+            actionResult: updateResult,
+        })
 
     } catch (err) {
         console.error(err);

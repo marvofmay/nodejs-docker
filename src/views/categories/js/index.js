@@ -86,7 +86,6 @@ container.addEventListener('keyup', event => {
     if (targetElement.id === 'filter-phrase') {
         if (event.key === 'Enter' || event.key === 'NumpadEnter') {
             page = 1;
-            console.log(phraseToSearch);
             fetchDataFromDB();
         } else if (event.key === 'Backspace') {
             phraseToSearch = phraseToSearch.slice(0, -1);

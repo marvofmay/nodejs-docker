@@ -23,7 +23,7 @@ deleteButtons.forEach(buttonDeletePhoto => {
     buttonDeletePhoto.addEventListener('click', () => {
         if (buttonDeletePhoto) {
             const photoId = buttonDeletePhoto.dataset.photoId;
-            const shouldDelete = confirm('Czy na pewno chcesz usunąć zdjęcie?');
+            const shouldDelete = confirm('Are you sure you want to delete the photo?');
             if (shouldDelete) {
                 const endpoint = `/photos/${photoId}`;
                 fetch(endpoint, {
