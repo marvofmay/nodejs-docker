@@ -3,8 +3,13 @@
     <body>
         <%- include("../shared/navigation.ejs") %>
         <div class="edit-manufacturer content">
-        <%- include("../shared/message.ejs") %>
-        <%- include("../shared/validationErrors.ejs") %>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><%= title %> | <%= action %></h2>
+                </div>
+            </div>
+            <%- include("../shared/message.ejs") %>
+            <%- include("../shared/validationErrors.ejs") %>
             <div class="content">
                 <form action="/manufacturers/<%= manufacturer._id %>?_method=PUT" method="POST">
                     <input type="hidden" name="_id" value="<%= manufacturer._id %>">
@@ -13,7 +18,13 @@
                             <div class="row mb-3">
                                 <label for="name" class="col-sm-3 col-form-label">name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="name" name="name" value="<%= manufacturer.name %>">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="name"
+                                        name="name"
+                                        value="<%= manufacturer.name %>"
+                                    >
                                 </div>
                             </div>
                             <div class="row mb-3">

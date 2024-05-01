@@ -5,7 +5,14 @@ const manufacturerInfo = async (req, res) => {
         const id = req.params.id;
         const result = await manufacturerRepository.getManufacturerById(id)
 
-        res.render('manufacturers/info', { manufacturer: result, title: 'info manufacturer' });
+        res.render(
+            'manufacturers/info',
+            {
+                manufacturer: result,
+                title: 'Manufacturers',
+                action: 'Info manufacturer',
+            }
+        );
     } catch (error) {
         console.log(error);
 

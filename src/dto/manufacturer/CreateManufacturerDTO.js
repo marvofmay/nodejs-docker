@@ -1,13 +1,13 @@
 class CreateManufacturerDTO {
-    constructor(name, shortName, nip, regon, email, www, parentManufacturer, address) {
-        this.name = name;
-        this.shortName = shortName;
-        this.nip = nip;
-        this.regon = regon;
-        this.email = email;
-        this.www = www;
-        this.parentManufacturer = this.setParentManufacturer(parentManufacturer);
-        this.address = this.setAddress(address);
+    constructor(request) {
+        this.name = request.name;
+        this.shortName = request.shortName;
+        this.nip = request.nip;
+        this.regon = request.regon;
+        this.email = request.email;
+        this.www = request.www;
+        this.parentManufacturer = this.setParentManufacturer(request.parentManufacturer);
+        this.address = this.setAddress(request.address);
     }
 
     setParentManufacturer (parentManufacturer) {

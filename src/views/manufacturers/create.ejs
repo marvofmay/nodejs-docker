@@ -17,25 +17,25 @@
                                 <div class="row mb-3">
                                     <label for="name" class="col-sm-3 col-form-label">name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="name" name="name">
+                                        <input type="text" class="form-control" id="name" name="name" value="<%= manufacturer.name %>" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="short-name" class="col-sm-3 col-form-label">short name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="short-name" name="shortName">
+                                        <input type="text" class="form-control" id="short-name" name="shortName" value="<%= manufacturer.shortName %>">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="nip" name="nip">
+                                        <input type="text" class="form-control" id="nip" name="nip" value="<%= manufacturer.nip %>" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="regon" class="col-sm-3 col-form-label">REGON</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="regon" name="regon">
+                                        <input type="text" class="form-control" id="regon" name="regon" value="<%= manufacturer.regon %>" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -43,8 +43,11 @@
                                     <div class="col-sm-9">
                                         <select class="form-select mb-3" id="parentManufacturer" name="parentManufacturer">
                                             <option></option>
-                                            <% manufacturers.forEach(manufacturer => { %>
-                                                <option value="<%= manufacturer._id %>"><%= manufacturer.name %></option>
+                                            <% manufacturers.forEach(item => { %>
+                                                <option
+                                                    value="<%= item._id %>"
+                                                    <% if (item._id == manufacturer.parentManufacturer) { %>selected<% } %>
+                                                ><%= item.name %></option>
                                             <% }) %>
                                         </select>
                                     </div>
@@ -54,13 +57,13 @@
                                 <div class="row mb-3">
                                     <label for="email" class="col-sm-3 col-form-label">email</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" id="email" name="email">
+                                        <input type="email" class="form-control" id="email" name="email" value="<%= manufacturer.email %>" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="www" class="col-sm-3 col-form-label">www</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="www" name="www">
+                                        <input type="text" class="form-control" id="www" name="www" value="<%= manufacturer.www %>" >
                                     </div>
                                 </div>
                             </div>
@@ -69,24 +72,25 @@
                             <hr />
                             <div class="col-4">
                                 <label for="street" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="street" name="address[street]">
+                                <input type="text" class="form-control" id="street" name="address[street]" value="<%= manufacturer?.address?.street %>" >
                             </div>
                             <div class="col-md-3">
                                 <label for="city" class="form-label">City</label>
-                                <input type="text" class="form-control" id="city" name="address[city]">
+                                <input type="text" class="form-control" id="city" name="address[city]" value="<%= manufacturer?.address?.city %>" >
+                            </div>
+                            <div class="col-md-2">
+                                <label for="zipcode" class="form-label">Zip</label>
+                                <input type="text" class="form-control" id="zipcode" name="address[zipcode]" value="<%= manufacturer?.address?.zipcode %>" >
                             </div>
                             <div class="col-md-3">
                                 <label for="state" class="form-label">Country</label>
                                 <select id="country" class="form-select" name="address[country]">
                                     <option>Choose...</option>
-                                    <option value="Poland">Poland</option>
-                                    <option value="Germany">Germany</option>
-                                    <option value="France">France</option>
+                                    <option value="Poland" <% if (manufacturer?.address?.country == 'Poland') { %>selected<% } %> >Poland</option>
+                                    <option value="Germany" <% if (manufacturer?.address?.country == 'Germany') { %>selected<% } %> >Germany</option>
+                                    <option value="France" <% if (manufacturer?.address?.country == 'France') { %>selected<% } %> >France</option>
+                                    <option value="France" <% if (manufacturer?.address?.country == 'England') { %>selected<% } %> >England</option>
                                 </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="zipcode" class="form-label">Zip</label>
-                                <input type="text" class="form-control" id="zipcode" name="address[zipcode]">
                             </div>
                         </div>
                         <div class="row mt-5">
@@ -106,7 +110,6 @@
             $(() => {
                 $('#parentManufacturer').select2({
                     placeholder: "Select a parent manufacturer",
-                    allowClear: true
                 });
             })
         </script>

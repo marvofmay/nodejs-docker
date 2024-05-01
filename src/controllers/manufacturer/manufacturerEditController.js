@@ -11,7 +11,8 @@ const manufacturerEdit = async (req, res) => {
         }));
 
         res.render('manufacturers/edit', {
-            title: 'Edit manufacturer',
+            title: 'Manufacturers',
+            action: 'Edit manufacturer',
             manufacturer: manufacturer,
             manufacturers: manufacturersForSelect,
             errors: [],
