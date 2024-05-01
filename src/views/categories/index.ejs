@@ -5,7 +5,7 @@
         <div class="content" id="content-category-list">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Categories</h2>
+                    <h2><%= title %></h2>
                 </div>
             </div>
             <div class="row">
@@ -19,10 +19,8 @@
                 </div>
                 <div class="col-md-4">
                 </div>
-                <div class="col-md-2">
-                    <div class="d-flex justify-content-end">
-                        <a class="btn btn-success" href="/categories/create">add new category</a>
-                    </div>
+                <div class="col-md-2 text-end">
+                    <a class="btn btn-success" href="/categories/create">add new category</a>
                 </div>
             </div>
             <% if (categories.length > 0) { %>

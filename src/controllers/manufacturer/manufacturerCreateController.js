@@ -8,7 +8,8 @@ const manufacturerCreate = async (req, res) => {
     }));
 
     res.render('manufacturers/create', {
-        title: 'Create a new manufacturer',
+        title: 'Manufacturers',
+        action: 'Create a new manufacturer',
         manufacturers: manufacturersForSelect,
         errors: [],
         actionResult: {}

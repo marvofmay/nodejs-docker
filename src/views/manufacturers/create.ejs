@@ -3,8 +3,13 @@
     <body>
         <%- include("../shared/navigation.ejs") %>
         <div class="create-manufacturer content">
-        <%- include("../shared/message.ejs") %>
-        <%- include("../shared/validationErrors.ejs") %>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><%= title %> | <%= action %></h2>
+                </div>
+            </div>
+            <%- include("../shared/message.ejs") %>
+            <%- include("../shared/validationErrors.ejs") %>
             <div class="content">
                     <form action="/manufacturers/store" method="POST">
                         <div class="row">
