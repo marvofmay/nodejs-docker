@@ -6,7 +6,7 @@
         <%- include("../shared/message.ejs") %>
         <%- include("../shared/validationErrors.ejs") %>
             <div class="content">
-                <form action="/manufacturers/update?_method=PUT" method="POST">
+                <form action="/manufacturers/<%= manufacturer._id %>?_method=PUT" method="POST">
                     <input type="hidden" name="_id" value="<%= manufacturer._id %>">
                     <div class="row">
                         <div class="col-6">
@@ -74,6 +74,10 @@
                             <label for="city" class="form-label">City</label>
                             <input type="text" class="form-control" id="city" name="address[city]" value="<%= manufacturer.address?.city %>">
                         </div>
+                        <div class="col-md-2">
+                            <label for="zipcode" class="form-label">Zip</label>
+                            <input type="text" class="form-control" id="zipcode" name="address[zipcode]" value="<%= manufacturer.address?.zipcode %>">
+                        </div>
                         <div class="col-md-3">
                             <label for="country" class="form-label">Country</label>
                             <select id="country" class="form-select" name="address[country]">
@@ -82,10 +86,6 @@
                                 <option value="Germany" <% if (manufacturer.address?.country === "Germany" ) { %> selected="selected" <% } %>>Germany</option>
                                 <option value="France" <% if (manufacturer.address?.country === "France" ) { %> selected="selected" <% } %>>France</option>
                             </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="zipcode" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="zipcode" name="address[zipcode]" value="<%= manufacturer.address?.zipcode %>">
                         </div>
                     </div>
                     <div class="row mt-5">

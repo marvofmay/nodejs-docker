@@ -15,10 +15,10 @@ const router = express.Router();
 router.get('/create', manufacturerCreateController.manufacturerCreate);
 router.post('/store', createManufacturerValidator, manufacturerStoreController.manufacturerStore);
 router.get('/edit/:id', manufacturerEditController.manufacturerEdit);
-router.put('/update', updateManufacturerValidator, manufacturerUpdateController.manufacturerUpdate);
 router.post('/ajaxList', manufacturerAjaxListController.manufacturerAjaxList);
 router.get('/info/:id', manufacturerInfoController.manufacturerInfo);
 router.get('/', manufacturerIndexController.manufacturerIndex);
+router.put('/:id', updateManufacturerValidator, manufacturerUpdateController.manufacturerUpdate);
 router.delete('/:id', manufacturerDeleteController.manufacturerDelete);
 
 module.exports = router;
