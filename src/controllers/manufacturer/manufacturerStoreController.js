@@ -15,8 +15,6 @@ const manufacturerStore = async (req, res) => {
             name: manufacturer.name
         }));
 
-        console.log(createManufacturerDTO);
-
         if (! errors.isEmpty()) {
             return res.render('manufacturers/create', {
                 title: 'Manufacturers',
@@ -33,6 +31,7 @@ const manufacturerStore = async (req, res) => {
         return res.render('manufacturers/create', {
             title: 'Manufacturers',
             action: 'Create a new manufacturer',
+            manufacturer: {},
             errors: [],
             manufacturers: manufacturersForSelect,
             actionResult: createResult,

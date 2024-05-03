@@ -16,7 +16,8 @@ const manufacturerUpdate = async (req, res) => {
 
         if (! errors.isEmpty()) {
             return res.render('manufacturers/edit', {
-                title: 'Update manufacturer',
+                title: 'Manufacturers',
+                action: 'Edit manufacturer',
                 errors: errors.array(),
                 manufacturers: manufacturersForSelect,
                 manufacturer: manufacturer,
@@ -24,23 +25,13 @@ const manufacturerUpdate = async (req, res) => {
             });
         }
 
-        const { _id, name, shortName, nip, regon, email, www, parentManufacturer, address } = req.body;
-        const updateManufacturerDTO = new UpdateManufacturerDTO(
-            _id,
-            name,
-            shortName,
-            nip,
-            regon,
-            email,
-            www,
-            parentManufacturer,
-            address
-        );
+        const updateManufacturerDTO = new UpdateManufacturerDTO(req.body);
         const updateResult = await manufacturerService.updateManufacturer(updateManufacturerDTO);
         manufacturer = await manufacturerRepository.getManufacturerById(req.body._id);
 
         return res.render('manufacturers/edit', {
-            title: 'Update manufacturer',
+            title: 'Manufacturers',
+            action: 'Edit manufacturer',
             errors: [],
             manufacturers: manufacturersForSelect,
             manufacturer: manufacturer,
