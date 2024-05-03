@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const basicRoutes = require('./src/routes/basicRoutes');
 const categoryRoutes = require('./src/routes/categoryRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const photoRoutes = require('./src/routes/photoRoutes');
@@ -34,24 +35,26 @@ app.set('views', 'src/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 
-// routes
-app.get('/', (req, res) => {
-  res.render('home', { title: 'Home' })
-});
+// routes start
 
-app.get('/info', (req, res) => {
-  res.render('info', { title: 'Info' });
-});
+// basic routes
+app.use('/', basicRoutes);
 
 // categories routes
 app.use('/categories', categoryRoutes);
+
 // products routes
 app.use('/products', productRoutes);
+
 // photos routes
 app.use('/photos', photoRoutes);
+
 // manufacturer routes
 app.use('/manufacturers', manufacturerRoutes);
+
 // 404 page
 app.use((req, res) => {
   res.status(404).render('404error', { title: '404' });
 });
+
+// routes end
