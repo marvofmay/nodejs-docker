@@ -8,15 +8,27 @@
                     <h2><%= title %> | <%= action %></h2>
                 </div>
             </div>
-            <%- include("../shared/message.ejs") %>
-            <%- include("../shared/validationErrors.ejs") %>
-            <form action="/categories/store" method="POST">
-                <label for="name">name:</label>
-                <input type="text" id="name" name="name" >
-                <label for="description">description:</label>
-                <textarea id="description" name="description"></textarea>
-                <button class="btn btn-success">Save</button>
-            </form>
+            <div class="row">
+                <div class="col-md-12">
+                <%- include("../shared/message.ejs") %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                <%- include("../shared/validationErrors.ejs") %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="/categories/store" method="POST">
+                        <label for="name">name:</label>
+                        <input type="text" id="name" name="name" value="<%= category.name %>">
+                        <label for="description">description:</label>
+                        <textarea id="description" name="description"><%= category.description %></textarea>
+                        <button class="btn btn-success">Save</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <%- include("../shared/footer.ejs") %>
         <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

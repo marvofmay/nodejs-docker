@@ -3,6 +3,7 @@ const categoryCreate = (req, res) => {
         'categories/create',
         {
             title: 'Categories',
+            category: {},
             action: 'Create a new category',
             errors: [],
             actionResult: {},

@@ -6,20 +6,24 @@ const categoryStore = async (req, res) => {
     try {
         const categoryService = new CategoryService();
         const errors = validationResult(req);
+        const createCategoryDTO = new CreateCategoryDTO(req.body);
 
         if (! errors.isEmpty()) {
             return res.render('categories/create', {
-                title: 'Create a new category',
+                title: 'Categories',
+                action: 'Create a new category',
+                category: createCategoryDTO,
                 errors: errors.array(),
                 actionResult: {},
             });
         }
 
-        const createCategoryDTO = new CreateCategoryDTO(req.body);
         const createResult = await categoryService.createCategory(createCategoryDTO);
 
         return res.render('categories/create', {
-            title: 'Create a new category',
+            title: 'Categories',
+            action: 'Create a new category',
+            category: {},
             errors: [],
             actionResult: createResult,
         });
