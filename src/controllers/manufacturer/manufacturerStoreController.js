@@ -37,7 +37,7 @@ const manufacturerStore = async (req, res) => {
             actionResult: createResult,
         });
     } catch(error) {
-        res.render('error/404error', {title: '404 error', message: error.message});
+        res.render('error/error', {title: 'error', message: error.message});
     }
 };
 

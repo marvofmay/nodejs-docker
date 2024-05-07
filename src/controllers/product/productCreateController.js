@@ -24,8 +24,8 @@ const productCreate = async (req, res) => {
             errors : [],
             actionResult: {},
         });
-    } catch (error) {
-        console.error(error);
+    } catch(error) {
+        res.render('error/error', {title: 'error', message: error.message});
     }
 }
 

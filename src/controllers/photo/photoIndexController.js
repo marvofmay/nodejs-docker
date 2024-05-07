@@ -1,5 +1,11 @@
+const PhotoService = require("../../services/photo/PhotoService");
+
 const photoIndex = (req, res) => {
-    res.render('photos/index', {title: 'Photos'});
+    try {
+        res.render('photos/index', {title: 'Photos'});
+    } catch(error) {
+        res.render('error/error', {title: 'error', message: error.message});
+    }
 }
 
 module.exports = {

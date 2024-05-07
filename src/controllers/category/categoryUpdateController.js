@@ -32,7 +32,7 @@ const categoryUpdate = async (req, res) => {
             actionResult: updateResult,
         });
     } catch(error) {
-        res.render('error/404error', {title: '404 error', message: error.message});
+        res.render('error/error', {title: 'error', message: error.message});
     }
 }
 

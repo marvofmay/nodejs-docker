@@ -1,0 +1,11 @@
+<html lang="en">
+    <%- include("../shared/header.ejs") %>
+    <body>
+        <%- include("../shared/navigation.ejs") %>
+        <div class="content">
+            Something went wrong :(
+            <div><%= typeof message !== 'undefined' ? message : '' %></div>
+        </div>
+        <%- include("../shared/footer.ejs") %>
+    </body>
+</html>

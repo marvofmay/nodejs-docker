@@ -22,9 +22,7 @@ const productIndex = async (req, res) => {
             actionResult: {},
         });
     } catch(error) {
-        console.error(error);
-
-        res.render('404error', {title: 'upssss... :('});
+        res.render('error/error', {title: 'error', message: error.message});
     }
 }
 

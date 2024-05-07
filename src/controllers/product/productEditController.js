@@ -26,11 +26,8 @@ const productEdit = async (req, res) => {
             errors: [],
             actionResult: {},
         });
-
-    } catch(err) {
-        console.log(err);
-
-        res.render('404error', {title: 'product not found'});
+    } catch(error) {
+        res.render('error/error', {title: 'error', message: error.message});
     }
 }
 

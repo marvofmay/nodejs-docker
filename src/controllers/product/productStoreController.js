@@ -52,10 +52,8 @@ const productStore = async (req, res) => {
             errors: [],
             actionResult: createResult,
         })
-    } catch (err) {
-        console.error(err);
-
-        res.status(500).send('Internal Server Error :(');
+    } catch(error) {
+        res.render('error/error', {title: 'error', message: error.message});
     }
 };
 

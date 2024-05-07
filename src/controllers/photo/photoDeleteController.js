@@ -7,10 +7,8 @@ const photoDelete = async (req, res) => {
         const deleteResult = await photoService.deletePhoto(id);
 
         res.json({ actionResult: deleteResult });
-    } catch (err) {
-        console.error(err);
-
-        res.status(500).send('Internal Server Error');
+    } catch(error) {
+        res.render('error/error', {title: 'error', message: error.message});
     }
 };
 

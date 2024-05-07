@@ -62,11 +62,8 @@ const productUpdate = async (req, res) => {
             errors: [],
             actionResult: updateResult,
         })
-
-    } catch (err) {
-        console.error(err);
-
-        res.status(500).send('Internal Server Error :(');
+    } catch(error) {
+        res.render('error/error', {title: 'error', message: error.message});
     }
 };
 
