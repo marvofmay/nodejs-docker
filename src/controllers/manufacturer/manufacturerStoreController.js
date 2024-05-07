@@ -36,10 +36,8 @@ const manufacturerStore = async (req, res) => {
             manufacturers: manufacturersForSelect,
             actionResult: createResult,
         });
-    } catch (err) {
-        console.error(err);
-
-        res.status(500).send('Internal Server Error');
+    } catch(error) {
+        res.render('error/404error', {title: '404 error', message: error.message});
     }
 };
 

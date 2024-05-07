@@ -13,10 +13,8 @@ const manufacturerInfo = async (req, res) => {
                 action: 'Info manufacturer',
             }
         );
-    } catch (error) {
-        console.log(error);
-
-        res.render('404error', { title: 'manufacturer not found' });
+    } catch(error) {
+        res.render('error/404error', {title: '404 error', message: error.message});
     }
 }
 

@@ -26,8 +26,8 @@ const manufacturerAjaxList = async (req, res) => {
             phraseToSearch: phraseToSearch,
             actionResult: actionResult,
         }));
-    } catch (error) {
-        console.error(error);
+    } catch(error) {
+        res.render('error/404error', {title: '404 error', message: error.message});
     }
 };
 
