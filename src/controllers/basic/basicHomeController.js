@@ -1,11 +1,8 @@
 const basicHome = async (req, res) => {
     try {
         res.render('basic/home', {title: 'Home'});
-
-    } catch(err) {
-        console.log(err);
-
-        res.render('404error', {title: 'page not found'});
+    } catch(error) {
+        res.render('error/404error', {title: '404 error', message: error.message});
     }
 }
 

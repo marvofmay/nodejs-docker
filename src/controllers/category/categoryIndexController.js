@@ -22,9 +22,7 @@ const categoryIndex = async (req, res) => {
             actionResult: {},
         });
     } catch(error) {
-        console.error(error);
-
-        res.render('404error', {title: 'upssss... :('});
+        res.render('error/404error', {title: '404 error', message: error.message});
     }
 }
 

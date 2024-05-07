@@ -6,6 +6,7 @@ const categoryRoutes = require('./src/routes/categoryRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const photoRoutes = require('./src/routes/photoRoutes');
 const manufacturerRoutes = require('./src/routes/manufacturerRoutes');
+const errorRoutes = require('./src/routes/errorRoutes');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 
@@ -52,9 +53,7 @@ app.use('/photos', photoRoutes);
 // manufacturer routes
 app.use('/manufacturers', manufacturerRoutes);
 
-// 404 page
-app.use((req, res) => {
-  res.status(404).render('404error', { title: '404' });
-});
+// error routes
+app.use('/', errorRoutes);
 
 // routes end

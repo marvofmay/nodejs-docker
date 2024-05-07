@@ -27,7 +27,7 @@ const categoryAjaxList = async (req, res) => {
             actionResult: actionResult,
         }));
     } catch (error) {
-        console.error(error);
+        res.render('error/404error', {title: '404 error', message: error.message});
     }
 };
 
