@@ -2,7 +2,7 @@
     <%- include("../shared/header.ejs") %>
     <body>
     <%- include("../shared/navigation.ejs") %>
-    <div class="content"  id="content-category-list">
+    <div class="content" id="content-product-list">
         <div class="row">
             <div class="col-md-12">
                 <h2>Products</h2>
@@ -17,8 +17,8 @@
 
             <div class="col-md-4">
             </div>
-            <div class="col-md-2">
-                <a class="btn btn-info" href="/products/create">add new</a>
+            <div class="col-md-2 text-end">
+                <a class="btn btn-success" href="/products/create">add new</a>
             </div>
         </div>
         <% if (products.length > 0) { %>
