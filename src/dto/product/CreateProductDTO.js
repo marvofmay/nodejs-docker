@@ -1,4 +1,5 @@
 class CreateProductDTO {
+
     constructor(reqBody, photos) {
         this.name = reqBody.name ?? '';
         this.description = reqBody.description ?? '';
