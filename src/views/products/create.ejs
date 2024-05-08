@@ -84,27 +84,7 @@
         <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="/select2/dist/js/select2.full.min.js"></script>
         <script src="/dropzone/dist/dropzone-min.js"></script>
-        <script>
-            $(() => {
-                $('#categories').select2({
-                    placeholder: 'Choose categories ...',
-                });
-                $('#manufacturer').select2({
-                    placeholder: 'Choose manufacturer ...',
-                });
-            })
-
-            document.getElementById('price').addEventListener('input', function() {
-                let value = this.value;
-
-                value = value.replace(',', '.');
-                if (!/^\d*\.?\d{0,2}$/.test(value)) {
-                    value = value.slice(0, -1);
-                }
-
-                this.value = value;
-            });
-        </script>
+        <script src="/products/js/create.js"></script>
         <%- include("../shared/footer.ejs") %>
     </body>
 </html>

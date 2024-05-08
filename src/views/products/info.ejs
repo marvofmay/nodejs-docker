@@ -12,7 +12,7 @@
                         <p>Price (netto): <%= product.price %></p>
                         <p>VAT: <%= product.vat %>%</p>
                         <p>Bonus price: <%= product.bonusPercent %>%</p>
-                        <p>Manufacturer: <%= product.manufacturer[0].name %></p>
+                        <p>Manufacturer: <%= product.manufacturer[0]?.name ?? '---' %></p>
                         <p>
                             Categories:
                             <% product.categories.map(function(category, index) { %>
@@ -59,26 +59,6 @@
         </div>
         <%- include("../shared/footer.ejs") %>
         <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const btnDeleteProduct = document.querySelectorAll('a.btn-delete-product');
-                btnDeleteProduct.forEach(btnDeleteProduct => {
-                    btnDeleteProduct.addEventListener('click', (e) => {
-                        const shouldDelete = confirm('Czy na pewno chcesz usunąć tę kategorię?');
-                        if (shouldDelete) {
-                            const endpoint = `/products/${btnDeleteProduct.dataset.doc}`;
-                            fetch(endpoint, {
-                                method: 'DELETE',
-                            })
-                                .then(response => response.json())
-                                .then(data => window.location.href = data.redirect)
-                                .catch(err => console.log(err));
-                        } else {
-                            e.preventDefault();
-                        }
-                    });
-                });
-            });
-        </script>
+        <script src="/products/js/info.js"> </script>
     </body>
 </html>
