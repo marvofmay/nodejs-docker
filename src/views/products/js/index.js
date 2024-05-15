@@ -62,22 +62,28 @@ container.addEventListener('click', function(event) {
     }
 
     const btnDeleteCategory = event.target.closest('a.btn-delete-category');
+    const productName = btnDeleteCategory.getAttribute('data-product-name');
     if (btnDeleteCategory) {
-        const shouldDelete = confirm('Czy na pewno chcesz usunąć ten produkt?');
-        if (shouldDelete) {
-            const endpoint = `/products/${btnDeleteCategory.dataset.doc}`;
-            fetch(endpoint, {
-                method: 'DELETE',
-            })
-                .then(response => response.json())
-                .then(data => {
-                    actionResult = data.actionResult;
-                    fetchDataFromDB();
+        Swal.fire({
+            title: `Do you want to delete this product "${productName}"?`,
+            showCancelButton: true,
+            confirmButtonText: "Delete",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const endpoint = `/products/${btnDeleteCategory.dataset.doc}`;
+                fetch(endpoint, {
+                    method: 'DELETE',
                 })
-                .catch(err => console.log(err));
-        } else {
-            event.preventDefault();
-        }
+                    .then(response => response.json())
+                    .then(data => {
+                        actionResult = data.actionResult;
+                        fetchDataFromDB();
+                    })
+                    .catch(err => console.log(err));;
+            } else if (result.isDenied) {
+                e.preventDefault();
+            }
+        });
     }
 });
 

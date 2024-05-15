@@ -9,6 +9,7 @@ const productAjaxListController = require('../controllers/product/productAjaxLis
 const { createProductValidator } = require('../validators/product/createProductValidators');
 const { updateProductValidator } = require('../validators/product/updateProductValidators')
 const multer = require('multer');
+const productDeleteController = require("../controllers/product/productDeleteController");
 const upload = multer();
 
 const router = express.Router();
@@ -20,5 +21,6 @@ router.get('/', productIndexController.productIndex);
 router.post('/ajaxList', productAjaxListController.productAjaxList);
 router.post('/store', upload.array('photos'), createProductValidator, productStoreController.productStore);
 router.put('/:id', upload.array('photos'), updateProductValidator, productUpdateController.productUpdate);
+router.delete('/:id', productDeleteController.productDelete);
 
 module.exports = router;

@@ -58,6 +58,21 @@ class ProductService {
             throw new Error('Failed to update product');
         }
     }
+
+    async deleteProduct (productId) {
+        try {
+            const result = await Product.findByIdAndDelete(productId, null);
+            if (result) {
+                return { success: true, message: 'Product deleted successfully.' };
+            } else {
+                return { success: false, message: 'Product not found.' };
+            }
+        } catch (err) {
+            console.error(err);
+
+            throw new Error('Failed to delete product.');
+        }
+    }
 }
 
 module.exports = ProductService;
