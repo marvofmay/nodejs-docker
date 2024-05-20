@@ -3,10 +3,12 @@
     <body>
         <%- include("../shared/navigation.ejs") %>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <h2><%= title %> | <%= action %></h2>
+                <button class="btn btn-secondary btn-back">back</button>
             </div>
         </div>
+        <hr />
         <div class="info-category content" id="info-category-content">
             <h2><%= category.name %></h2>
             <div class="content">
