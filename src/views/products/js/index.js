@@ -61,16 +61,16 @@ container.addEventListener('click', function(event) {
         fetchDataFromDB();
     }
 
-    const btnDeleteCategory = event.target.closest('a.btn-delete-category');
-    const productName = btnDeleteCategory.getAttribute('data-product-name');
-    if (btnDeleteCategory) {
+    const btnDeleteProduct = event.target.closest('a.btn-delete-product');
+    const productName = btnDeleteProduct.getAttribute('data-product-name');
+    if (btnDeleteProduct) {
         Swal.fire({
-            title: `Do you want to delete this product "${productName}"?`,
+            title: `Do you want to delete this product \n "${productName}"?`,
             showCancelButton: true,
             confirmButtonText: "Delete",
         }).then((result) => {
             if (result.isConfirmed) {
-                const endpoint = `/products/${btnDeleteCategory.dataset.doc}`;
+                const endpoint = `/products/${btnDeleteProduct.dataset.doc}`;
                 fetch(endpoint, {
                     method: 'DELETE',
                 })
