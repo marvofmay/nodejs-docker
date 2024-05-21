@@ -12,8 +12,13 @@ const getCategoryById = async (id) => {
 
 const getAllCategories = async (filterCondition, sortColumn, sortOrder, page, pagesLimit) => {
     try {
-        let allResults = await Category.countDocuments(filterCondition);
+        const allResults = await Category.countDocuments(filterCondition);
         const totalPages = Math.ceil(allResults / pagesLimit);
+
+        if (totalPages > 0 && totalPages < page) {
+            page = page - 1;
+        }
+
         const results = await Category.find(filterCondition)
             .sort({[sortColumn]: sortOrder === 'asc' ? 1 : -1})
             .skip((page - 1) * pagesLimit)

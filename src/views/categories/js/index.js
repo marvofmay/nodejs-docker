@@ -62,7 +62,8 @@ container.addEventListener('click', function(event) {
     }
 
     const btnDeleteCategory = event.target.closest('a.btn-delete-category');
-    const categoryName = btnDeleteCategory.getAttribute('data-category-name');
+    const categoryName = btnDeleteCategory?.getAttribute('data-category-name');
+    const categoryId = btnDeleteCategory?.getAttribute('data-category-id');
     if (btnDeleteCategory) {
         Swal.fire({
             title: `Do you want to delete this category \n "${categoryName}"?`,
@@ -70,7 +71,7 @@ container.addEventListener('click', function(event) {
             confirmButtonText: "Delete",
         }).then((result) => {
             if (result.isConfirmed) {
-                const endpoint = `/products/${btnDeleteCategory.dataset.doc}`;
+                const endpoint = `/categories/${categoryId}`;
                 fetch(endpoint, {
                     method: 'DELETE',
                 })
@@ -89,14 +90,9 @@ container.addEventListener('click', function(event) {
 
 container.addEventListener('keyup', event => {
     const targetElement = event.target;
-    if (targetElement.id === 'filter-phrase') {
-        if (event.key === 'Enter' || event.key === 'NumpadEnter') {
-            page = 1;
-            fetchDataFromDB();
-        } else if (event.key === 'Backspace') {
-            phraseToSearch = phraseToSearch.slice(0, -1);
-        } else {
-            phraseToSearch += event.key;
-        }
+    if (targetElement.id === 'filter-phrase' && (event.key === 'Enter' || event.key === 'NumpadEnter')) {
+        page = 1;
+        phraseToSearch = targetElement.value;
+        fetchDataFromDB();
     }
 });
