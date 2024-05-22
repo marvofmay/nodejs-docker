@@ -16,7 +16,9 @@
             </div>
             <div class="row align-items-center">
                 <div class="col-md-6">
+                    <% if (categories.length > 0) { %>
                     <input type="text" class="form-control" id="filter-phrase" value="<%= phraseToSearch %>">
+                    <% } %>
                 </div>
                 <div class="col-md-4">
                 </div>
