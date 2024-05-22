@@ -20,7 +20,8 @@ const productEdit = async (req, res) => {
 
         res.render('products/edit', {
             product: product,
-            title: 'Edit product',
+            title: 'Products',
+            action: 'Edit product',
             categories: categoriesForSelect,
             manufacturers: manufacturersForSelect,
             errors: [],
