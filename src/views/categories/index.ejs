@@ -16,7 +16,7 @@
             </div>
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <% if (categories.length > 0) { %>
+                    <% if (categories.length > 1) { %>
                     <input type="text" class="form-control" id="filter-phrase" value="<%= phraseToSearch %>">
                     <% } %>
                 </div>
@@ -51,7 +51,10 @@
                                 <a href="/categories/edit/<%= category._id %>">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <a class="btn-delete btn-delete-category" data-category-id="<%= category._id %>" data-category-name="<%= category.name %>">
+                                <a class="btn-delete btn-delete-category"
+                                   data-category-id="<%= category._id %>"
+                                   data-category-name="<%= category.name %>"
+                                >
                                     <i class="bi bi-trash3-fill"></i>
                                 </a>
                             </td>

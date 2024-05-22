@@ -62,7 +62,8 @@ container.addEventListener('click', function(event) {
     }
 
     const btnDeleteProduct = event.target.closest('a.btn-delete-product');
-    const productName = btnDeleteProduct.getAttribute('data-product-name');
+    const productName = btnDeleteProduct?.getAttribute('data-product-name');
+    const productId = btnDeleteProduct?.getAttribute('data-product-id');
     if (btnDeleteProduct) {
         Swal.fire({
             title: `Do you want to delete this product \n "${productName}"?`,
@@ -70,7 +71,7 @@ container.addEventListener('click', function(event) {
             confirmButtonText: "Delete",
         }).then((result) => {
             if (result.isConfirmed) {
-                const endpoint = `/products/${btnDeleteProduct.dataset.doc}`;
+                const endpoint = `/products/${productId}`;
                 fetch(endpoint, {
                     method: 'DELETE',
                 })
@@ -89,14 +90,9 @@ container.addEventListener('click', function(event) {
 
 container.addEventListener('keyup', event => {
     const targetElement = event.target;
-    if (targetElement.id === 'filter-phrase') {
-        if (event.key === 'Enter' || event.key === 'NumpadEnter') {
-            page = 1;
-            fetchDataFromDB();
-        } else if (event.key === 'Backspace') {
-            phraseToSearch = phraseToSearch.slice(0, -1);
-        } else {
-            phraseToSearch += event.key;
-        }
+    if (targetElement.id === 'filter-phrase' && (event.key === 'Enter' || event.key === 'NumpadEnter')) {
+        page = 1;
+        phraseToSearch = targetElement.value;
+        fetchDataFromDB();
     }
 });
