@@ -1,10 +1,12 @@
 let sortColumn = 'name';
 let sortOrder = 'asc';
 let page = 1;
-let pagesLimit = document.getElementById('select-limit-on-page').value;
+let pagesLimit = 5;
 let phraseToSearch = '';
 let endpoint = '/categories/ajaxlist';
 let actionResult = {};
+
+pagesLimit = document.getElementById('select-limit-on-page')?.value
 
 const fetchDataFromDB = () => {
     const payload = {
