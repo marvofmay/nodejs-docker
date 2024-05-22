@@ -7,7 +7,8 @@ const productInfo = async (req, res) => {
 
         res.render('products/info', {
             product: product,
-            title: 'Info product',
+            title: 'Products',
+            action: 'Info product',
             errors: [],
             actionResult: {},
         });
