@@ -3,12 +3,29 @@
     <body>
         <%- include("../shared/navigation.ejs") %>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <h2><%= title %> | <%= action %></h2>
+                <button class="btn btn-secondary btn-back">back</button>
             </div>
         </div>
         <hr />
         <div class="info-manufacturer content" id="info-manufacturer-content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-end">
+                        <a class="btn-edit-manufacturer" href="/manufacturers/edit/<%= manufacturer._id %>">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a
+                                class="btn-delete btn-delete-manufacturer"
+                                data-manufacturer-id="<%= manufacturer._id %>"
+                                data-manufacturer-name="<%= manufacturer.name %>"
+                        >
+                            <i class="bi bi-trash3-fill"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="content">
@@ -17,18 +34,6 @@
                             <hr />
                             <p><%= manufacturer.shortName %></p>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-end">
-                        <a class="btn-edit-manufacturer" href="/manufacturers/edit/<%= manufacturer._id %>">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a class="btn-delete btn-delete-manufacturer" data-doc="<%= manufacturer._id %>">
-                            <i class="bi bi-trash3-fill"></i>
-                        </a>
                     </div>
                 </div>
             </div>

@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     const btnDeleteManufacturers = document.querySelectorAll('a.btn-delete-manufacturer');
     btnDeleteManufacturers.forEach(btnDeleteManufacturer => {
-        btnDeleteManufacturer.addEventListener('click', (e) => {
+        const manufacturerId = btnDeleteManufacturer.dataset.manufacturerId;
+        const manufacturerName = btnDeleteManufacturer.dataset.manufacturerName;
+
+        btnDeleteManufacturer.addEventListener('click', e => {
             Swal.fire({
-                title: "Do you want to delete this manufacturer?",
+                title: `Do you want to delete this manufacturer? \n "${manufacturerName}"`,
                 showCancelButton: true,
                 confirmButtonText: "Delete",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    const endpoint = `/manufacturers/${btnDeleteManufacturer.dataset.doc}`;
+                    const endpoint = `/manufacturers/${manufacturerId}`;
                     fetch(endpoint, {
                         method: 'DELETE',
                     })
