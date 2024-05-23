@@ -55,6 +55,10 @@ const getAllProducts = async (filterCondition, sortColumn, sortOrder, page, page
             page = page - 1;
         }
 
+        if (totalPages > 0 && totalPages < page) {
+            page = page - 1;
+        }
+
         const results = await Product.find(filterCondition)
             .sort({[sortColumn]: sortOrder === 'asc' ? 1 : -1})
             .skip((page - 1) * pagesLimit)

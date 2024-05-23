@@ -62,35 +62,37 @@ container.addEventListener('click', function(event) {
     }
 
     const btnDeleteManufacturer = event.target.closest('a.btn-delete-manufacturer');
+    const manufacturerName = btnDeleteManufacturer?.getAttribute('data-manufacturer-name');
+    const manufacturerId = btnDeleteManufacturer?.getAttribute('data-manufacturer-id');
     if (btnDeleteManufacturer) {
-        const shouldDelete = confirm('Czy na pewno chcesz usunąć tego producneta?');
-        if (shouldDelete) {
-            const endpoint = `/manufacturers/${btnDeleteManufacturer.dataset.doc}`;
-            fetch(endpoint, {
-                method: 'DELETE',
-            })
-                .then(response => response.json())
-                .then(data => {
-                    actionResult = data.actionResult;
-                    fetchDataFromDB();
+        Swal.fire({
+            title: `Do you want to delete this manufacturer \n "${manufacturerName}"?`,
+            showCancelButton: true,
+            confirmButtonText: "Delete",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const endpoint = `/manufacturers/${manufacturerId}`;
+                fetch(endpoint, {
+                    method: 'DELETE',
                 })
-                .catch(err => console.log(err));
-        } else {
-            event.preventDefault();
-        }
+                    .then(response => response.json())
+                    .then(data => {
+                        actionResult = data.actionResult;
+                        fetchDataFromDB();
+                    })
+                    .catch(err => console.log(err));;
+            } else if (result.isDenied) {
+                e.preventDefault();
+            }
+        });
     }
 });
 
 container.addEventListener('keyup', event => {
     const targetElement = event.target;
-    if (targetElement.id === 'filter-phrase') {
-        if (event.key === 'Enter' || event.key === 'NumpadEnter') {
-            page = 1;
-            fetchDataFromDB();
-        } else if (event.key === 'Backspace') {
-            phraseToSearch = phraseToSearch.slice(0, -1);
-        } else {
-            phraseToSearch += event.key;
-        }
+    if (targetElement.id === 'filter-phrase' && (event.key === 'Enter' || event.key === 'NumpadEnter')) {
+        page = 1;
+        phraseToSearch = targetElement.value;
+        fetchDataFromDB();
     }
 });

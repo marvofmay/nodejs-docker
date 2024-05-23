@@ -11,8 +11,12 @@ const getManufacturerById = async (id) => {
 
 const getAllManufacturers = async (filterCondition, sortColumn, sortOrder, page, pagesLimit) => {
     try {
-        let allResults = await Manufacturer.countDocuments(filterCondition);
+        const allResults = await Manufacturer.countDocuments(filterCondition);
         const totalPages = Math.ceil(allResults / pagesLimit);
+
+        if (totalPages > 0 && totalPages < page) {
+            page = page - 1;
+        }
 
         const results = await Manufacturer.find(filterCondition)
             .sort({[sortColumn]: sortOrder === 'asc' ? 1 : -1})

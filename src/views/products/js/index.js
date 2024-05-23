@@ -1,7 +1,7 @@
 let sortColumn = 'name';
 let sortOrder = 'asc';
 let page = 1;
-let pagesLimit = document.getElementById('select-limit-on-page').value;
+let pagesLimit = document.getElementById('select-limit-on-page')?.value ?? 5;
 let phraseToSearch = '';
 let endpoint = '/products/ajaxlist';
 let actionResult = {};
