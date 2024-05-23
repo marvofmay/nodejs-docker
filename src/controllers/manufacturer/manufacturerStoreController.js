@@ -9,8 +9,8 @@ const manufacturerStore = async (req, res) => {
         const errors = validationResult(req);
         let createManufacturerDTO = new CreateManufacturerDTO(req.body);
 
-        const manufacturers = await manufacturerRepository.getAllManufacturersForSelectOptions();
-        const manufacturersForSelect = manufacturers.map(manufacturer => ({
+        let manufacturers = await manufacturerRepository.getAllManufacturersForSelectOptions();
+        let manufacturersForSelect = manufacturers.map(manufacturer => ({
             _id: manufacturer._id,
             name: manufacturer.name
         }));
@@ -27,6 +27,11 @@ const manufacturerStore = async (req, res) => {
         }
 
         const createResult = await manufacturerService.createManufacturer(createManufacturerDTO);
+        manufacturers = await manufacturerRepository.getAllManufacturersForSelectOptions();
+        manufacturersForSelect = manufacturers.map(manufacturer => ({
+            _id: manufacturer._id,
+            name: manufacturer.name
+        }));
 
         return res.render('manufacturers/create', {
             title: 'Manufacturers',
