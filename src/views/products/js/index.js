@@ -65,6 +65,14 @@ container.addEventListener('click', function(event) {
     const productName = btnDeleteProduct?.getAttribute('data-product-name');
     const productId = btnDeleteProduct?.getAttribute('data-product-id');
     if (btnDeleteProduct) {
+        const activePageItem = document.querySelector('.page-item.active');
+        if (activePageItem) {
+            const pageLink = activePageItem.querySelector('.page-link');
+            if (pageLink) {
+                page = pageLink.getAttribute('data-page');
+            }
+        }
+
         Swal.fire({
             title: `Do you want to delete this product \n "${productName}"?`,
             showCancelButton: true,

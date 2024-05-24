@@ -65,6 +65,14 @@ container.addEventListener('click', function(event) {
     const manufacturerName = btnDeleteManufacturer?.getAttribute('data-manufacturer-name');
     const manufacturerId = btnDeleteManufacturer?.getAttribute('data-manufacturer-id');
     if (btnDeleteManufacturer) {
+        const activePageItem = document.querySelector('.page-item.active');
+        if (activePageItem) {
+            const pageLink = activePageItem.querySelector('.page-link');
+            if (pageLink) {
+                page = pageLink.getAttribute('data-page');
+            }
+        }
+
         Swal.fire({
             title: `Do you want to delete this manufacturer \n "${manufacturerName}"?`,
             showCancelButton: true,

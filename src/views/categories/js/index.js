@@ -65,6 +65,14 @@ container.addEventListener('click', function(event) {
     const categoryName = btnDeleteCategory?.getAttribute('data-category-name');
     const categoryId = btnDeleteCategory?.getAttribute('data-category-id');
     if (btnDeleteCategory) {
+        const activePageItem = document.querySelector('.page-item.active');
+        if (activePageItem) {
+            const pageLink = activePageItem.querySelector('.page-link');
+            if (pageLink) {
+                page = pageLink.getAttribute('data-page');
+            }
+        }
+
         Swal.fire({
             title: `Do you want to delete this category \n "${categoryName}"?`,
             showCancelButton: true,
@@ -80,7 +88,7 @@ container.addEventListener('click', function(event) {
                         actionResult = data.actionResult;
                         fetchDataFromDB();
                     })
-                    .catch(err => console.log(err));;
+                    .catch(err => console.log(err));
             } else if (result.isDenied) {
                 e.preventDefault();
             }

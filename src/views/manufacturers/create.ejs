@@ -77,21 +77,19 @@
                                 <input type="text" class="form-control" id="street" name="address[street]" value="<%= manufacturer?.address?.street %>" >
                             </div>
                             <div class="col-md-3">
-                                <label for="city" class="form-label">City</label>
-                                <input type="text" class="form-control" id="city" name="address[city]" value="<%= manufacturer?.address?.city %>" >
+                                <label for="city" class="form-label">Country</label>
+                                <select id="city" class="form-select" name="address[city]">
+                                    <option>Choose ...</option>
+                                </select>
                             </div>
                             <div class="col-md-2">
                                 <label for="zipcode" class="form-label">Zip</label>
                                 <input type="text" class="form-control" id="zipcode" name="address[zipcode]" value="<%= manufacturer?.address?.zipcode %>" >
                             </div>
                             <div class="col-md-3">
-                                <label for="state" class="form-label">Country</label>
+                                <label for="country" class="form-label">Country</label>
                                 <select id="country" class="form-select" name="address[country]">
-                                    <option>Choose...</option>
-                                    <option value="Poland" <% if (manufacturer?.address?.country == 'Poland') { %>selected<% } %> >Poland</option>
-                                    <option value="Germany" <% if (manufacturer?.address?.country == 'Germany') { %>selected<% } %> >Germany</option>
-                                    <option value="France" <% if (manufacturer?.address?.country == 'France') { %>selected<% } %> >France</option>
-                                    <option value="France" <% if (manufacturer?.address?.country == 'England') { %>selected<% } %> >England</option>
+                                    <option>Choose ...</option>
                                 </select>
                             </div>
                         </div>
