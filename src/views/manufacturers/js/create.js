@@ -1,7 +1,5 @@
 $(() => {
-    $('#parentManufacturer').select2({
-        placeholder: "Select a parent manufacturer",
-    });
+    $('#parentManufacturer').select2({});
     $('#country').select2({});
     $('#city').select2({});
 })
