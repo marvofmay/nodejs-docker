@@ -1,7 +1,13 @@
 $(() => {
-    $('#parentManufacturer').select2({});
-    $('#country').select2({});
-    $('#city').select2({});
+    $('#parentManufacturer').select2({
+        placeholder: 'Select a parent manufacturer',
+    });
+    $('#country').select2({
+        placeholder: 'Select country',
+    });
+    $('#city').select2({
+        placeholder: 'Select city',
+    });
 })
 
 const fetchCountryData = async () => {
@@ -21,25 +27,30 @@ const fetchCountryData = async () => {
     }
 };
 
-const populateSelect = async () => {
-    const countries = await fetchCountryData();
-    const selectElement = document.getElementById('country');
-    selectElement.innerHTML = '';
-    const option = document.createElement('option');
-    option.value = '';
-    option.textContent = 'Choose ...';
-    selectElement.appendChild(option);
-    countries.forEach(country => {
+const populateSelect = async (selectElementId, country = '') => {
+    const selectElement = document.getElementById(selectElementId);
+    let items;
+    if (selectElementId === 'country') {
+        items = await fetchCountryData();
+    }
+    if (selectElementId === 'city') {
+        items = await fetchCitiesDataForCountry(country);
+        selectElement.innerHTML = '';
+    }
+    items.forEach((item) => {
         const option = document.createElement('option');
-        option.value = country;
-        option.textContent = country;
+        option.value = item;
+        option.textContent = item;
         selectElement.appendChild(option);
     });
+    if (selectElementId === 'city') {;
+        selectElement.removeAttribute('disabled');
+    }
 };
 
-populateSelect();
+populateSelect('country');
 
-const fetchCitiesForCountry = async (country) => {
+const fetchCitiesDataForCountry = async (country) => {
     const endpoint = 'https://countriesnow.space/api/v0.1/countries/cities';
     const data = {
         country: country
@@ -59,16 +70,21 @@ const fetchCitiesForCountry = async (country) => {
         }
 
         const result = await response.json();
+
         return result.data;
     } catch (error) {
         console.error('Błąd podczas pobierania danych:', error);
+
         return [];
     }
 };
 
-const displayCities = async (country) => {
-    const cities = await fetchCitiesForCountry(country);
-    console.log(cities);
-};
-
-displayCities('poland');
+$(() => {
+    $('#country').on('select2:select', function (e) {
+        const selectedValue = $(this).val();
+        if (selectedValue !== '') {
+            $('#city').attr('disabled', 'disabled');
+            populateSelect('city', selectedValue);
+        }
+    });
+});
