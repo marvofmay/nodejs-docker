@@ -85,7 +85,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city" name="address[city]" value="<%= manufacturer.address?.city %>">
+                            <select id="city" class="form-select" name="address[city]"></select>
                         </div>
                         <div class="col-md-2">
                             <label for="zipcode" class="form-label">Zip</label>
@@ -93,12 +93,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="country" class="form-label">Country</label>
-                            <select id="country" class="form-select" name="address[country]">
-                                <option>Choose...</option>
-                                <option value="Poland" <% if (manufacturer.address?.country === "Poland" ) { %> selected="selected" <% } %>>Poland</option>
-                                <option value="Germany" <% if (manufacturer.address?.country === "Germany" ) { %> selected="selected" <% } %>>Germany</option>
-                                <option value="France" <% if (manufacturer.address?.country === "France" ) { %> selected="selected" <% } %>>France</option>
-                            </select>
+                            <select id="country" class="form-select" name="address[country]"></select>
                         </div>
                     </div>
                     <div class="row mt-5">
