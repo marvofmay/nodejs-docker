@@ -50,8 +50,13 @@ const getAllCategoriesForSelectOptions = async () => {
     }
 }
 
+const getCategoryByName = async name => {
+    return await Category.findOne({ name }).exec();
+}
+
 module.exports = {
     getCategoryById,
     getAllCategories,
     getAllCategoriesForSelectOptions,
+    getCategoryByName,
 };
