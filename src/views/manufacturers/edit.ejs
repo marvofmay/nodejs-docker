@@ -13,7 +13,7 @@
             <%- include("../shared/message.ejs") %>
             <%- include("../shared/validationErrors.ejs") %>
             <div class="content">
-                <form action="/manufacturers/<%= manufacturer._id %>?_method=PUT" method="POST">
+                <form id="manufacturer-edit-form" class="editForm" action="/manufacturers/<%= manufacturer._id %>?_method=PUT" method="POST">
                     <input type="hidden" name="_id" value="<%= manufacturer._id %>">
                     <div class="row">
                         <div class="col-6">
@@ -100,9 +100,14 @@
                             <input type="text" class="form-control" id="zipcode" name="address[zipcode]" value="<%= manufacturer.address?.zipcode %>">
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="offset-10 col-2 text-end">
-                            <button type="submit" class="btn btn-warning">Update</button>
+                    <div class="row offset-10 col-2 text-end">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" id="btn-send-form" class="btn btn-warning">Update</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" id="btn-clear-form" class="btn btn-primary">Clear</button>
+                            </div>
                         </div>
                     </div>
                 </form>

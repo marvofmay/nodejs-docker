@@ -4,6 +4,8 @@ const manufacturerRepository = require('../../repositories/manufacturer/reposito
 const productCreate = async (req, res) => {
 
     try {
+        const title = 'Products';
+        const action = 'Create a new product';
         const categories = await categoryRepository.getAllCategoriesForSelectOptions();
         const categoriesForSelect = categories.map(category => ({
             _id: category._id,
@@ -17,7 +19,8 @@ const productCreate = async (req, res) => {
         }));
 
         res.render('products/create', {
-            title: 'Create a new product',
+            title: title,
+            action: action,
             product: {},
             categories: categoriesForSelect,
             manufacturers: manufacturersForSelect,

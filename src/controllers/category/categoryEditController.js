@@ -8,9 +8,9 @@ const categoryEdit = async (req, res) => {
         const category = await categoryRepository.getCategoryById(categoryId);
 
         res.render('categories/edit', {
-            category: category,
             title: title,
             action: action,
+            category: category,
             errors: [],
             actionResult: {},
         });

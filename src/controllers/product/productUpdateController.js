@@ -9,6 +9,8 @@ const CreatePhotoDTO = require("../../dto/photo/CreatePhotoDTO");
 
 const productUpdate = async (req, res) => {
     try {
+        const title = 'Products';
+        const action = 'Edit product';
         const errors = validationResult(req);
         let product = await productRepository.getProductById(req.params.id);
         const currentProductPhotos = product.photos;
@@ -30,7 +32,8 @@ const productUpdate = async (req, res) => {
 
         if (! errors.isEmpty()) {
             return res.render('products/edit', {
-                title: 'Edit product',
+                title: title,
+                action: action,
                 product: updateProductDTO,
                 categories: categoriesForSelect,
                 manufacturers: manufacturersForSelect,
@@ -55,10 +58,11 @@ const productUpdate = async (req, res) => {
         product = await productRepository.getProductById(req.params.id);
 
         return res.render('products/edit', {
-            title: 'Edit product',
-            product: product,
+            title: title,
+            action: action,
             categories: categoriesForSelect,
             manufacturers: manufacturersForSelect,
+            product: product,
             errors: [],
             actionResult: updateResult,
         })
