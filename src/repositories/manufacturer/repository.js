@@ -2,7 +2,7 @@ const Manufacturer = require('../../models/manufacturer');
 
 const getManufacturerById = async (id) => {
     try {
-        return await Manufacturer.findById(id);
+        return await Manufacturer.findById(id).populate('parentManufacturer');
     } catch (error) {
         console.error(error);
         throw error;

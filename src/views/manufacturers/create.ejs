@@ -77,6 +77,12 @@
                                 <input type="text" class="form-control" id="street" name="address[street]" value="<%= manufacturer?.address?.street %>" >
                             </div>
                             <div class="col-md-3">
+                                <label for="country" class="form-label">Country</label>
+                                <select id="country" class="form-select" name="address[country]">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
                                 <label for="city" class="form-label">Country</label>
                                 <select id="city" class="form-select" name="address[city]">
                                     <option></option>
@@ -85,12 +91,6 @@
                             <div class="col-md-2">
                                 <label for="zipcode" class="form-label">Zip</label>
                                 <input type="text" class="form-control" id="zipcode" name="address[zipcode]" value="<%= manufacturer?.address?.zipcode %>" >
-                            </div>
-                            <div class="col-md-3">
-                                <label for="country" class="form-label">Country</label>
-                                <select id="country" class="form-select" name="address[country]">
-                                    <option></option>
-                                </select>
                             </div>
                         </div>
                         <div class="row mt-5">

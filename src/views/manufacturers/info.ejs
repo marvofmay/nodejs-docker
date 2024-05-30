@@ -32,7 +32,16 @@
                         <div>
                             <h2><%= manufacturer.name %></h2>
                             <hr />
-                            <p><%= manufacturer.shortName %></p>
+                            <p>short name: <%= manufacturer.shortName || '---' %></p>
+                            <p>parent: <%= manufacturer.parentManufacturer?.name || '---' %></p>
+                            <p>nip: <%= manufacturer.nip %></p>
+                            <p>email: <%= manufacturer.regon || '---' %></p>
+                            <p>address: <%= manufacturer.address?.street || '---' %></p>
+                            <p>postcode: <%= manufacturer.address?.zipcode || '---' %></p>
+                            <p>city: <%= manufacturer.address?.city || '---' %></p>
+                            <p>country: <%= manufacturer.address?.country || '---' %></p>
+                            <p>email: <%= manufacturer.regon || '---' %></p>
+                            <p>www: <%= manufacturer.www || '---' %></p>
                         </div>
                     </div>
                 </div>
