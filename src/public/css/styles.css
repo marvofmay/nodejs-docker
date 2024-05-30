@@ -84,3 +84,8 @@ a.btn-delete {
 .photo-details {
     font-size: 9px;
 }
+.manufacturer-content > p {
+    display: inline-block;
+    width: 100px;
+    color: #777777;
+}

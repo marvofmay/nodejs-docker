@@ -1,12 +1,15 @@
 $(() => {
     $('#parentManufacturer').select2({
         placeholder: "Select a parent manufacturer",
+        allowClear: true,
     });
     $('#country').select2({
         placeholder: 'Select country',
+        allowClear: true,
     });
     $('#city').select2({
         placeholder: 'Select city',
+        allowClear: true,
     });
 
     const fetchCountryData = async () => {

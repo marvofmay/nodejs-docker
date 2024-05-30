@@ -28,21 +28,28 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="content">
-                        <div>
-                            <h2><%= manufacturer.name %></h2>
-                            <hr />
-                            <p>short name: <%= manufacturer.shortName || '---' %></p>
-                            <p>parent: <%= manufacturer.parentManufacturer?.name || '---' %></p>
-                            <p>nip: <%= manufacturer.nip %></p>
-                            <p>email: <%= manufacturer.regon || '---' %></p>
-                            <p>address: <%= manufacturer.address?.street || '---' %></p>
-                            <p>postcode: <%= manufacturer.address?.zipcode || '---' %></p>
-                            <p>city: <%= manufacturer.address?.city || '---' %></p>
-                            <p>country: <%= manufacturer.address?.country || '---' %></p>
-                            <p>email: <%= manufacturer.regon || '---' %></p>
-                            <p>www: <%= manufacturer.www || '---' %></p>
-                        </div>
+                    <div class="content manufacturer-content">
+                        <h2><%= manufacturer.name %></h2>
+                        <hr />
+                        <p>short name: </p><%= manufacturer.shortName || '---' %>
+                        <br />
+                        <p>parent: </p><%= manufacturer.parentManufacturer?.name || '---' %>
+                        <br />
+                        <p>nip: </p><%= manufacturer.nip %>
+                        <br />
+                        <p>email: </p><%= manufacturer.regon || '---' %>
+                        <br />
+                        <p>address: </p><%= manufacturer.address?.street || '---' %>
+                        <br />
+                        <p>postcode: </p><%= manufacturer.address?.zipcode || '---' %>
+                        <br />
+                        <p>city: </p><%= manufacturer.address?.city || '---' %>
+                        <br />
+                        <p>country: </p><%= manufacturer.address?.country || '---' %>
+                        <br />
+                        <p>email: </p><%= manufacturer.regon || '---' %>
+                        <br />
+                        <p>www: </p><%= manufacturer.www || '---' %>
                     </div>
                 </div>
             </div>
