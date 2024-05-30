@@ -63,6 +63,9 @@ a:hover h3 {
     max-width: 600px;
     margin: 0 auto;
 }
+.create-category form textarea, .edit-category form textarea {
+    min-height: 400px;
+}
 .create-category input, .edit-category input,
 .create-category textarea, .edit-category textarea {
     display: block;
