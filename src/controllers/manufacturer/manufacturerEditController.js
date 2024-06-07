@@ -5,10 +5,12 @@ const manufacturerEdit = async (req, res) => {
         const id = req.params.id;
         const manufacturer = await manufacturerRepository.getManufacturerById(id);
         const manufacturers = await manufacturerRepository.getAllManufacturersForSelectOptions();
-        const manufacturersForSelect = manufacturers.map(manufacturer => ({
-            _id: manufacturer._id,
-            name: manufacturer.name
-        }));
+        const manufacturersForSelect = manufacturers
+            .filter(manufacturer => manufacturer._id.toString() !== id)
+            .map(manufacturer => ({
+                _id: manufacturer._id,
+                name: manufacturer.name
+            }));
 
         res.render('manufacturers/edit', {
             title: 'Manufacturers',
