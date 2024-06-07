@@ -54,7 +54,7 @@ const getCategoryByName = async name => {
     return await Category.findOne({ name }).exec();
 }
 
-const getCategoryByNameAndId = async (name, id) => {
+const getCategoryByNameAndNotEqualId = async (name, id) => {
     return await Category.findOne({ name, _id: { $ne: id } }).exec();
 }
 
@@ -63,5 +63,5 @@ module.exports = {
     getAllCategories,
     getAllCategoriesForSelectOptions,
     getCategoryByName,
-    getCategoryByNameAndId,
+    getCategoryByNameAndNotEqualId,
 };

@@ -1,4 +1,5 @@
 const Manufacturer = require('../../models/manufacturer');
+const Category = require("../../models/category");
 
 const getManufacturerById = async (id) => {
     try {
@@ -48,8 +49,23 @@ const getAllManufacturersForSelectOptions = async () => {
     }
 }
 
+const getManufacturerByNIP = async nip => {
+    return await Manufacturer.findOne({ nip }).exec();
+}
+
+const getManufacturerByREGON = async regon => {
+    return await Manufacturer.findOne({ regon }).exec();
+}
+
+const getManufacturerByNIPAndNotEqualId = async (nip, id) => {
+    return await Manufacturer.findOne({ nip, _id: { $ne: id } }).exec();
+}
+
 module.exports = {
     getManufacturerById,
     getAllManufacturers,
     getAllManufacturersForSelectOptions,
+    getManufacturerByNIP,
+    getManufacturerByREGON,
+    getManufacturerByNIPAndNotEqualId,
 };
