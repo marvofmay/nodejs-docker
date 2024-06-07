@@ -1,5 +1,4 @@
 const { body } = require('express-validator');
-const CategoryRepository = require("../../repositories/category/repository");
 const ManufacturerRepository = require('../../repositories/manufacturer/repository');
 
 const updateManufacturerValidator = [
@@ -16,7 +15,7 @@ const updateManufacturerValidator = [
             if (manufacturer) {
                 throw new Error('Manufacturer with this NIP exists');
             }
-    }),
+        }),
     body('regon')
         .trim()
         .notEmpty().withMessage('REGON is required.')

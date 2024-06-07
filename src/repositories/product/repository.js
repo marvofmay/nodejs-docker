@@ -1,5 +1,6 @@
 const Product = require('../../models/product');
 const mongoose = require('mongoose');
+const Category = require("../../models/category");
 
 const getProductById = async (id) => {
     try {
@@ -80,7 +81,29 @@ const getAllProducts = async (filterCondition, sortColumn, sortOrder, page, page
     }
 }
 
+const getProductByEAN = async ean => {
+    try {
+        return await Product.findOne({ ean }).exec();
+    } catch (error) {
+        console.error('Error fetching product by EAN:', error);
+
+        throw error;
+    }
+};
+
+const getProductByEanAndNotEqualId = async (ean, id) => {
+    try {
+        return await Product.findOne({ ean, _id: { $ne: id } }).exec();
+    } catch (error) {
+        console.error('Error fetching category by name and not equal id:', error);
+
+        throw error;
+    }
+};
+
 module.exports = {
     getProductById,
     getAllProducts,
+    getProductByEAN,
+    getProductByEanAndNotEqualId,
 };
