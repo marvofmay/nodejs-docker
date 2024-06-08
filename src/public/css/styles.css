@@ -91,3 +91,10 @@ a.btn-delete {
     width: 100px;
     color: #777777;
 }
+th.column-id {
+    width: 2em;
+}
+th.column-action {
+    width: 15em;
+    text-align: center;
+}

@@ -29,13 +29,13 @@
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <tr>
-                            <th>#</th>
+                            <th class="column-id">#</th>
                             <th>
                                 <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="name"></i>
                                 name
                                 <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="name"></i>
                             </th>
-                            <th class="col-2 text-center">action</th>
+                            <th class="column-action">action</th>
                         </tr>
                     <% let index = 1; %>
                     <% categories.forEach(category => { %>
@@ -45,6 +45,9 @@
                             <td>
                                 <a href="/categories/info/<%= category._id %>">
                                     <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a href="/categories/pdf/<%= category._id %>">
+                                    <i class="bi bi-file-pdf"></i>
                                 </a>
                                 <a href="/categories/edit/<%= category._id %>">
                                     <i class="bi bi-pencil-square"></i>
