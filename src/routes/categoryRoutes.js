@@ -2,6 +2,7 @@ const express = require('express');
 const categoryCreateController = require('../controllers/category/categoryCreateController');
 const categoryInfoController = require('../controllers/category/categoryInfoController');
 const categoryEditController = require('../controllers/category/categoryEditController');
+const categoryPDFController = require('../controllers/category/categoryPDFController');
 const categoryIndexController = require('../controllers/category/categoryIndexController');
 const categoryAjaxListController = require('../controllers/category/categoryAjaxListController');
 const categoryStoreController = require('../controllers/category/categoryStoreController');
@@ -13,6 +14,7 @@ const { updateCategoryValidator } = require('../validators/category/updateCatego
 const router = express.Router();
 
 router.get('/create', categoryCreateController.categoryCreate);
+router.get('/pdf/:id', categoryPDFController.categoryPDF);
 router.get('/info/:id', categoryInfoController.categoryInfo);
 router.get('/edit/:id', categoryEditController.categoryEdit);
 router.get('/', categoryIndexController.categoryIndex);
