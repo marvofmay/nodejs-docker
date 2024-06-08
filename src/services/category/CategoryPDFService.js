@@ -2,13 +2,14 @@ const path = require('path');
 const PdfGenerator = require('../../utility/PDFGenerator');
 
 class CategoryPDFService {
-    constructor() {
+    constructor(pdfFileName) {
         this.pdfGenerator = new PdfGenerator();
         this.outputDir = path.join(__dirname, '../../files/pdf/category');
+        this.pdfFileName = pdfFileName;
     }
 
     async generateCategoryPDF(category) {
-        const outputPath = path.join(this.outputDir, `${category.name}.pdf`);
+        const outputPath = path.join(this.outputDir, `${this.pdfFileName}`);
 
         await this.pdfGenerator.generatePdf(outputPath, (doc) => {
             doc.fontSize(25).text(`Category: ${category.name}`, 100, 100);

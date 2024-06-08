@@ -1,6 +1,7 @@
 const categoryRepository = require('../../repositories/category/repository');
 const CategoryPDFService = require('../../services/category/CategoryPDFService');
-const fs = require('fs')
+const fs = require('fs');
+const DateUtility = require('../../utility/DateUtility');
 
 const categoryPDF = async (req, res) => {
     try {
@@ -11,10 +12,14 @@ const categoryPDF = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const categoryPdfService = new CategoryPDFService();
+        const currentDate = new Date();
+        const formattedDate = DateUtility.formatDateYMDHISSeparatedBDash(currentDate);
+        const formattedCategoryName = category.name.replace(/\s+/g, '-');
+        const pdfFileName = `${formattedCategoryName}-${formattedDate}.pdf`;
+        const categoryPdfService = new CategoryPDFService(pdfFileName);
         const pdfPath = await categoryPdfService.generateCategoryPDF(category);
 
-        res.setHeader('Content-Disposition', `attachment; filename=${category.name}.pdf`);
+        res.setHeader('Content-Disposition', `attachment; filename=${pdfFileName}`);
         res.setHeader('Content-Type', 'application/pdf');
 
         const fileStream = fs.createReadStream(pdfPath);
