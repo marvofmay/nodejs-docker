@@ -1,6 +1,26 @@
 const { body } = require('express-validator');
 const ManufacturerRepository = require('../../repositories/manufacturer/repository');
 
+const isExistsNIPWithDifferentID = async (nip, { req }) => {
+    const manufacturerId = req.params.id;
+    const manufacturer = await ManufacturerRepository.getManufacturerByNIPAndNotEqualId(nip, manufacturerId);
+    if (manufacturer) {
+        throw new Error('Manufacturer with this NIP exists');
+    }
+
+    return true;
+}
+
+const isExistsREGONWithDifferentID = async (regon, { req }) => {
+    const manufacturerId = req.params.id;
+    const manufacturer = await ManufacturerRepository.getManufacturerByREGONAndNotEqualId(regon, manufacturerId);
+    if (manufacturer) {
+        throw new Error('Manufacturer with this REGON exists');
+    }
+
+    return true;
+}
+
 const updateManufacturerValidator = [
     body('name')
         .trim()
@@ -9,16 +29,11 @@ const updateManufacturerValidator = [
     body('nip')
         .trim()
         .notEmpty().withMessage('NIP is required.')
-        .custom(async (nip, { req }) => {
-            const manufacturerId = req.params.id;
-            const manufacturer = await ManufacturerRepository.getManufacturerByNIPAndNotEqualId(nip, manufacturerId);
-            if (manufacturer) {
-                throw new Error('Manufacturer with this NIP exists');
-            }
-        }),
+        .custom(isExistsNIPWithDifferentID),
     body('regon')
         .trim()
         .notEmpty().withMessage('REGON is required.')
+        .custom(isExistsREGONWithDifferentID),
 ];
 
 module.exports = { updateManufacturerValidator };

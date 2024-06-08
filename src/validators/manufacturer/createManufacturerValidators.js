@@ -1,6 +1,24 @@
 const { body } = require('express-validator');
 const ManufacturerRepository = require('../../repositories/manufacturer/repository');
 
+const isExistsNIP = async (value, { req }) => {
+    const manufacturer = await ManufacturerRepository.getManufacturerByNIP(value);
+    if (manufacturer) {
+        throw new Error('Manufacturer with this NIP already exists');
+    }
+
+    return true;
+}
+
+const isExistsREGON = async (value, { req }) => {
+    const manufacturer = await ManufacturerRepository.getManufacturerByREGON(value);
+    if (manufacturer) {
+        throw new Error('Manufacturer with this REGON already exists');
+    }
+
+    return true;
+}
+
 const createManufacturerValidator = [
     body('name')
         .trim()
@@ -9,24 +27,11 @@ const createManufacturerValidator = [
     body('nip')
         .trim()
         .notEmpty().withMessage('NIP is required.')
-        .custom(async (value, { req }) => {
-            const manufacturer = await ManufacturerRepository.getManufacturerByNIP(value);
-            if (manufacturer) {
-                throw new Error('Manufacturer with this NIP already exists');
-            }
-
-            return true;
-        }),
+        .custom(isExistsNIP),
     body('regon')
         .trim()
         .notEmpty().withMessage('REGON is required')
-        .custom(async (value, { req }) => {
-            const manufacturer = await ManufacturerRepository.getManufacturerByREGON(value);
-            if (manufacturer) {
-                throw new Error('Manufacturer with this REGON already exists');
-            }
-            return true;
-        }),
+        .custom(isExistsREGON),
 ];
 
 module.exports = { createManufacturerValidator };

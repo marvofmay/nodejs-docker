@@ -61,6 +61,10 @@ const getManufacturerByNIPAndNotEqualId = async (nip, id) => {
     return await Manufacturer.findOne({ nip, _id: { $ne: id } }).exec();
 }
 
+const getManufacturerByREGONAndNotEqualId = async (regon, id) => {
+    return await Manufacturer.findOne({ regon, _id: { $ne: id } }).exec();
+}
+
 module.exports = {
     getManufacturerById,
     getAllManufacturers,
@@ -68,4 +72,5 @@ module.exports = {
     getManufacturerByNIP,
     getManufacturerByREGON,
     getManufacturerByNIPAndNotEqualId,
+    getManufacturerByREGONAndNotEqualId
 };
