@@ -4,8 +4,6 @@ const getCategoryById = async (id) => {
     try {
         return await Category.findById(id);
     } catch (error) {
-        console.error(error);
-
         throw error;
     }
 }
@@ -34,8 +32,6 @@ const getAllCategories = async (filterCondition, sortColumn, sortOrder, page, pa
             phraseToSearch: filterCondition?.name?.$regex
         };
     } catch (error) {
-        console.error(error);
-
         throw error;
     }
 }
@@ -44,8 +40,6 @@ const getAllCategoriesForSelectOptions = async () => {
     try {
         return await Category.find({}).sort({['name']: 1}).exec();
     } catch (error) {
-        console.error(error);
-
         throw error;
     }
 }

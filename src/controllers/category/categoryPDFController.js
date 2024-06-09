@@ -2,14 +2,14 @@ const categoryRepository = require('../../repositories/category/repository');
 const CategoryPDFService = require('../../services/category/CategoryPDFService');
 const fs = require('fs');
 const DateUtility = require('../../utility/DateUtility');
+const Logger = require('../../utility/Logger');
 
 const categoryPDF = async (req, res) => {
+    const categoryId = req.params.id;
     try {
-        const categoryId = req.params.id;
         const category = await categoryRepository.getCategoryById(categoryId);
-
-        if (!category) {
-            return res.status(404).send('Category not found');
+        if (! category) {
+            throw new Error('Category not found');
         }
 
         const currentDate = new Date();
@@ -25,8 +25,9 @@ const categoryPDF = async (req, res) => {
         const fileStream = fs.createReadStream(pdfPath);
 
         fileStream.pipe(res);
+        Logger.info(`PDF generated successfully for category ID: ${categoryId}`);
     } catch (error) {
-        console.error('Error generating PDF:', error);
+        Logger.error(`Error generating PDF for category ID: ${categoryId}: ${error.message}`);
 
         res.status(500).send('Error generating PDF');
     }
