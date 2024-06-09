@@ -10,12 +10,14 @@ const { createProductValidator } = require('../validators/product/createProductV
 const { updateProductValidator } = require('../validators/product/updateProductValidators')
 const multer = require('multer');
 const productDeleteController = require("../controllers/product/productDeleteController");
+const productPDFController = require("../controllers/product/productPDFController");
 const upload = multer();
 
 const router = express.Router();
 
 router.get('/create', productCreateController.productCreate);
 router.get('/info/:id', productInfoController.productInfo);
+router.get('/pdf/:id', productPDFController.productPDF);
 router.get('/edit/:id', productEditController.productEdit);
 router.get('/', productIndexController.productIndex);
 router.post('/ajaxList', productAjaxListController.productAjaxList);
