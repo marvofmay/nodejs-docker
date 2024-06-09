@@ -2,14 +2,15 @@ const productRepository = require('../../repositories/product/repository');
 const ProductPDFService = require('../../services/product/ProductPDFService');
 const fs = require('fs');
 const DateUtility = require('../../utility/DateUtility');
+const Logger = require("../../utility/Logger");
 
 const productPDF = async (req, res) => {
+    const productId = req.params.id;
     try {
-        const productId = req.params.id;
         const product = await productRepository.getProductById(productId);
 
         if (! product) {
-            return res.status(404).send('Product not found');
+            throw new Error('Product not found');
         }
 
         const currentDate = new Date();
@@ -25,8 +26,9 @@ const productPDF = async (req, res) => {
         const fileStream = fs.createReadStream(pdfPath);
 
         fileStream.pipe(res);
+        Logger.info(`PDF generated successfully for category ID: ${productId}`);
     } catch (error) {
-        console.error('Error generating PDF:', error);
+        Logger.error(`Error generating PDF for product ID: ${productId}: ${error.message}`);
 
         res.status(500).send('Error generating PDF');
     }
