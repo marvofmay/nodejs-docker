@@ -28,7 +28,7 @@ const userSchema = new Schema({
         required: false
     },
     address: {
-        type: Address,
+        type: Address.schema,
         required: false
     },
     role: {
