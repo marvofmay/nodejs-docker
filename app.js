@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 
 // express app
 const app = express();
+
 // middleware & static files
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
@@ -20,14 +21,14 @@ app.use(express.static('node_modules'));
 app.use(express.static('src/views'));
 app.use(morgan('dev'));
 app.use((req, res, next) => {
-  res.locals.path = req.path;
-  next();
+    res.locals.path = req.path;
+    next();
 });
 
 const dbURI = "mongodb://root:example@mongo:27017/?authSource=admin";
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(result => app.listen(3000, () => {
-      console.log('Server is running on port 3000');
+        console.log('Server is running on port 3000');
     }))
     .catch(err => console.log(err));
 
