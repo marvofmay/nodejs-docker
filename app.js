@@ -24,12 +24,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// connect to mongodb & listen for requests
-// const dbURI = "mongodb+srv://marcinjaroszynskigdansk:0FGVSoC1l8vsrtRf@clusternodejs.2hfsqth.mongodb.net/?retryWrites=true&w=majority";
-// mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-//     .then(result => app.listen(3000))
-//     .catch(err => console.log(err));
-
 const dbURI = "mongodb://root:example@mongo:27017/?authSource=admin";
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(result => app.listen(3000, () => {
