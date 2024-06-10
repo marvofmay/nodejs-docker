@@ -49,8 +49,6 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
-    environment:
-      REDIS_PASSWORD: your_redis_password
 
 volumes:
   mongo-data:

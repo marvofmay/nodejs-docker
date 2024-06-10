@@ -9,6 +9,9 @@ const manufacturerRoutes = require('./src/routes/manufacturerRoutes');
 const errorRoutes = require('./src/routes/errorRoutes');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 
 // express app
 const app = express();
@@ -25,37 +28,77 @@ app.use((req, res, next) => {
     next();
 });
 
-const dbURI = "mongodb://root:example@mongo:27017/?authSource=admin";
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(result => app.listen(3000, () => {
-        console.log('Server is running on port 3000');
-    }))
-    .catch(err => console.log(err));
+const initializeRedisClient = async () => {
+    try {
+        const client = redis.createClient({
+            url: 'redis://redis:6379', // Docker service name for
+            legacyMode: true
+        });
+        client.on('error', (err) => {
+            console.error('Could not establish a connection with redis. ' + err);
+        });
+        client.on('connect', () => {
+            console.log('Connected to redis successfully');
+        });
+        await client.connect();
+        return client;
+    } catch (error) {
+        console.error('Failed to initialize Redis client:', error);
+    }
+};
 
-// set path to views folder
-app.set('views', 'src/views');
-// register view engine
-app.set('view engine', 'ejs');
-app.use(bodyParser.json());
+const initializeApp = async () => {
+    try {
+        console.log('Connecting to MongoDB...');
+        const dbURI = "mongodb://root:example@mongo:27017/?authSource=admin";
+        await mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log('Connected to MongoDB...');
 
-// routes start
+        const redisClient = await initializeRedisClient();
 
-// basic routes
-app.use('/', basicRoutes);
+        if (!redisClient) {
+            throw new Error('Failed to initialize Redis client');
+        }
 
-// categories routes
-app.use('/categories', categoryRoutes);
+        const RedisStore = connectRedis(session);
 
-// products routes
-app.use('/products', productRoutes);
+        console.log('Setting up session middleware...');
+        app.use(session({
+            store: new RedisStore({ client: redisClient }),
+            secret: 'secret$%^134',
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                secure: false,
+                httpOnly: false,
+                maxAge: 1000 * 60 * 10
+            }
+        }));
 
-// photos routes
-app.use('/photos', photoRoutes);
+        // set path to views folder
+        app.set('views', 'src/views');
+        // register view engine
+        app.set('view engine', 'ejs');
+        app.use(bodyParser.json());
 
-// manufacturer routes
-app.use('/manufacturers', manufacturerRoutes);
+        // routes start
+        app.use('/', basicRoutes);
+        app.use('/categories', categoryRoutes);
+        app.use('/products', productRoutes);
+        app.use('/photos', photoRoutes);
+        app.use('/manufacturers', manufacturerRoutes);
+        app.use('/', errorRoutes);
+        // routes end
 
-// error routes
-app.use('/', errorRoutes);
+        // Start the server
+        app.listen(3000, () => {
+            console.log('Server is running on port 3000...');
+        });
 
-// routes end
+    } catch (error) {
+        console.error('Failed to initialize app:', error);
+    }
+};
+
+// Initialize the app
+initializeApp();
