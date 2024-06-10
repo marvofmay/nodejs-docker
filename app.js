@@ -6,12 +6,14 @@ const categoryRoutes = require('./src/routes/categoryRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const photoRoutes = require('./src/routes/photoRoutes');
 const manufacturerRoutes = require('./src/routes/manufacturerRoutes');
+const loginRoutes = require('./src/routes/loginRoutes');
 const errorRoutes = require('./src/routes/errorRoutes');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const redis = require('redis');
 const connectRedis = require('connect-redis');
+const {login} = require("./src/controllers/login/loginController");
 
 // express app
 const app = express();
@@ -88,6 +90,7 @@ const initializeApp = async () => {
         app.use('/products', productRoutes);
         app.use('/photos', photoRoutes);
         app.use('/manufacturers', manufacturerRoutes);
+        app.use('/login', loginRoutes);
         app.use('/', errorRoutes);
         // routes end
 
