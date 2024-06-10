@@ -59,7 +59,8 @@ a {
 a:hover h3 {
     color: crimson;
 }
-.create-category form, .edit-category form {
+.create-category form, .edit-category form,
+.login form {
     max-width: 600px;
     margin: 0 auto;
 }
