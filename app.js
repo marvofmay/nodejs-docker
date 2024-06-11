@@ -5,10 +5,10 @@ const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
-
 const { initializeRedisClient } = require('./src/config/redis');
 const initializePassport = require('./src/config/passport');
 const ensureAuthenticated = require('./src/middleware/auth');
+const connectDB = require('./src/config/mongodb');
 
 // Import routes
 const basicRoutes = require('./src/routes/basicRoutes');
@@ -32,33 +32,20 @@ app.use(express.static('src/views'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.locals.user = req.user;
-    next();
-});
-app.use((req, res, next) => {
-    res.locals.path = req.path;
-    console.log('xxxx', res.session);
-    next();
-});
-
 const initializeApp = async () => {
     try {
-        const dbURI = "mongodb://root:example@mongo:27017/?authSource=admin";
-        await mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+        await connectDB();
         const redisClient = await initializeRedisClient();
-        if (! redisClient) {
+        if (!redisClient) {
             throw new Error('Failed to initialize Redis client');
         }
-        const RedisStore = require('connect-redis')(session);
 
-        console.log('Setting up session middleware...');
-        app.set('trust proxy', 1);
+        const RedisStore = require('connect-redis')(session);
         app.use(session({
             store: new RedisStore({ client: redisClient }),
             secret: 'your_secret_key',
             resave: false,
-            saveUninitialized: true,
+            saveUninitialized: false,
             cookie: {
                 secure: false,
                 httpOnly: false,
@@ -69,8 +56,14 @@ const initializeApp = async () => {
         initializePassport(passport);
         app.use(passport.initialize());
         app.use(passport.session());
-
-        console.log('zzzzz', passport.session());
+        app.use((req, res, next) => {
+            res.locals.user = req.isAuthenticated() ? req.user : null;
+            next();
+        });
+        app.use((req, res, next) => {
+            res.locals.path = req.path;
+            next();
+        });
 
         app.set('views', 'src/views');
         app.set('view engine', 'ejs');
@@ -89,6 +82,7 @@ const initializeApp = async () => {
         app.listen(3000, () => {
             console.log('Server is running on port 3000...');
         });
+
     } catch (error) {
         console.error('Failed to initialize app:', error);
     }
