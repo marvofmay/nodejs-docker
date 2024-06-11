@@ -1,5 +1,5 @@
 const manufacturerRepository = require("../../repositories/manufacturer/repository");
-const CreateManufacturerDTO = require("../../dto/manufacturer/CreateManufacturerDTO");
+
 const manufacturerCreate = async (req, res) => {
     try {
         const manufacturers = await manufacturerRepository.getAllManufacturersForSelectOptions();

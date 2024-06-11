@@ -10,6 +10,10 @@
     <li><a href="/products" class="<%= title === 'Products' ? 'active' : '' %>">Products</a></li>
     <li><a href="/photos" class="<%= title === 'Photos' ? 'active' : '' %>">Photos</a></li>
     <li><a href="/manufacturers" class="<%= title === 'Manufacturers' ? 'active' : '' %>">Manufacturers</a></li>
-    <li><a href="/login" class="<%= title === 'Login' ? 'active' : '' %>">Login</a></li>
+    <% if (user) { %>
+      <li><a href="/logout">Logout</a></li>
+    <% } else { %>
+      <li><a href="/login" class="<%= title === 'Login' ? 'active' : '' %>">Login</a></li>
+    <% } %>
   </ul>
 </nav>

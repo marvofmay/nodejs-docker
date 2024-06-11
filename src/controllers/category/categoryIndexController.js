@@ -1,7 +1,6 @@
 const categoryRepository = require("../../repositories/category/repository");
 
 const categoryIndex = async (req, res) => {
-
     try {
         const { categories, allResults, totalPages, page, pagesLimit, phraseToSearch } = await categoryRepository.getAllCategories(
             {},
