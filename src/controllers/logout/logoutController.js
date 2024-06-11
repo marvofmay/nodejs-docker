@@ -1,4 +1,5 @@
 const ensureAuthenticated = require("../../middleware/auth");
+
 const logout = (req, res, next) => {
     req.logout((err) => {
         if (err) {
