@@ -2,7 +2,7 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
 
 /**
  * @swagger
- * /api/v1/categories:
+ * /categories:
  *   get:
  *     summary: Retrieve a list of categories
  *     description: Retrieve a list of categories with optional sorting and filtering by name.
@@ -50,6 +50,9 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
  *                   items:
  *                     type: object
  *                     properties:
+ *                       id:
+ *                         type: string
+ *                         example: 666770f2f4105744b4ec01e9
  *                       name:
  *                         type: string
  *                         example: category 5

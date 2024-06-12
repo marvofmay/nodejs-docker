@@ -20,6 +20,7 @@ const getCategories = async (params) =>
     const totalCategories = await Category.countDocuments(mongoFilters);
 
     const formattedCategories = categories.map(category => ({
+        id: category._id,
         name: category.name,
         description: category.description,
         createdAt: DateUtility.formatDateYmdHis(category.createdAt),
