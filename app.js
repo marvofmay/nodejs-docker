@@ -20,7 +20,7 @@ const logoutRoutes = require('./src/routes/logoutRoutes');
 const errorRoutes = require('./src/routes/errorRoutes');
 
 //api endpoints
-const getCategoriesEndpointApiV1 = require('./src/routes/api/v1/category/getCategories');
+const categoryEndpointsApiV1 = require('./src/routes/api/v1/category/categoryEndpoints');
 
 // express app
 const app = express();
@@ -73,7 +73,7 @@ const initializeApp = async () => {
         // Routes
         app.use('/', basicRoutes);
         app.use('/login', loginRoutes);
-        app.use('/api/v1/categories', getCategoriesEndpointApiV1);
+        app.use('/api/v1/categories',  categoryEndpointsApiV1);
         app.use('/categories', ensureAuthenticated, categoryRoutes);
         app.use('/products', ensureAuthenticated, productRoutes);
         app.use('/photos', ensureAuthenticated, photoRoutes);
