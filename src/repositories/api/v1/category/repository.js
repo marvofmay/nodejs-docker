@@ -4,7 +4,14 @@ const Product = require("../../../../models/product");
 const getCategories = async (params) =>
 {
     const { page = 1, limit = 10, sort = 'createdAt', order = 'asc', ...filters } = params;
-    const categories = await Category.find(filters)
+    const mongoFilters = {};
+    for (const key in filters) {
+        if (filters.hasOwnProperty(key)) {
+            mongoFilters[key] = { $regex: filters[key], $options: 'i' };
+        }
+    }
+
+    const categories = await Category.find(mongoFilters)
         .sort({[sort]: order === 'asc' ? 1 : -1})
         .skip((page - 1) * limit)
         .limit(parseInt(limit));
