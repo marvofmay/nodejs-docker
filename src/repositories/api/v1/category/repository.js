@@ -17,7 +17,7 @@ const getCategories = async (params) =>
         .skip((page - 1) * limit)
         .limit(parseInt(limit));
 
-    const totalCategories = await Category.countDocuments(filters);
+    const totalCategories = await Category.countDocuments(mongoFilters);
 
     const formattedCategories = categories.map(category => ({
         name: category.name,

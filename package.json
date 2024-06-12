@@ -41,6 +41,8 @@
     "pdfkit": "^0.15.0",
     "redis": "^4.6.14",
     "select2": "^4.1.0-rc.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "sweetalert2": "^11.10.8",
     "toastify-js": "^1.12.0",
     "winston": "^3.13.0"

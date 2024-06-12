@@ -8,6 +8,8 @@ const { initializeRedisClient } = require('./src/config/redis');
 const initializePassport = require('./src/config/passport');
 const ensureAuthenticated = require('./src/middleware/auth');
 const connectDB = require('./src/config/mongodb');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./src/config/swagger');
 
 // Import routes
 const basicRoutes = require('./src/routes/basicRoutes');
@@ -33,6 +35,7 @@ app.use(express.static('node_modules'));
 app.use(express.static('src/views'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const initializeApp = async () => {
     try {
