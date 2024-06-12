@@ -52,26 +52,21 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
  *                     properties:
  *                       id:
  *                         type: string
- *                         example: 666770f2f4105744b4ec01e9
  *                       name:
  *                         type: string
- *                         example: category 5
  *                       description:
  *                         type: string
  *                         example: ""
  *                       createdAt:
  *                         type: string
  *                         format: date-time
- *                         example: "2024-06-10 21:33:26"
  *                       updatedAt:
  *                         type: string
  *                         format: date-time
- *                         example: "2024-06-10 21:33:26"
  *                       deletedAt:
  *                         type: string
  *                         format: date-time
  *                         nullable: true
- *                         example: null
  *                   example:
  *                     - id: 666770f2f4105744b4ec01e9
  *                       name: category 5
