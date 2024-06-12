@@ -38,7 +38,7 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
  *               properties:
  *                 total:
  *                   type: integer
- *                   example: 1
+ *                   example: 2
  *                 pages:
  *                   type: integer
  *                   example: 1
@@ -72,6 +72,19 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
  *                         format: date-time
  *                         nullable: true
  *                         example: null
+ *                   example:
+ *                     - id: 666770f2f4105744b4ec01e9
+ *                       name: category 5
+ *                       description: ""
+ *                       createdAt: "2024-06-10 21:33:26"
+ *                       updatedAt: "2024-06-10 21:33:26"
+ *                       deletedAt: null
+ *                     - id: 666770f2f4105744b4ec01e8
+ *                       name: category 6
+ *                       description: ""
+ *                       createdAt: "2024-06-11 10:15:00"
+ *                       updatedAt: "2024-06-11 10:15:00"
+ *                       deletedAt: null
  */
 const getCategories = async (req, res) => {
     try {
