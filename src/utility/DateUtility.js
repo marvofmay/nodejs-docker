@@ -1,3 +1,5 @@
+const { format } = require('date-fns');
+
 class DateUtility {
     static formatDateYMDHISSeparatedBDash(date) {
         const year = date.getFullYear();
@@ -8,6 +10,10 @@ class DateUtility {
         const second = String(date.getSeconds()).padStart(2, '0');
 
         return `${year}-${month}-${day}-${hour}-${minute}-${second}`;
+    }
+
+    static formatDateYmdHis(date) {
+        return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
     }
 }
 

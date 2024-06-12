@@ -1,5 +1,6 @@
 const Category = require('../../../../models/category');
 const Product = require("../../../../models/product");
+const DateUtility = require('../../../../utility/DateUtility');
 
 const getCategories = async (params) =>
 {
@@ -18,11 +19,19 @@ const getCategories = async (params) =>
 
     const totalCategories = await Category.countDocuments(filters);
 
+    const formattedCategories = categories.map(category => ({
+        name: category.name,
+        description: category.description,
+        createdAt: DateUtility.formatDateYmdHis(category.createdAt),
+        updatedAt: DateUtility.formatDateYmdHis(category.updatedAt),
+        deletedAt: category.deletedAt ? DateUtility.formatDateYmdHis(category.deletedAt) : null,
+    }));
+
     return {
         total: totalCategories,
         pages: Math.ceil(totalCategories / limit),
         currentPage: page,
-        categories: categories,
+        categories: formattedCategories,
     }
 }
 
@@ -34,9 +43,9 @@ const getCategoryById = async (req) => {
     const data = {
         name: category.name,
         description: category.description,
-        createdAt: category.createdAt,
-        updatedAt: category.updatedAt,
-        deletedAt: category.deletedAt,
+        createdAt: DateUtility.formatDateYmdHis(category.createdAt),
+        updatedAt: DateUtility.formatDateYmdHis(category.updatedAt),
+        deletedAt: category.deletedAt ? DateUtility.formatDateYmdHis(category.deletedAt) : null,
     }
 
     if (products === 'true') {
