@@ -5,6 +5,7 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
  * /categories:
  *   get:
  *     summary: Retrieve a list of categories
+ *     tags: [Category]
  *     description: Retrieve a list of categories with optional sorting and filtering by name.
  *     parameters:
  *       - in: query
