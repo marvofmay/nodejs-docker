@@ -28,4 +28,4 @@ const productTransformer = (product) => {
     };
 };
 
-module.exports = productTransformer;categoryEndpoints');
+module.exports = productTransformer;
