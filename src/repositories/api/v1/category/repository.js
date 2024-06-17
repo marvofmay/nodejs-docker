@@ -6,6 +6,7 @@ const getCategories = async (params) =>
 {
     const { page = 1, limit = 10, sort = 'createdAt', order = 'asc', ...filters } = params;
     const mongoFilters = {};
+
     for (const key in filters) {
         if (filters.hasOwnProperty(key)) {
             mongoFilters[key] = { $regex: filters[key], $options: 'i' };
