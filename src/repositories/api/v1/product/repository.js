@@ -1,5 +1,4 @@
 const Product = require("../../../../models/product");
-const DateUtility = require('../../../../utility/DateUtility');
 
 const getProducts = async (params) =>
 {
@@ -35,7 +34,7 @@ const getProducts = async (params) =>
         total,
         page: pageInt,
         totalPages: Math.ceil(total / limitInt),
-        products
+        products: products,
     };
 }
 

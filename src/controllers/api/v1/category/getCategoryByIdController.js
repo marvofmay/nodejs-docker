@@ -2,7 +2,7 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
 
 /**
  * @swagger
- * /category/{id}:
+ * /categories/{id}:
  *   get:
  *     summary: Get category by ID
  *     tags: [Category]

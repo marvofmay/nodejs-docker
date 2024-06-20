@@ -1,3 +1,5 @@
+const DateUtility = require('../../../../../utility/DateUtility');
+
 const productTransformer = (product) => {
 
     return {
@@ -23,8 +25,9 @@ const productTransformer = (product) => {
             url: `/photos/${photo._id}`
         })) : [],
         active: product.active,
-        createdAt: product.createdAt,
-        updatedAt: product.updatedAt,
+        createdAt: DateUtility.formatDateYmdHis(product.createdAt),
+        updatedAt: DateUtility.formatDateYmdHis(product.updatedAt),
+        deletedAt: product.deletedAt ? DateUtility.formatDateYmdHis(product.deletedAt) : null,
     };
 };
 
