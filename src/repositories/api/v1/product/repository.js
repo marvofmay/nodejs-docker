@@ -1,4 +1,6 @@
 const Product = require("../../../../models/product");
+const Category = require("../../../../models/category");
+const DateUtility = require("../../../../utility/DateUtility");
 
 const getProducts = async (params) =>
 {
@@ -38,7 +40,47 @@ const getProducts = async (params) =>
     };
 }
 
+const getProductById = async (req) => {
+    const { id } = req.params;
+    const { manufacturer, categories, photos } = req.query;
+
+    const populateOptions = [];
+    if (manufacturer === 'true') populateOptions.push('manufacturer');
+    if (categories === 'true') populateOptions.push('categories');
+    if (photos === 'true') populateOptions.push('photos');
+
+    let productQuery = Product.findById(id);
+    populateOptions.forEach(option => {
+        productQuery = productQuery.populate(option);
+    });
+
+    const product = await productQuery;
+
+    if (! product) {
+        throw new Error('Product not found');
+    }
+
+    const data = {
+        name: product.name,
+        description: product.description,
+        ean: product.ean,
+        price: product.price,
+        vat: product.vat,
+        bonusPercent: product.bonusPercent,
+        manufacturer: manufacturer === 'true' ? product.manufacturer : undefined,
+        categories: categories === 'true' ? product.categories : undefined,
+        photos: photos === 'true' ? product.photos : undefined,
+        active: product.active,
+        createdAt: DateUtility.formatDateYmdHis(product.createdAt),
+        updatedAt: DateUtility.formatDateYmdHis(product.updatedAt),
+        deletedAt: product.deletedAt ? DateUtility.formatDateYmdHis(product.deletedAt) : null,
+    };
+
+    return data;
+}
+
+
 module.exports = {
     getProducts,
-    //getProductById,
+    getProductById,
 };
