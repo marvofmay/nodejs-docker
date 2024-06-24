@@ -10,6 +10,7 @@ const ensureAuthenticated = require('./src/middleware/auth');
 const connectDB = require('./src/config/mongodb');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./src/config/swagger');
+const dotenv = require('dotenv');
 
 // Import routes
 const basicRoutes = require('./src/routes/basicRoutes');
@@ -27,6 +28,10 @@ const productEndpointsApiV1 = require('./src/routes/api/v1/product/productEndpoi
 
 // express app
 const app = express();
+
+// Load environment variables from .env file
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 // Middleware & static files
 app.use(methodOverride('_method'));
@@ -87,7 +92,7 @@ const initializeApp = async () => {
         app.use('/', errorRoutes);
 
         // Start the server
-        app.listen(3000, () => {
+        app.listen(PORT, () => {
             console.log('Server is running on port 3000...');
         });
 
