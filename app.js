@@ -22,7 +22,7 @@ const loginRoutes = require('./src/routes/loginRoutes');
 const logoutRoutes = require('./src/routes/logoutRoutes');
 const errorRoutes = require('./src/routes/errorRoutes');
 
-//api endpoints
+// api endpoints
 const categoryEndpointsApiV1 = require('./src/routes/api/v1/category/categoryEndpoints');
 const productEndpointsApiV1 = require('./src/routes/api/v1/product/productEndpoints');
 
@@ -47,7 +47,7 @@ const initializeApp = async () => {
     try {
         await connectDB();
         const redisClient = await initializeRedisClient();
-        if (!redisClient) {
+        if (! redisClient) {
             throw new Error('Failed to initialize Redis client');
         }
 
@@ -82,8 +82,8 @@ const initializeApp = async () => {
         // Routes
         app.use('/', basicRoutes);
         app.use('/login', loginRoutes);
-        app.use('/api/v1/categories',  categoryEndpointsApiV1);
-        app.use('/api/v1/products',  productEndpointsApiV1);
+        app.use('/api/v1/categories', categoryEndpointsApiV1);
+        app.use('/api/v1/products', productEndpointsApiV1);
         app.use('/categories', ensureAuthenticated, categoryRoutes);
         app.use('/products', ensureAuthenticated, productRoutes);
         app.use('/photos', ensureAuthenticated, photoRoutes);
@@ -91,11 +91,9 @@ const initializeApp = async () => {
         app.use('/logout', ensureAuthenticated, logoutRoutes);
         app.use('/', errorRoutes);
 
-        // Start the server
         app.listen(PORT, () => {
-            console.log('Server is running on port 3000...');
+            console.log(`Server is running on port ${PORT} ...`);
         });
-
     } catch (error) {
         console.error('Failed to initialize app:', error);
     }
@@ -103,3 +101,4 @@ const initializeApp = async () => {
 
 // Initialize the app
 initializeApp();
+
