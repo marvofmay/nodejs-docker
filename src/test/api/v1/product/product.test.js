@@ -4,18 +4,83 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 chai.should();
 
-describe('Products API', function() {
-    this.timeout(10000); // Ustawienie timeoutu na 10 sekund
-
-    it('should show the Home', function(done) {
-        chai.request('http://localhost:3000') // Użycie aplikacji zamiast bezpośredniego adresu URL
-            .get('/api/v1/products') // Testowanie endpointu z ID produktu
+describe('Products API', function () {
+    this.timeout(10000);
+    it('should return products', function(done) {
+        chai.request('http://localhost:3000')
+            .get('/api/v1/products')
             .end((err, res) => {
                 if (err) {
                     console.error('Request failed:', err);
                     done(err);
                 } else {
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('total').that.is.a('number');
+                    res.body.should.have.property('page').that.is.a('number');
+                    res.body.should.have.property('totalPages').that.is.a('number');
+                    res.body.should.have.property('products').which.is.an('array');
+
+                    res.body.products.forEach((product) => {
+                        product.should.be.an('object');
+                        product.should.have.property('id').that.is.a('string');
+                        product.should.have.property('name').that.is.a('string');
+                        product.should.have.property('description').that.is.a('string');
+                        product.should.have.property('ean').that.is.a('number');
+                        product.should.have.property('price').that.is.a('number');
+                        product.should.have.property('vat').that.is.a('number');
+                        product.should.have.property('bonusPercent').that.is.a('number');
+                        product.should.have.property('active').that.is.a('boolean');
+                        product.should.have.property('createdAt').that.is.a('string');
+                        product.should.have.property('updatedAt').that.is.a('string');
+                        product.should.have.property('deletedAt').that.satisfy((val) => val === null || typeof val === 'string');
+                    });
+
+                    done();
+                }
+            });
+    });
+
+    it('should return products with categories and photos', function(done) {
+        chai.request('http://localhost:3000')
+            .get('/api/v1/products?categories=true&photos=true')
+            .end((err, res) => {
+                if (err) {
+                    console.error('Request failed:', err);
+                    done(err);
+                } else {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('total').that.is.a('number');
+                    res.body.should.have.property('page').that.is.a('number');
+                    res.body.should.have.property('totalPages').that.is.a('number');
+                    res.body.should.have.property('products').which.is.an('array');
+
+                    res.body.products.forEach((product) => {
+                        product.should.be.an('object');
+                        product.should.have.property('id').that.is.a('string');
+                        product.should.have.property('name').that.is.a('string');
+                        product.should.have.property('description').that.is.a('string');
+                        product.should.have.property('ean').that.is.a('number');
+                        product.should.have.property('price').that.is.a('number');
+                        product.should.have.property('vat').that.is.a('number');
+                        product.should.have.property('bonusPercent').that.is.a('number');
+                        product.should.have.property('active').that.is.a('boolean');
+                        product.should.have.property('createdAt').that.is.a('string');
+                        product.should.have.property('updatedAt').that.is.a('string');
+                        product.should.have.property('deletedAt').that.satisfy((val) => val === null || typeof val === 'string');
+                        product.should.have.property('manufacturer').that.is.an('object');
+                        product.manufacturer.should.have.property('id').that.is.a('string');
+                        product.should.have.property('categories').that.is.an('array');
+                        product.categories.forEach((category) => {
+                            category.should.be.an('object');
+                            category.should.have.property('id').that.is.a('string');
+                            category.should.have.property('name').that.is.a('string');
+                            category.should.have.property('description').that.is.a('string');
+                        });
+                        product.should.have.property('photos').that.is.an('array');
+                    });
+
                     done();
                 }
             });
