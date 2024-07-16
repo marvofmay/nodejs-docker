@@ -4,7 +4,12 @@ const productTransformer = require('../../../../repositories/api/v1/product/tran
 const getProducts = async (req, res) => {
     try {
         const data = await productApiV1Repository.getProducts(req.query);
-        data.products = data.products.map(product => productTransformer(product));
+        let { manufacturer, categories, photos} = req.query;
+        manufacturer = manufacturer === 'true';
+        categories = categories === 'true';
+        photos = photos === 'true';
+
+        data.products = data.products.map(product => productTransformer(product, categories, manufacturer, photos));
 
         res.json(data);
     } catch (error) {
