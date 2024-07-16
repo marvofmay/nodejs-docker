@@ -25,6 +25,7 @@ const errorRoutes = require('./src/routes/errorRoutes');
 // api endpoints
 const categoryEndpointsApiV1 = require('./src/routes/api/v1/category/categoryEndpoints');
 const productEndpointsApiV1 = require('./src/routes/api/v1/product/productEndpoints');
+const manufacturerEndpointsApiV1 = require('./src/routes/api/v1/manufacturer/manufacturerEndpoints');
 
 // express app
 const app = express();
@@ -84,6 +85,7 @@ const initializeApp = async () => {
         app.use('/login', loginRoutes);
         app.use('/api/v1/categories', categoryEndpointsApiV1);
         app.use('/api/v1/products', productEndpointsApiV1);
+        app.use('/api/v1/manufacturers', manufacturerEndpointsApiV1);
         app.use('/categories', ensureAuthenticated, categoryRoutes);
         app.use('/products', ensureAuthenticated, productRoutes);
         app.use('/photos', ensureAuthenticated, photoRoutes);

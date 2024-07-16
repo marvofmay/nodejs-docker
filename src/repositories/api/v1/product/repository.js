@@ -1,5 +1,4 @@
 const Product = require("../../../../models/product");
-const Category = require("../../../../models/category");
 const DateUtility = require("../../../../utility/DateUtility");
 
 const getProducts = async (params) =>
