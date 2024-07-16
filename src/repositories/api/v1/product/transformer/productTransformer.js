@@ -15,6 +15,7 @@ const productTransformer = (product) => {
         deletedAt: product.deletedAt ? DateUtility.formatDateYmdHis(product.deletedAt) : null,
     };
 
+    data.manufacturer = {};
     if (product.manufacturer) {
         data.manufacturer = {
             id: product.manufacturer._id,
@@ -22,6 +23,7 @@ const productTransformer = (product) => {
         };
     }
 
+    data.categories = [];
     if (product.categories && product.categories.length > 0) {
         data.categories = product.categories.map(category => ({
             id: category._id,
@@ -30,6 +32,7 @@ const productTransformer = (product) => {
         }));
     }
 
+    data.photos = [];
     if (product.photos && product.photos.length > 0) {
         data.photos = product.photos.map(photo => ({
             id: photo._id,
