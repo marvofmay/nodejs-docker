@@ -1,4 +1,5 @@
 const manufacturerApiV1Repository = require('../../../../repositories/api/v1/manufacturer/repository');
+const manufacturerTransformer = require("../../../../repositories/api/v1/manufacturer/transformer/manufacturerTransformer");
 
 /**
  * @swagger
@@ -72,6 +73,7 @@ const manufacturerApiV1Repository = require('../../../../repositories/api/v1/man
 const getManufacturers = async (req, res) => {
     try {
         const data = await manufacturerApiV1Repository.getManufacturers(req.query);
+        data.manufacturers = data.manufacturers.map(manufacturer => manufacturerTransformer(manufacturer));
 
         res.json(data);
     } catch (error) {
