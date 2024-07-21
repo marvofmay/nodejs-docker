@@ -52,7 +52,6 @@ const getManufacturerById = async (req) => {
         }
 
         if (structure === 'true') {
-            console.log('xxx', await getManufacturerStructure(manufacturer));
             manufacturerStructure = await getManufacturerStructure(manufacturer);
         }
 

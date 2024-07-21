@@ -41,9 +41,9 @@ const getManufacturerById = async (req, res) => {
     try {
         const data = await manufacturerApiV1Repository.getManufacturerById(req);
         const manufacturer = manufacturerTransformer(data.manufacturer);
-        const { manufacturerStructure } = data.manufacturerStructure;
+        const manufacturerStructure = data.manufacturerStructure;
 
-        res.json({ manufacturer, manufacturerStructure });
+        res.json({manufacturer, manufacturerStructure});
     } catch (error) {
         res.status(500).json({error: error.message});
     }

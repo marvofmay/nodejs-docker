@@ -11,18 +11,6 @@ const getManufacturerStructure = async (manufacturer) => {
         children: []
     };
 
-    try {
-        const children = await Manufacturer.find({ parentManufacturer: manufacturer._id });
-        for (let child of children) {
-            const childStructure = await getManufacturerStructure(child);
-            if (childStructure) {
-                structure.children.push(ManufacturerStructureTransformer(childStructure));
-            }
-        }
-    } catch (error) {
-        throw new Error('Error fetching manufacturer structure: ' + error.message);
-    }
-
     return structure;
 };
 
