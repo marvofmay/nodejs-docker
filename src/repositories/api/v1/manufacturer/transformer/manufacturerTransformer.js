@@ -7,6 +7,7 @@ const manufacturerTransformer = (manufacturer) => {
         shortName: manufacturer.shortName,
         nip: manufacturer.nip,
         regon: manufacturer.regon,
+        address: manufacturer.address,
         email: manufacturer.email,
         www: manufacturer.www,
         createdAt: DateUtility.formatDateYmdHis(manufacturer.createdAt),
@@ -19,7 +20,6 @@ const manufacturerTransformer = (manufacturer) => {
             id: manufacturer.parentManufacturer._id,
             name: manufacturer.parentManufacturer.name,
             shortName: manufacturer.parentManufacturer.shortName,
-            nip: manufacturer.parentManufacturer.nip,
         };
     }
 

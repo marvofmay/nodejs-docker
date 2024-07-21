@@ -78,7 +78,6 @@ const getProductById = async (req) => {
     return data;
 }
 
-
 module.exports = {
     getProducts,
     getProductById,

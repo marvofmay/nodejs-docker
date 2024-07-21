@@ -1,5 +1,5 @@
 const Manufacturer = require("../../../../models/manufacturer");
-const Product = require("../../../../models/product");
+const getManufacturerStructure = require('../../../../utility/manufacturer/getManufacturerStructure');
 
 const getManufacturers = async (params) =>
 {
@@ -34,6 +34,35 @@ const getManufacturers = async (params) =>
     };
 }
 
+const getManufacturerById = async (req) => {
+    try {
+        const { id } = req.params;
+        const { structure } = req.query;
+        let manufacturerStructure = null;
+
+        if (! id) {
+            throw new Error('Invalid ID');
+        }
+
+        let manufacturerQuery = Manufacturer.findById(id).populate('parentManufacturer');
+        const manufacturer = await manufacturerQuery;
+
+        if (! manufacturer) {
+            throw new Error('Manufacturer not found');
+        }
+
+        if (structure === 'true') {
+            console.log('xxx', await getManufacturerStructure(manufacturer));
+            manufacturerStructure = await getManufacturerStructure(manufacturer);
+        }
+
+        return { manufacturer, manufacturerStructure };
+    } catch (error) {
+        return { error: error.message };
+    }
+};
+
 module.exports = {
     getManufacturers,
+    getManufacturerById,
 };
