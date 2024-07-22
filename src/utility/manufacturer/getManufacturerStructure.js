@@ -6,11 +6,6 @@ const getManufacturerStructure = async (manufacturer) => {
         throw new Error('Invalid manufacturer object');
     }
 
-    const structure = {
-        manufacturer: ManufacturerStructureTransformer(manufacturer),
-        children: []
-    };
-
     return structure;
 };
 
