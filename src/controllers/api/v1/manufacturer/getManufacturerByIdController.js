@@ -40,10 +40,8 @@ const manufacturerTransformer = require("../../../../repositories/api/v1/manufac
 const getManufacturerById = async (req, res) => {
     try {
         const data = await manufacturerApiV1Repository.getManufacturerById(req);
-        const manufacturer = manufacturerTransformer(data.manufacturer);
-        const manufacturerStructure = data.manufacturerStructure;
 
-        res.json({manufacturer, manufacturerStructure});
+        res.json( manufacturerTransformer(data.manufacturer) );
     } catch (error) {
         res.status(500).json({error: error.message});
     }

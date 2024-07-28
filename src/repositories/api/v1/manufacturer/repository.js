@@ -1,5 +1,4 @@
 const Manufacturer = require("../../../../models/manufacturer");
-const getManufacturerStructure = require('../../../../utility/manufacturer/getManufacturerStructure');
 
 const getManufacturers = async (params) =>
 {
@@ -37,8 +36,6 @@ const getManufacturers = async (params) =>
 const getManufacturerById = async (req) => {
     try {
         const { id } = req.params;
-        const { structure } = req.query;
-        let manufacturerStructure = null;
 
         if (! id) {
             throw new Error('Invalid ID');
@@ -51,17 +48,24 @@ const getManufacturerById = async (req) => {
             throw new Error('Manufacturer not found');
         }
 
-        if (structure === 'true') {
-            manufacturerStructure = await getManufacturerStructure(manufacturer);
-        }
+        manufacturer.children = await getManufacturerChildren(manufacturer._id) ?? [];
 
-        return { manufacturer, manufacturerStructure };
+        return { manufacturer };
     } catch (error) {
         return { error: error.message };
     }
 };
 
+const getManufacturerChildren = async (manufacturerId) => {
+    try {
+        return await Manufacturer.find({parentManufacturer: manufacturerId});
+    } catch(error) {
+        return { error: error.message };
+    }
+}
+
 module.exports = {
     getManufacturers,
     getManufacturerById,
+    getManufacturerChildren,
 };

@@ -55,7 +55,7 @@
                                         <% manufacturers.forEach(parent => { %>
                                             <option
                                                 value="<%= parent._id %>"
-                                                <% if (manufacturer.parentManufacturer?.toString() === parent._id.toString()) { %> selected="selected" <% } %>
+                                                <% if (manufacturer.parentManufacturer._id.toString() === parent._id.toString()) { %> selected="selected" <% } %>
                                             ><%= parent.name %></option>
                                         <% }) %>
                                     </select>

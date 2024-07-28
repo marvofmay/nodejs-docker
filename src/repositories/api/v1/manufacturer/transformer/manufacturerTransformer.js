@@ -23,6 +23,20 @@ const manufacturerTransformer = (manufacturer) => {
         };
     }
 
+    if (manufacturer.children) {
+        let temp = [];
+
+        for (let child of manufacturer.children) {
+             temp.push({
+                id: child._id,
+                name: child.name,
+                shortName: child.shortName,
+            });
+        }
+
+        data.children = temp;
+    }
+
     return data;
 };
 
