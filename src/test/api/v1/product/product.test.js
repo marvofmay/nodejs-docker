@@ -4,8 +4,8 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 chai.should();
 
-describe('Products API', function () {
-    this.timeout(10000);
+describe('Products API without authorization', function () {
+    this.timeout(1000);
     it('should return products', function(done) {
         chai.request('http://localhost:3000')
             .get('/api/v1/products')
@@ -85,4 +85,43 @@ describe('Products API', function () {
                 }
             });
     });
+});
+
+describe('Authentication and Product Test', function() {
+    this.timeout(1000);
+    let agent = chai.request.agent('http://localhost:3000');
+
+    before(function(done) {
+        agent
+            .post('/login')
+            .send({ login: 'test@example.com', password: 'myPassword123$%&' })
+            .end((err, res) => {
+                if (err) {
+                    console.error('Login request failed:', err);
+                    return done(err);
+                }
+                res.should.have.status(200);
+
+                agent
+                    .get('/api/v1/sessions/authenticated')
+                    .end((err, res) => {
+                        if (err) {
+                            console.error('Request failed:', err);
+                            return done(err);
+                        }
+
+                        res.should.have.status(200);
+                        res.body.should.be.an('object');
+                        res.body.should.have.property('isAuthenticated').that.is.a('boolean');
+                        res.body.isAuthenticated.should.equal(true);
+
+                        done();
+                    });
+            });
+    });
+
+    it('should create a new product', function(done) {
+        // ToDo: Get Manufacturer and Categories and store Product
+    });
+
 });
