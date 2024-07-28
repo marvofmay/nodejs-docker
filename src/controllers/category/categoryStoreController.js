@@ -31,6 +31,7 @@ const categoryStore = async (req, res) => {
         res.render('error/error', {title: 'error', message: error.message});
     }
 };
+
 module.exports = {
     categoryStore,
 }
