@@ -20,8 +20,7 @@ const login = async (req, res, next) => {
                 return next(err);
             }
             if (! user) {
-                console.log('Authentication failed, no user:', info.message);
-                return res.render('login/form', {
+                res.render('login/form', {
                     title: 'Login',
                     action: 'Send login form',
                     user: {},
@@ -34,8 +33,17 @@ const login = async (req, res, next) => {
                     console.error('Login error:', err);
                     return next(err);
                 }
-                console.log('User logged in:', user);
-                return res.redirect('/');
+
+                req.session.isAuthenticated = true;
+                req.session.userId = user.id;
+
+                res.render('login/form', {
+                    title: 'Login',
+                    action: 'Send login form',
+                    user: user,
+                    errors: [],
+                    actionResult: { success: true, message: 'Logged in successfully' }
+                });
             });
         })(req, res, next);
     } catch (error) {

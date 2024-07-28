@@ -23,6 +23,7 @@ const logoutRoutes = require('./src/routes/logoutRoutes');
 const errorRoutes = require('./src/routes/errorRoutes');
 
 // api endpoints
+const sessionEndpointsApiV1 = require('./src/routes/api/v1/session/sessionEndpoints');
 const categoryEndpointsApiV1 = require('./src/routes/api/v1/category/categoryEndpoints');
 const productEndpointsApiV1 = require('./src/routes/api/v1/product/productEndpoints');
 const manufacturerEndpointsApiV1 = require('./src/routes/api/v1/manufacturer/manufacturerEndpoints');
@@ -83,6 +84,7 @@ const initializeApp = async () => {
         // Routes
         app.use('/', basicRoutes);
         app.use('/login', loginRoutes);
+        app.use('/api/v1/sessions', sessionEndpointsApiV1);
         app.use('/api/v1/categories', categoryEndpointsApiV1);
         app.use('/api/v1/products', productEndpointsApiV1);
         app.use('/api/v1/manufacturers', manufacturerEndpointsApiV1);
@@ -93,14 +95,20 @@ const initializeApp = async () => {
         app.use('/logout', ensureAuthenticated, logoutRoutes);
         app.use('/', errorRoutes);
 
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT} ...`);
-        });
+        return app; // Zwracanie instancji aplikacji
     } catch (error) {
         console.error('Failed to initialize app:', error);
     }
 };
 
-// Initialize the app
-initializeApp();
+module.exports = initializeApp;
+
+// Initialize the app for production
+if (require.main === module) {
+    initializeApp().then(app => {
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT} ...`);
+        });
+    });
+}
 

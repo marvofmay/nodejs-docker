@@ -31,8 +31,8 @@ const getCategories = async (params) =>
 
     return {
         total: totalCategories,
-        pages: Math.ceil(totalCategories / limit),
-        currentPage: page,
+        totalPages: Math.ceil(totalCategories / limit),
+        page: page,
         categories: formattedCategories,
     }
 }

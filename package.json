@@ -4,7 +4,7 @@
   "description": "a nodejs api",
   "main": "app.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha './src/test/api/v1/product/*.test.js' --timeout 10000",
+    "test": "NODE_ENV=test mocha './src/test/api/v1/category/*.test.js' --timeout 10000",
     "start": "node app.js"
   },
   "repository": {
