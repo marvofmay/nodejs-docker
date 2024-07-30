@@ -1,8 +1,10 @@
 const express = require('express');
-const isAuthenticatedController = require('../../../../controllers/api/v1/session/isAuthenticatedController');
+const AuthenticatedController = require('../../../../controllers/api/v1/session/AuthenticatedController');
+const LoginController = require('../../../../controllers/api/v1/session/LoginController');
 
 const router = express.Router();
 
-router.get('/authenticated', isAuthenticatedController.isAuthenticated);
+router.get('/authenticated', AuthenticatedController.isAuthenticated);
+router.post('/', LoginController.login);
 
 module.exports = router;
