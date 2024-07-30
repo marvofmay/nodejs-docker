@@ -88,5 +88,30 @@ describe('Products API without authorization', function () {
 });
 
 describe('Authentication and Product Test', function() {
+    const newProductName = 'New product';
     let agent = chai.request.agent('http://localhost:3000');
+    let token = '';
+
+    before(function(done) {
+        agent
+            .post('/api/v1/sessions/login')
+            .send({ login: 'test@example.com', password: 'myPassword123$%&' })
+            .end((err, res) => {
+                if (err) {
+
+                    return done(err);
+                }
+                res.should.have.status(200);
+                res.body.should.have.property('actionResult');
+                res.body.actionResult.should.have.property('user');
+                res.body.actionResult.user.should.have.property('token');
+                token = res.body.actionResult.user.token;
+
+                done();
+            });
+    });
+
+    it('should create a new product', function(done) {
+        done();
+    });
 });
