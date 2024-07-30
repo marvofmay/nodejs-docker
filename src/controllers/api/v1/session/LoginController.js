@@ -1,5 +1,9 @@
 const { validationResult } = require('express-validator');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
+
+const jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret';
+const jwtExpiry = process.env.JWT_EXPIRY || '1h';
 
 const login = async (req, res, next) => {
     try {
@@ -33,8 +37,8 @@ const login = async (req, res, next) => {
                     return next(err);
                 }
 
-                req.session.isAuthenticated = true;
-                req.session.userId = user.id;
+                // Generowanie tokenu JWT
+                const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: jwtExpiry });
 
                 return res.status(200).json({
                     actionResult: {
@@ -43,6 +47,7 @@ const login = async (req, res, next) => {
                         user: {
                             id: user.id,
                             login: user.login,
+                            token,
                         },
                     },
                 });

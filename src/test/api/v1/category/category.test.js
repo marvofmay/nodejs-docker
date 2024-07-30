@@ -5,12 +5,14 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('Authentication and Category Test', function() {
-    this.timeout(1000);
+    const newCategoryName = 'New Category 123';
     let agent = chai.request.agent('http://localhost:3000');
+    let token = '';
 
     before(function(done) {
+        // Zaloguj się, aby uzyskać token
         agent
-            .post('/login')
+            .post('/api/v1/sessions/login')
             .send({ login: 'test@example.com', password: 'myPassword123$%&' })
             .end((err, res) => {
                 if (err) {
@@ -18,32 +20,24 @@ describe('Authentication and Category Test', function() {
                     return done(err);
                 }
                 res.should.have.status(200);
-
-                agent
-                    .get('/api/v1/sessions/authenticated')
-                    .end((err, res) => {
-                        if (err) {
-                            console.error('Request failed:', err);
-                            return done(err);
-                        }
-
-                        res.should.have.status(200);
-                        res.body.should.be.an('object');
-                        res.body.should.have.property('isAuthenticated').that.is.a('boolean');
-                        res.body.isAuthenticated.should.equal(true);
-
-                        done();
-                    });
+                res.body.should.have.property('actionResult');
+                res.body.actionResult.should.have.property('user');
+                res.body.actionResult.user.should.have.property('token'); // Sprawdź, czy token jest obecny
+                token = res.body.actionResult.user.token; // Zapisz token
+                console.log('Token obtained:', token); // Dodaj logowanie tokenu
+                done();
             });
     });
 
     it('should create a new category', function(done) {
         agent
             .post('/api/v1/categories')
-            .send({ name: 'New Category' })
+            .set('Authorization', `Bearer ${token}`) // Dodaj token do nagłówka
+            .send({ name: newCategoryName })
             .end((err, res) => {
                 if (err) {
-                    console.error('Request failed:', err);
+                    console.error('Request to create category failed:', err);
+
                     return done(err);
                 }
                 res.should.have.status(201);
@@ -51,7 +45,7 @@ describe('Authentication and Category Test', function() {
                 res.body.should.have.property('success').that.is.a('boolean').and.equals(true);
                 res.body.should.have.property('message').that.is.a('string').and.equals('Category saved successfully.');
                 res.body.should.have.property('category').that.is.an('object');
-                res.body.category.should.have.property('name').that.is.a('string').and.equals('New Category');
+                res.body.category.should.have.property('name').that.is.a('string').and.equals(newCategoryName);
                 res.body.category.should.have.property('_id').that.is.a('string');
                 res.body.category.should.have.property('createdAt').that.is.a('string');
                 res.body.category.should.have.property('updatedAt').that.is.a('string');
@@ -65,10 +59,11 @@ describe('Authentication and Category Test', function() {
     it('should not allow duplicate category names', function(done) {
         agent
             .post('/api/v1/categories')
-            .send({ name: 'New Category' })
+            .set('Authorization', `Bearer ${token}`) // Dodaj token do nagłówka
+            .send({ name: newCategoryName })
             .end((err, res) => {
                 if (err) {
-                    console.error('Request failed:', err);
+                    console.error('Request to create duplicate category failed:', err);
                     return done(err);
                 }
                 res.should.have.status(400);
@@ -81,3 +76,4 @@ describe('Authentication and Category Test', function() {
             });
     });
 });
+

@@ -1,10 +1,11 @@
 const express = require('express');
-const AuthenticatedController = require('../../../../controllers/api/v1/session/AuthenticatedController');
 const LoginController = require('../../../../controllers/api/v1/session/LoginController');
+const LogoutController = require('../../../../controllers/api/v1/session/LogoutController');
+const passport = require('passport');
 
 const router = express.Router();
 
-router.get('/authenticated', AuthenticatedController.isAuthenticated);
-router.post('/', LoginController.login);
+router.post('/login', LoginController.login);
+router.post('/logout', passport.authenticate('jwt', { session: false }), LogoutController.logout);
 
 module.exports = router;
