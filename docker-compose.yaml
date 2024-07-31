@@ -11,6 +11,8 @@ services:
     command: nodemon src/app.js
     depends_on:
       - mongo
+    environment:
+      - NODE_ENV=development
 
   mongo:
     image: mongo:latest
@@ -36,9 +38,9 @@ services:
       ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
       ME_CONFIG_OPTIONS_EDITORTHEME: 'ambiance'
       ME_CONFIG_SITE_BASEURL: '/'
-      ME_CONFIG_BASICAUTH_USERNAME: 'root'
-      ME_CONFIG_BASICAUTH_PASSWORD: 'example'
-      ME_CONFIG_MONGODB_URL: 'mongodb://root:example@mongo:27017/'
+      ME_CONFIG_BASICAUTH_USERNAME: root
+      ME_CONFIG_BASICAUTH_PASSWORD: example
+      ME_CONFIG_MONGODB_URL: 'mongodb://root:example@mongo:27017/development?authSource=admin'
     depends_on:
       - mongo
 
@@ -53,4 +55,3 @@ services:
 volumes:
   mongo-data:
   redis-data:
-
