@@ -8,11 +8,6 @@ const storeCategory = async (req, res) => {
         const errors = validationResult(req);
         const createCategoryDTO = new CreateCategoryDTO(req.body);
 
-        console.log('xxxx', {
-            errors: errors.array(),
-            message: 'Validation failed',
-        });
-
         if (! errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
