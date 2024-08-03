@@ -3,6 +3,7 @@ const getManufacturersController = require('../../../../controllers/api/v1/manuf
 const getManufacturerByIdController = require('../../../../controllers/api/v1/manufacturer/getManufacturerByIdController');
 const storeManufacturerController = require('../../../../controllers/api/v1/manufacturer/storeManufacturerController');
 const { createManufacturerValidator } = require('../../../../validators/manufacturer/createManufacturerValidators');
+const { authenticateJwt } = require('../../../../middleware/auth');
 
 const router = express.Router();
 
