@@ -16,6 +16,7 @@ describe('Authentication and Category Test', function() {
             .end((err, res) => {
                 if (err) {
                     console.error('Login request failed:', err);
+
                     return done(err);
                 }
                 res.should.have.status(200);
