@@ -6,7 +6,7 @@ const manufacturerTransformer = require("../../../../repositories/api/v1/manufac
  * /manufacturers:
  *   get:
  *     summary: Retrieve a list of manufacturers
- *     tags: [Manufacturer]
+ *     tags: [Manufacturers]
  *     description: Retrieve a list of manufacturers with optional sorting and filtering by name.
  *     parameters:
  *       - in: query

@@ -6,7 +6,7 @@ const manufacturerTransformer = require("../../../../repositories/api/v1/manufac
  * /manufacturers/{id}:
  *   get:
  *     summary: Get manufacture by ID
- *     tags: [Manufacturer]
+ *     tags: [Manufacturers]
  *     parameters:
  *       - in: path
  *         name: id
