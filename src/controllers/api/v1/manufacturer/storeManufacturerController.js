@@ -5,6 +5,11 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
 /**
  * @swagger
  * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  *   schemas:
  *     Address:
  *       type: object
@@ -66,53 +71,59 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *           schema:
  *             type: object
  *             properties:
- *               success:
- *                 type: boolean
- *                 example: true
- *               message:
- *                 type: string
- *                 example: "Manufacturer saved successfully"
- *               manufacturer:
+ *               actionResult:
  *                 type: object
  *                 properties:
- *                   name:
+ *                   success:
+ *                     type: boolean
+ *                     example: true
+ *                   message:
  *                     type: string
- *                     example: "Manufacturer 2"
- *                   shortName:
- *                     type: string
- *                     example: "M 2"
- *                   nip:
- *                     type: string
- *                     example: "9526715082"
- *                   regon:
- *                     type: string
- *                     example: "596281282"
- *                   email:
- *                     type: string
- *                     example: "manufacturer2@example.com"
- *                   www:
- *                     type: string
- *                     example: "http://manufacturer2.com"
- *                   parentManufacturer:
- *                     type: string
- *                     example: "66b07a9381cc43419f1ef856"
- *                   address:
- *                     $ref: '#/components/schemas/Address'
- *                   deletedAt:
- *                     type: string
- *                     example: null
- *                   _id:
- *                     type: string
- *                     example: "66b07b5c81cc43419f1ef85a"
- *                   createdAt:
- *                     type: string
- *                     example: "2024-08-05T07:12:28.732Z"
- *                   updatedAt:
- *                     type: string
- *                     example: "2024-08-05T07:12:28.732Z"
- *                   __v:
+ *                     example: "Manufacturer saved successfully"
+ *                   status:
  *                     type: integer
- *                     example: 0
+ *                     example: 201
+ *                   manufacturer:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                         example: "Manufacturer 2"
+ *                       shortName:
+ *                         type: string
+ *                         example: "M 2"
+ *                       nip:
+ *                         type: string
+ *                         example: "9526715082"
+ *                       regon:
+ *                         type: string
+ *                         example: "596281282"
+ *                       email:
+ *                         type: string
+ *                         example: "manufacturer2@example.com"
+ *                       www:
+ *                         type: string
+ *                         example: "http://manufacturer2.com"
+ *                       parentManufacturer:
+ *                         type: string
+ *                         example: "66b07a9381cc43419f1ef856"
+ *                       address:
+ *                         $ref: '#/components/schemas/Address'
+ *                       deletedAt:
+ *                         type: string
+ *                         example: null
+ *                       _id:
+ *                         type: string
+ *                         example: "66b07b5c81cc43419f1ef85a"
+ *                       createdAt:
+ *                         type: string
+ *                         example: "2024-08-05T07:12:28.732Z"
+ *                       updatedAt:
+ *                         type: string
+ *                         example: "2024-08-05T07:12:28.732Z"
+ *                       __v:
+ *                         type: integer
+ *                         example: 0
  *     ValidationError:
  *       description: Validation failed
  *       content:
@@ -120,6 +131,18 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *           schema:
  *             type: object
  *             properties:
+ *               actionResult:
+ *                 type: object
+ *                 properties:
+ *                   success:
+ *                     type: boolean
+ *                     example: false
+ *                   message:
+ *                     type: string
+ *                     example: "Validation failed"
+ *                   status:
+ *                     type: integer
+ *                     example: 400
  *               errors:
  *                 type: array
  *                 items:
@@ -140,12 +163,6 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *                     location:
  *                       type: string
  *                       example: "body"
- *               message:
- *                 type: string
- *                 example: "Validation failed"
- *               success:
- *                 type: boolean
- *                 example: false
  *     ServerError:
  *       description: Internal server error
  *       content:
@@ -153,18 +170,26 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *           schema:
  *             type: object
  *             properties:
- *               message:
- *                 type: string
- *                 example: "Internal server error"
- *               success:
- *                 type: boolean
- *                 example: false
+ *               actionResult:
+ *                 type: object
+ *                 properties:
+ *                   success:
+ *                     type: boolean
+ *                     example: false
+ *                   message:
+ *                     type: string
+ *                     example: "Internal server error"
+ *                   status:
+ *                     type: integer
+ *                     example: 500
  * /manufacturers:
  *   post:
  *     summary: Create a new manufacturer
  *     description: Create a new manufacturer with the provided details.
  *     tags:
  *       - Manufacturers
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -179,7 +204,6 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-
 const storeManufacturer = async (req, res) => {
     try {
         const manufacturerService = new ManufacturerService();
