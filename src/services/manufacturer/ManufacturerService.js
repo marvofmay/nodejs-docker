@@ -63,8 +63,8 @@ class ManufacturerService {
             const manufacturer = await Manufacturer.findById(manufacturerId);
             if (! manufacturer) {
                 return {
-                    success: true,
-                    message: 'Manufacturer not founded',
+                    success: false,
+                    message: 'Manufacturer not found',
                     status: 400
                 };
             }
@@ -81,7 +81,7 @@ class ManufacturerService {
 
             return {
                 success: true,
-                message: 'Manufacturer marked as deleted successfully.',
+                message: 'Manufacturer marked as deleted successfully',
                 status: 200
             };
         } catch (err) {
@@ -89,7 +89,7 @@ class ManufacturerService {
 
             return {
                 success: false,
-                message: 'Failed to delete manufacturer.',
+                message: 'Failed to delete manufacturer',
                 status: 500
             };
         }

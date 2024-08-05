@@ -59,18 +59,40 @@ class ProductService {
         }
     }
 
-    async deleteProduct (productId) {
+    async deleteProduct (productId, safe = true) {
         try {
-            const result = await Product.findByIdAndDelete(productId, null);
-            if (result) {
-                return { success: true, message: 'Product deleted successfully.' };
-            } else {
-                return { success: false, message: 'Product not found.' };
+            const product = await Product.findById(productId);
+            if (! product) {
+                return {
+                    success: false,
+                    message: 'Product not found',
+                    status: 400
+                };
             }
+
+            if (safe) {
+                await Product.findByIdAndUpdate(
+                    productId,
+                    {deletedAt: new Date()},
+                    {new: true}
+                );
+            } else {
+                await Product.findByIdAndDelete(productId);
+            }
+
+            return {
+                success: true,
+                message: 'Product marked as deleted successfully',
+                status: 200
+            };
         } catch (err) {
             console.error(err);
 
-            throw new Error('Failed to delete product.');
+            return {
+                success: false,
+                message: 'Failed to delete product',
+                status: 500
+            };
         }
     }
 }

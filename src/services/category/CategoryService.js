@@ -47,8 +47,8 @@ class CategoryService {
             const category = await Category.findById(categoryId);
             if (! category) {
                 return {
-                    success: true,
-                    message: 'Category not founded',
+                    success: false,
+                    message: 'Category not found',
                     status: 400
                 };
             }

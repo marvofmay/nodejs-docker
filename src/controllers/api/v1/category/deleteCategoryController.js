@@ -49,8 +49,8 @@ const CategoryService = require('../../../../services/category/CategoryService')
  *         - actionResult
  *       example:
  *         actionResult:
- *           success: true
- *           message: "Category not founded"
+ *           success: false
+ *           message: "Category not found"
  *           status: 400
  *     DeleteCategoryResponse500:
  *       type: object

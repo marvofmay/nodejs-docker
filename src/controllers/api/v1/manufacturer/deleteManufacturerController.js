@@ -38,7 +38,7 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *       example:
  *         actionResult:
  *           success: true
- *           message: "Manufacturer marked as deleted successfully."
+ *           message: "Manufacturer marked as deleted successfully"
  *           status: 200
  *     DeleteManufacturerResponse400:
  *       type: object
@@ -49,8 +49,8 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *         - actionResult
  *       example:
  *         actionResult:
- *           success: true
- *           message: "Manufacturer not founded"
+ *           success: false
+ *           message: "Manufacturer not found"
  *           status: 400
  *     DeleteManufacturerResponse500:
  *       type: object
