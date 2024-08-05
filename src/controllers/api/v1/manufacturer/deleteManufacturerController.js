@@ -15,44 +15,34 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *         success:
  *           type: boolean
  *           description: Indicates whether the operation was successful
+ *           example: true
  *         message:
  *           type: string
  *           description: A message about the result of the delete operation
+ *           example: 'Manufacturer marked as deleted successfully.'
  *         status:
  *           type: integer
  *           description: HTTP status code of the response
- *       required:
- *         - success
- *         - message
- *         - status
- *       example:
- *         success: true
- *         message: 'Manufacturer marked as deleted successfully.'
- *         status: 200
+ *           example: 200
  *     ErrorResponse:
  *       type: object
  *       properties:
  *         success:
  *           type: boolean
  *           description: Indicates whether the operation was successful
+ *           example: false
  *         message:
  *           type: string
  *           description: A message about the result of the delete operation
+ *           example: 'Failed to delete Manufacturer.'
  *         status:
  *           type: integer
  *           description: HTTP status code of the response
- *       required:
- *         - success
- *         - message
- *         - status
- *       example:
- *         success: false
- *         message: 'Failed to delete Manufacturer.'
- *         status: 500
+ *           example: 500
  * /manufacturers:
  *   delete:
  *     summary: Delete or mark a manufacturer as deleted
- *     description: Deletes a manufacturer by ID. If `safe` is set to true, it will mark the manufacturer as deleted by setting the `deletedAt` field to the current date, instead of actually deleting it.
+ *     description: Deletes a manufacturer by ID.
  *     tags:
  *       - Manufacturers
  *     security:
@@ -68,6 +58,8 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *                 type: string
  *                 description: The ID of the manufacturer to delete
  *                 example: "66af7de14ae3695a0655cf4"
+ *             required:
+ *               - id
  *     responses:
  *       200:
  *         description: Manufacturer successfully marked as deleted or deleted
@@ -75,6 +67,12 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/DeleteResponse'
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Internal server error
  *         content:
