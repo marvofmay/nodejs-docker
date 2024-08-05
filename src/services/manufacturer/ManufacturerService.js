@@ -18,16 +18,16 @@ class ManufacturerService {
             if (result) {
                 return {
                     success: true,
-                    message: 'Manufacturer saved successfully.',
+                    message: 'Manufacturer saved successfully',
                     manufacturer: result,
                 };
             } else {
-                return { success: false, message: 'Manufacturer not saved.' };
+                return { success: false, message: 'Manufacturer not saved' };
             }
         } catch (error) {
             console.error(error);
 
-            throw new Error('Failed to create Manufacturer.');
+            throw new Error('Failed to create Manufacturer');
         }
     }
 
@@ -54,7 +54,7 @@ class ManufacturerService {
         } catch (err) {
             console.error(err);
 
-            throw new Error('Failed to update manufacturer.');
+            throw new Error('Failed to update manufacturer');
         }
     }
 
@@ -64,7 +64,7 @@ class ManufacturerService {
             if (! manufacturer) {
                 return {
                     success: true,
-                    message: 'Manufacturer not founded.',
+                    message: 'Manufacturer not founded',
                     status: 400
                 };
             }

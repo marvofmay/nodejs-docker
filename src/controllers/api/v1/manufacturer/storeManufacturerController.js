@@ -71,7 +71,7 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *                 example: true
  *               message:
  *                 type: string
- *                 example: "Manufacturer saved successfully."
+ *                 example: "Manufacturer saved successfully"
  *               manufacturer:
  *                 type: object
  *                 properties:

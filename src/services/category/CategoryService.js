@@ -10,14 +10,14 @@ class CategoryService {
             const result = await category.save();
 
             if (result) {
-                return { success: true, message: 'Category saved successfully.', category: result };
+                return { success: true, message: 'Category saved successfully', category: result };
             } else {
-                return { success: false, message: 'Category not saved.' };
+                return { success: false, message: 'Category not saved' };
             }
         } catch (error) {
             console.error(error);
 
-            throw new Error('Failed to create category.');
+            throw new Error('Failed to create category');
         }
     }
 
@@ -38,7 +38,7 @@ class CategoryService {
         } catch (err) {
             console.error(err);
 
-            throw new Error('Failed to update category.');
+            throw new Error('Failed to update category');
         }
     }
 
@@ -48,7 +48,7 @@ class CategoryService {
             if (! category) {
                 return {
                     success: true,
-                    message: 'Category not founded.',
+                    message: 'Category not founded',
                     status: 400
                 };
             }
@@ -65,7 +65,7 @@ class CategoryService {
 
             return {
                 success: true,
-                message: 'Category marked as deleted successfully.',
+                message: 'Category marked as deleted successfully',
                 status: 200
             };
         } catch (err) {
@@ -73,7 +73,7 @@ class CategoryService {
 
             return {
                 success: false,
-                message: 'Failed to delete category.',
+                message: 'Failed to delete category',
                 status: 500
             };
         }

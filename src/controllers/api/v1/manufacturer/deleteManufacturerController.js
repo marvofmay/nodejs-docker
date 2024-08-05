@@ -19,7 +19,7 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *         message:
  *           type: string
  *           description: A message about the result of the delete operation
- *           example: 'Manufacturer marked as deleted successfully.'
+ *           example: 'Manufacturer marked as deleted successfully'
  *         status:
  *           type: integer
  *           description: HTTP status code of the response
@@ -34,7 +34,7 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *         message:
  *           type: string
  *           description: A message about the result of the delete operation
- *           example: 'Failed to delete manufacturer.'
+ *           example: 'Failed to delete manufacturer'
  *         status:
  *           type: integer
  *           description: HTTP status code of the response
@@ -42,7 +42,7 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  * /manufacturers:
  *   delete:
  *     summary: Delete or mark a manufacturer as deleted
- *     description: Deletes a manufacturer by ID.
+ *     description: Deletes a manufacturer by ID
  *     tags:
  *       - Manufacturers
  *     security:
