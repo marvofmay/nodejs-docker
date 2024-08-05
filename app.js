@@ -62,7 +62,7 @@ const initializeApp = async () => {
             cookie: {
                 secure: false,
                 httpOnly: false,
-                maxAge: 1000 * 60 * 10
+                maxAge: 1000 * 60 * 60
             }
         }));
 
