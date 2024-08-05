@@ -12,6 +12,7 @@ const storeCategory = async (req, res) => {
             return res.status(400).json({
                 errors: errors.array(),
                 message: 'Validation failed',
+                success: false,
             });
         }
         const createResult = await categoryService.createCategory(createCategoryDTO);

@@ -17,7 +17,11 @@ class ManufacturerService {
             const result = await manufacturer.save();
 
             if (result) {
-                return { success: true, message: 'Manufacturer saved successfully.' };
+                return {
+                    success: true,
+                    message: 'Manufacturer saved successfully.',
+                    manufacturer: result,
+                };
             } else {
                 return { success: false, message: 'Manufacturer not saved.' };
             }
