@@ -17,6 +17,7 @@ const options = {
     apis: [
         './src/controllers/api/v1/category/*.js',
         './src/controllers/api/v1/manufacturer/*.js',
+        './src/controllers/api/v1/product/*.js',
         //'./src/controllers/api/v2/category/*.js',
     ],
 };

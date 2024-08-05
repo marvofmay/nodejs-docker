@@ -9,21 +9,28 @@ const isInteger = (value) => {
 };
 
 const isEAN = (value) => {
-    if (value.length !== 13 || isNaN(value)) {
-        throw new Error('EAN must be a 13-digit number.');
+    // Sprawdź, czy wartość jest dokładnie 13-cyfrowa
+    if (value.length !== 13 || !/^\d{13}$/.test(value)) {
+        throw new Error('Invalid EAN-13 code format. Must be exactly 13 digits.');
     }
 
-    let sum = 0;
-    for (let i = 0; i < 12; i++) {
-        sum += parseInt(value[i]) * (i % 2 === 0 ? 1 : 3);
+    // Oddziel cyfrę kontrolną od pozostałych 12 cyfr
+    const digits = value.split('').map(Number);
+    const digitsWithoutChecksum = digits.slice(0, 12);
+    const checksumProvided = digits[12];
+
+    // Oblicz sumę kontrolną
+    const oddSum = digitsWithoutChecksum.filter((_, i) => i % 2 === 0).reduce((acc, digit) => acc + digit, 0);
+    const evenSum = digitsWithoutChecksum.filter((_, i) => i % 2 !== 0).reduce((acc, digit) => acc + digit, 0) * 3;
+    const totalSum = oddSum + evenSum;
+    const calculatedChecksum = (10 - (totalSum % 10)) % 10;
+
+    // Sprawdź, czy obliczona suma kontrolna pasuje do podanej
+    if (calculatedChecksum !== checksumProvided) {
+        throw new Error('Invalid EAN-13 checksum. The provided code is incorrect.');
     }
 
-    const checksum = (10 - (sum % 10)) % 10;
-    if (checksum !== parseInt(value[12])) {
-        throw new Error('Invalid EAN checksum.');
-    }
-
-    return true;
+    return true; // Kod EAN-13 jest poprawny
 };
 
 const isEANExists = async (ean, { req }) => {

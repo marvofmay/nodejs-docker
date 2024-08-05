@@ -1,6 +1,7 @@
 const productApiV1Repository = require('../../../../repositories/api/v1/product/repository');
 const productTransformer = require("../../../../repositories/api/v1/product/transformer/productTransformer");
 
+
 const getProductById = async (req, res) => {
     try {
         let product = await productApiV1Repository.getProductById(req);
