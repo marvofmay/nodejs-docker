@@ -115,7 +115,6 @@ const CategoryService = require('../../../../services/category/CategoryService')
  *       400:
  *         $ref: '#/components/responses/ValidationError'
  */
-
 const storeCategory = async (req, res) => {
     try {
         const categoryService = new CategoryService();

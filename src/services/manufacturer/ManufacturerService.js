@@ -1,5 +1,4 @@
 const Manufacturer = require('../../models/manufacturer');
-const mongoose = require('mongoose');
 
 class ManufacturerService {
     async createManufacturer(createManufacturerDTO) {
@@ -61,22 +60,38 @@ class ManufacturerService {
 
     async deleteManufacturer (manufacturerId, safe = true) {
         try {
-            let result = null;
+            const manufacturer = await Manufacturer.findById(manufacturerId);
+            if (! manufacturer) {
+                return {
+                    success: true,
+                    message: 'Manufacturer not founded.',
+                    status: 400
+                };
+            }
+
             if (safe) {
-                result = await Manufacturer.findByIdAndUpdate(
+                await Manufacturer.findByIdAndUpdate(
                     manufacturerId,
                     {deletedAt: new Date()},
                     {new: true}
                 );
             } else {
-                result = await Manufacturer.findByIdAndDelete(manufacturerId);
+                await Manufacturer.findByIdAndDelete(manufacturerId);
             }
 
-            return {success: true, message: 'Manufacturer marked as deleted successfully.', status: 200};
+            return {
+                success: true,
+                message: 'Manufacturer marked as deleted successfully.',
+                status: 200
+            };
         } catch (err) {
             console.error(err);
 
-            return {success: false, message: 'Failed to delete Manufacturer.', status: 500};
+            return {
+                success: false,
+                message: 'Failed to delete manufacturer.',
+                status: 500
+            };
         }
     }
 }

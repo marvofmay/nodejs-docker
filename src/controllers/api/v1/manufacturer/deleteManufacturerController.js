@@ -34,7 +34,7 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *         message:
  *           type: string
  *           description: A message about the result of the delete operation
- *           example: 'Failed to delete Manufacturer.'
+ *           example: 'Failed to delete manufacturer.'
  *         status:
  *           type: integer
  *           description: HTTP status code of the response
