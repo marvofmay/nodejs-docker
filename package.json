@@ -4,8 +4,10 @@
   "description": "a nodejs api",
   "main": "app.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha './src/test/api/v1/**/*.test.js' --timeout 10000",
-    "start": "node app.js"
+    "start:dev": "nodemon src/app.js",
+    "start:test": "nodemon src/app.js",
+    "start:prod": "nodemon src/app.js",
+    "test": "NODE_ENV=test mocha './src/test/api/v1/**/*.test.js'"
   },
   "repository": {
     "type": "git",

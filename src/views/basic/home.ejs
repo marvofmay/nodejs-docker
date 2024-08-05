@@ -5,6 +5,14 @@
         <div class="content">
             <h2>Home</h2>
             <hr />
+                <% if (env === 'development') { %>
+                <p><strong>You are in the development environment.</strong></p>
+                <% } else if (env === 'test') { %>
+                    <p><strong>You are in the test environment.</strong></p>
+                <% } else if (env === 'production') { %>
+                <p><strong>You are in the production environment.</strong></p>
+                <% } %>
+            <br />
             <p>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                 Quia quibusdam quaerat illo a modi tenetur ut blanditiis,

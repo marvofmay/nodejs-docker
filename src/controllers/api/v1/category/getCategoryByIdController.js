@@ -5,7 +5,7 @@ const categoryApiV1Repository = require('../../../../repositories/api/v1/categor
  * /categories/{id}:
  *   get:
  *     summary: Get category by ID
- *     tags: [Category]
+ *     tags: [Categories]
  *     parameters:
  *       - in: path
  *         name: id

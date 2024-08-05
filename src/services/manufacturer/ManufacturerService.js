@@ -1,5 +1,4 @@
 const Manufacturer = require('../../models/manufacturer');
-const Category = require("../../models/category");
 
 class ManufacturerService {
     async createManufacturer(createManufacturerDTO) {
@@ -17,14 +16,18 @@ class ManufacturerService {
             const result = await manufacturer.save();
 
             if (result) {
-                return { success: true, message: 'Manufacturer saved successfully.' };
+                return {
+                    success: true,
+                    message: 'Manufacturer saved successfully',
+                    manufacturer: result,
+                };
             } else {
-                return { success: false, message: 'Manufacturer not saved.' };
+                return { success: false, message: 'Manufacturer not saved' };
             }
         } catch (error) {
             console.error(error);
 
-            throw new Error('Failed to create Manufacturer.');
+            throw new Error('Failed to create Manufacturer');
         }
     }
 
@@ -51,22 +54,44 @@ class ManufacturerService {
         } catch (err) {
             console.error(err);
 
-            throw new Error('Failed to update manufacturer.');
+            throw new Error('Failed to update manufacturer');
         }
     }
 
-    async deleteManufacturer (manufacturerId) {
+    async deleteManufacturer (manufacturerId, safe = true) {
         try {
-            const result = await Manufacturer.findByIdAndDelete(manufacturerId);
-            if (result) {
-                return { success: true, message: 'Manufacturer deleted successfully.' };
-            } else {
-                return { success: false, message: 'Manufacturer not found.' };
+            const manufacturer = await Manufacturer.findById(manufacturerId);
+            if (! manufacturer) {
+                return {
+                    success: true,
+                    message: 'Manufacturer not founded',
+                    status: 400
+                };
             }
+
+            if (safe) {
+                await Manufacturer.findByIdAndUpdate(
+                    manufacturerId,
+                    {deletedAt: new Date()},
+                    {new: true}
+                );
+            } else {
+                await Manufacturer.findByIdAndDelete(manufacturerId);
+            }
+
+            return {
+                success: true,
+                message: 'Manufacturer marked as deleted successfully.',
+                status: 200
+            };
         } catch (err) {
             console.error(err);
 
-            throw new Error('Failed to delete Manufacturer.');
+            return {
+                success: false,
+                message: 'Failed to delete manufacturer.',
+                status: 500
+            };
         }
     }
 }

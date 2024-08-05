@@ -10,21 +10,21 @@ describe('Authentication and Category Test', function() {
     let token = '';
 
     before(function(done) {
-        // Zaloguj się, aby uzyskać token
         agent
             .post('/api/v1/sessions/login')
             .send({ login: 'test@example.com', password: 'myPassword123$%&' })
             .end((err, res) => {
                 if (err) {
                     console.error('Login request failed:', err);
+
                     return done(err);
                 }
                 res.should.have.status(200);
                 res.body.should.have.property('actionResult');
                 res.body.actionResult.should.have.property('user');
-                res.body.actionResult.user.should.have.property('token'); // Sprawdź, czy token jest obecny
-                token = res.body.actionResult.user.token; // Zapisz token
-                console.log('Token obtained:', token); // Dodaj logowanie tokenu
+                res.body.actionResult.user.should.have.property('token');
+                token = res.body.actionResult.user.token;
+
                 done();
             });
     });
@@ -32,7 +32,7 @@ describe('Authentication and Category Test', function() {
     it('should create a new category', function(done) {
         agent
             .post('/api/v1/categories')
-            .set('Authorization', `Bearer ${token}`) // Dodaj token do nagłówka
+            .set('Authorization', `Bearer ${token}`)
             .send({ name: newCategoryName })
             .end((err, res) => {
                 if (err) {
@@ -59,7 +59,7 @@ describe('Authentication and Category Test', function() {
     it('should not allow duplicate category names', function(done) {
         agent
             .post('/api/v1/categories')
-            .set('Authorization', `Bearer ${token}`) // Dodaj token do nagłówka
+            .set('Authorization', `Bearer ${token}`)
             .send({ name: newCategoryName })
             .end((err, res) => {
                 if (err) {
