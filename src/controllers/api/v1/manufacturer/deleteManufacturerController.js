@@ -9,7 +9,7 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *       scheme: bearer
  *       bearerFormat: JWT
  *   schemas:
- *     DeleteResponse:
+ *     ActionResult:
  *       type: object
  *       properties:
  *         success:
@@ -19,30 +19,55 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *         message:
  *           type: string
  *           description: A message about the result of the delete operation
- *           example: 'Manufacturer marked as deleted successfully'
+ *           example: "Manufacturer marked as deleted successfully."
  *         status:
  *           type: integer
  *           description: HTTP status code of the response
  *           example: 200
- *     ErrorResponse:
+ *       required:
+ *         - success
+ *         - message
+ *         - status
+ *     DeleteManufacturerResponse200:
  *       type: object
  *       properties:
- *         success:
- *           type: boolean
- *           description: Indicates whether the operation was successful
- *           example: false
- *         message:
- *           type: string
- *           description: A message about the result of the delete operation
- *           example: 'Failed to delete manufacturer'
- *         status:
- *           type: integer
- *           description: HTTP status code of the response
- *           example: 500
+ *         actionResult:
+ *           $ref: '#/components/schemas/ActionResult'
+ *       required:
+ *         - actionResult
+ *       example:
+ *         actionResult:
+ *           success: true
+ *           message: "Manufacturer marked as deleted successfully."
+ *           status: 200
+ *     DeleteManufacturerResponse400:
+ *       type: object
+ *       properties:
+ *         actionResult:
+ *           $ref: '#/components/schemas/ActionResult'
+ *       required:
+ *         - actionResult
+ *       example:
+ *         actionResult:
+ *           success: true
+ *           message: "Manufacturer not founded"
+ *           status: 400
+ *     DeleteManufacturerResponse500:
+ *       type: object
+ *       properties:
+ *         actionResult:
+ *           $ref: '#/components/schemas/ActionResult'
+ *       required:
+ *         - actionResult
+ *       example:
+ *         actionResult:
+ *           success: false
+ *           message: "Failed to delete manufacturer"
+ *           status: 500
  * /manufacturers:
  *   delete:
- *     summary: Delete or mark a manufacturer as deleted
- *     description: Deletes a manufacturer by ID
+ *     summary: Delete a manufacturer
+ *     description: Deletes a manufacturer by its ID.
  *     tags:
  *       - Manufacturers
  *     security:
@@ -57,28 +82,28 @@ const ManufacturerService = require('../../../../services/manufacturer/Manufactu
  *               id:
  *                 type: string
  *                 description: The ID of the manufacturer to delete
- *                 example: "66af7de14ae3695a0655cf4"
+ *                 example: "66b08e5be6b7d0ab8547ce71"
  *             required:
  *               - id
  *     responses:
  *       200:
- *         description: Manufacturer successfully marked as deleted or deleted
+ *         description: Manufacturer successfully marked as deleted
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/DeleteResponse'
+ *               $ref: '#/components/schemas/DeleteManufacturerResponse200'
  *       400:
- *         description: Bad Request
+ *         description: Bad Request - Manufacturer not found or invalid request
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/DeleteManufacturerResponse400'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/DeleteManufacturerResponse500'
  */
 const deleteManufacturer = async (req, res) => {
     try {
