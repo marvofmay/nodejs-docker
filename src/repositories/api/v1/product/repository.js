@@ -1,5 +1,6 @@
 const Product = require("../../../../models/product");
 const DateUtility = require("../../../../utility/DateUtility");
+const {isNull} = require("lodash/lang");
 
 const getProducts = async (params) =>
 {
@@ -44,22 +45,30 @@ const getProductById = async (req) => {
     const { manufacturer, categories, photos } = req.query;
 
     const populateOptions = [];
-    if (manufacturer === 'true') populateOptions.push('manufacturer');
-    if (categories === 'true') populateOptions.push('categories');
-    if (photos === 'true') populateOptions.push('photos');
 
-    let productQuery = Product.findById(id);
+    if (manufacturer === 'true') {
+        populateOptions.push('manufacturer');
+    }
+    if (categories === 'true') {
+        populateOptions.push('categories');
+    }
+    if (photos === 'true') {
+        populateOptions.push('photos');
+    }
+
+    let productQuery = await Product.findById(id);
+
+    if (productQuery === null) {
+        return productQuery;
+    }
+
     populateOptions.forEach(option => {
         productQuery = productQuery.populate(option);
     });
 
     const product = await productQuery;
 
-    if (! product) {
-        throw new Error('Product not found');
-    }
-
-    const data = {
+    return data = {
         name: product.name,
         description: product.description,
         ean: product.ean,
@@ -74,8 +83,6 @@ const getProductById = async (req) => {
         updatedAt: DateUtility.formatDateYmdHis(product.updatedAt),
         deletedAt: product.deletedAt ? DateUtility.formatDateYmdHis(product.deletedAt) : null,
     };
-
-    return data;
 }
 
 module.exports = {
