@@ -1,5 +1,6 @@
 const ProductService = require('../../../../services/product/ProductService');
 
+
 const deleteProduct = async (req, res) => {
     try {
         const { id } = req.body;
