@@ -3,7 +3,7 @@ const getProductsController = require('../../../../controllers/api/v1/product/ge
 const getProductByIdController = require('../../../../controllers/api/v1/product/getProductByIdController');
 const { authenticateJwt } = require("../../../../middleware/auth");
 const deleteProductController = require("../../../../controllers/api/v1/product/deleteProductController");
-const {createProductValidator} = require("../../../../validators/product/createProductValidators");
+const { createProductValidator } = require("../../../../validators/product/createProductValidators");
 const storeProductController = require("../../../../controllers/api/v1/product/storeProductController");
 
 const router = express.Router();
