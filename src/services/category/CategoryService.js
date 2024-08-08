@@ -10,9 +10,16 @@ class CategoryService {
             const result = await category.save();
 
             if (result) {
-                return { success: true, message: 'Category saved successfully', category: result };
+                return {
+                    success: true,
+                    message: 'Category saved successfully',
+                    category: result
+                };
             } else {
-                return { success: false, message: 'Category not saved' };
+                return {
+                    success: false,
+                    message: 'Category not saved'
+                };
             }
         } catch (error) {
             console.error(error);
