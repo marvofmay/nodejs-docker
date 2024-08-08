@@ -29,10 +29,12 @@ const productSchema = new Schema({
     manufacturer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Manufacturer',
+        required: true,
     },
     categories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
+        required: true,
     }],
     photos: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -46,6 +48,7 @@ const productSchema = new Schema({
     deletedAt: {
         type: Date,
         default: null,
+        required: false,
     },
 }, { timestamps: true });
 

@@ -58,6 +58,7 @@ const createProductValidator = [
         .isNumeric().withMessage('Price must be a number.'),
     body('vat')
         .trim()
+        .notEmpty().withMessage('VAT is required.')
         .custom(isInteger),
     body('bonusPercent')
         .optional()
