@@ -23,14 +23,12 @@ const storeProduct = async (req, res) => {
         const productService = new ProductService();
         const photoService = new PhotoService();
 
-        // Sprawdź błędy walidacji
         if (!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array()
             });
         }
 
-        // Obsługuje przesyłanie plików
         let photos = [];
         if (req.files) {
             for (const { originalname, encoding, mimetype, buffer, size } of req.files) {
@@ -40,11 +38,9 @@ const storeProduct = async (req, res) => {
             }
         }
 
-        // Ustaw DTO produktu z identyfikatorami zdjęć
         createProductDTO = new CreateProductDTO(req.body, photos);
         const createResult = await productService.createProduct(createProductDTO);
 
-        // Zwróć odpowiedź JSON
         return res.status(201).json({
             message: 'Product created successfully',
             product: createResult

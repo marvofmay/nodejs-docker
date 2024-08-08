@@ -62,7 +62,7 @@ const initializeApp = async () => {
             cookie: {
                 secure: false,
                 httpOnly: false,
-                maxAge: 1000 * 60 * 10
+                maxAge: 1000 * 60 * 60
             }
         }));
 
@@ -95,7 +95,7 @@ const initializeApp = async () => {
         app.use('/logout', ensureAuthenticated, logoutRoutes);
         app.use('/', errorRoutes);
 
-        return app; // Zwracanie instancji aplikacji
+        return app;
     } catch (error) {
         console.error('Failed to initialize app:', error);
     }
@@ -103,7 +103,6 @@ const initializeApp = async () => {
 
 module.exports = initializeApp;
 
-// Initialize the app for production
 if (require.main === module) {
     initializeApp().then(app => {
         app.listen(PORT, () => {
