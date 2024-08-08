@@ -41,10 +41,7 @@ const storeProduct = async (req, res) => {
         createProductDTO = new CreateProductDTO(req.body, photos);
         const createResult = await productService.createProduct(createProductDTO);
 
-        return res.status(201).json({
-            message: 'Product created successfully',
-            product: createResult
-        });
+        return res.status(201).json(createResult);
 
     } catch (error) {
         return res.status(500).json({

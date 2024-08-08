@@ -18,9 +18,16 @@ class ProductService {
             const result = await product.save();
 
             if (result) {
-                return { success: true, message: 'Product saved successfully' };
+                return {
+                    success: true,
+                    message: 'Product saved successfully',
+                    product: result,
+                };
             } else {
-                return { success: false, message: 'Product not saved' };
+                return {
+                    success: false,
+                    message: 'Product not saved'
+                };
             }
         } catch (error) {
             console.error(error);
