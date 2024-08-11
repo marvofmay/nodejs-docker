@@ -42,12 +42,18 @@ const login = async (req, res, next) => {
                     action: 'Send login form',
                     user: user,
                     errors: [],
-                    actionResult: { success: true, message: 'Logged in successfully' }
+                    actionResult: {
+                        success: true,
+                        message: 'Logged in successfully'
+                    }
                 });
             });
         })(req, res, next);
     } catch (error) {
-        res.render('error/error', { title: 'error', message: error.message });
+        res.render('error/error', {
+            title: 'error',
+            message: error.message
+        });
     }
 }
 

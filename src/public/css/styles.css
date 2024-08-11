@@ -49,11 +49,8 @@ h3 {
     text-transform: capitalize;
     margin-bottom: 8px;
 }
-.content {
-    margin-left: 20px;
-}
 a {
-    margin: 40px 0;
+    margin: 5px 0;
     padding-left: 30px;
 }
 a:hover h3 {
@@ -98,4 +95,13 @@ th.column-id {
 th.column-action {
     width: 15em;
     text-align: center;
+}
+.nav-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.dropdown-toggle::after {
+    display: none; /* Ukrywa caret */
 }
