@@ -12,6 +12,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./src/config/swagger');
 const dotenv = require('dotenv');
 const expressLayouts = require('express-ejs-layouts');
+const DateUtility = require('./src/utility/DateUtility');
 
 // Import routes
 const basicRoutes = require('./src/routes/basicRoutes');
@@ -47,6 +48,7 @@ app.set('layout', 'layouts/layout');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.locals.formatDateYmdHis = DateUtility.formatDateYmdHis;
 
 const initializeApp = async () => {
     try {

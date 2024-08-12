@@ -31,6 +31,21 @@
                         name
                         <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="name"></i>
                     </th>
+                    <th>
+                        <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="createdAt"></i>
+                        created at
+                        <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="createdAt"></i>
+                    </th>
+                    <th>
+                        <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="updatedAt"></i>
+                        updated at
+                        <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="updatedAt"></i>
+                    </th>
+                    <th>
+                        <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="deletedAt"></i>
+                        deleted at
+                        <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="deletedAt"></i>
+                    </th>
                     <th class="column-action">action</th>
                 </tr>
             <% let index = 1; %>
@@ -38,6 +53,9 @@
                 <tr>
                     <td><%= index + (page - 1) * pagesLimit %></td>
                     <td><%= category.name %></td>
+                    <td><%= category.createdAt ? formatDateYmdHis(category.createdAt) : '---' %></td>
+                    <td><%= category.updatedAt ? formatDateYmdHis(category.updatedAt) : '---' %></td>
+                    <td><%= category.deletedAt ? formatDateYmdHis(category.deletedAt) : '---' %></td>
                     <td>
                         <a href="/categories/info/<%= category._id %>">
                             <i class="bi bi-info-circle"></i>
