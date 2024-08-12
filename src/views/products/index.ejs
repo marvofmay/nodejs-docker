@@ -1,101 +1,94 @@
-<html lang="en">
-    <%- include("../shared/header.ejs") %>
-    <body>
-    <%- include("../shared/navigation.ejs") %>
-    <div class="content" id="content-product-list">
+ <div class="content" id="content-product-list">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Products</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <%- include("../shared/message.ejs") %>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="filter-phrase" value="<%= phraseToSearch %>">
+        </div>
+
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-2 text-end">
+            <a class="btn btn-success" href="/products/create">add new product</a>
+        </div>
+    </div>
+    <% if (products.length > 0) { %>
         <div class="row">
             <div class="col-md-12">
-                <h2>Products</h2>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-12">
-                <%- include("../shared/message.ejs") %>
-            </div>
-        </div>
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <input type="text" class="form-control" id="filter-phrase" value="<%= phraseToSearch %>">
-            </div>
-
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-2 text-end">
-                <a class="btn btn-success" href="/products/create">add new product</a>
-            </div>
-        </div>
-        <% if (products.length > 0) { %>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-hover">
+                <table class="table table-hover">
+                    <tr>
+                        <th class="column-id">#</th>
+                        <th>
+                            <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="name"></i>
+                            name
+                            <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="name"></i>
+                        </th>
+                        <th class="column-action">action</th>
+                    </tr>
+                    <% let index = 1; %>
+                    <% products.forEach(product => { %>
                         <tr>
-                            <th class="column-id">#</th>
-                            <th>
-                                <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="name"></i>
-                                name
-                                <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="name"></i>
-                            </th>
-                            <th class="column-action">action</th>
+                            <td><%= index + (page - 1) * pagesLimit %></td>
+                            <td><%= product.name %></td>
+                            <td>
+                                <a href="/products/info/<%= product._id %>">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a href="/products/pdf/<%= product._id %>">
+                                    <i class="bi bi-file-pdf"></i>
+                                </a>
+                                <a href="/products/edit/<%= product._id %>">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a class="btn-delete btn-delete-product"
+                                   data-product-id="<%= product._id %>"
+                                   data-product-name="<%= product.name %>"
+                                >
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
                         </tr>
-                        <% let index = 1; %>
-                        <% products.forEach(product => { %>
-                            <tr>
-                                <td><%= index + (page - 1) * pagesLimit %></td>
-                                <td><%= product.name %></td>
-                                <td>
-                                    <a href="/products/info/<%= product._id %>">
-                                        <i class="bi bi-info-circle"></i>
-                                    </a>
-                                    <a href="/products/pdf/<%= product._id %>">
-                                        <i class="bi bi-file-pdf"></i>
-                                    </a>
-                                    <a href="/products/edit/<%= product._id %>">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a class="btn-delete btn-delete-product"
-                                       data-product-id="<%= product._id %>"
-                                       data-product-name="<%= product.name %>"
-                                    >
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <% index++; %>
-                        <% }) %>
-                    </table>
-                    <div class="row">
-                        <div class="col-5">
-                            <%- include("../shared/pagination.ejs") %>
-                        </div>
-                        <div class="col-3">
-                            <div class="mt-2 d-flex">total results: <%= allResults %></div>
-                        </div>
-                        <div class="col-4">
-                            <div class="row">
-                                <label class="text-end col-sm-9 col-form-label">on page:</label>
-                                <div class="col-sm-3">
-                                    <select id="select-limit-on-page" class="form-control">
-                                        <option value="2" <% if (parseInt(pagesLimit) === 2) { %> selected="selected" <% } %> >2</option>
-                                        <option value="5" <% if (parseInt(pagesLimit) === 5) { %> selected="selected" <% } %> >5</option>
-                                        <option value="10" <% if (parseInt(pagesLimit) === 10) { %> selected="selected" <% } %> >10</option>
-                                        <option value="50" <% if (parseInt(pagesLimit) === 50) { %> selected="selected" <% } %> >50</option>
-                                        <option value="100" <% if (parseInt(pagesLimit) === 100) { %> selected="selected" <% } %> >100</option>
-                                    </select>
-                                </div>
+                        <% index++; %>
+                    <% }) %>
+                </table>
+                <div class="row">
+                    <div class="col-5">
+                        <%- include("../shared/pagination.ejs") %>
+                    </div>
+                    <div class="col-3">
+                        <div class="mt-2 d-flex">total results: <%= allResults %></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <label class="text-end col-sm-9 col-form-label">on page:</label>
+                            <div class="col-sm-3">
+                                <select id="select-limit-on-page" class="form-control">
+                                    <option value="2" <% if (parseInt(pagesLimit) === 2) { %> selected="selected" <% } %> >2</option>
+                                    <option value="5" <% if (parseInt(pagesLimit) === 5) { %> selected="selected" <% } %> >5</option>
+                                    <option value="10" <% if (parseInt(pagesLimit) === 10) { %> selected="selected" <% } %> >10</option>
+                                    <option value="50" <% if (parseInt(pagesLimit) === 50) { %> selected="selected" <% } %> >50</option>
+                                    <option value="100" <% if (parseInt(pagesLimit) === 100) { %> selected="selected" <% } %> >100</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <% } else { %>
-            <p>There are no products to display...</p>
-        <% } %>
-    </div>
-    <%- include("../shared/footer.ejs") %>
-    <link rel="stylesheet" href="/@sweetalert2/theme-bootstrap-4/bootstrap-4.css">
-    <script src="/sweetalert2/dist/sweetalert2.min.js"></script>
-    <script src="/sweetalert2/dist/sweetalert2.all.js"></script>
-    <script src="/products/js/index.js"></script>
-    </body>
-</html>
+        </div>
+    <% } else { %>
+        <p>There are no products to display...</p>
+    <% } %>
+</div>
+<link rel="stylesheet" href="/@sweetalert2/theme-bootstrap-4/bootstrap-4.css">
+<script src="/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="/sweetalert2/dist/sweetalert2.all.js"></script>
+<script src="/products/js/index.js"></script>

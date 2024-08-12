@@ -1,84 +1,76 @@
-<html lang="en">
-    <%- include("../shared/header.ejs") %>
-    <body>
-        <%- include("../shared/navigation.ejs") %>
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                <h2><%= title %> | <%= action %></h2>
-                <button class="btn btn-secondary btn-back">back</button>
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-between align-items-center">
+        <h2><%= title %> | <%= action %></h2>
+        <button class="btn btn-secondary btn-back">back</button>
+    </div>
+</div>
+<hr />
+<div class="info-product content" id="info-product-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-end">
+                <a href="/products/pdf/<%= product._id %>">
+                    <i class="bi bi-file-pdf"></i>
+                </a>
+                <a class="btn-edit-product" href="/products/edit/<%= product._id %>">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <a
+                    class="btn-delete btn-delete-product"
+                    data-product-id="<%= product._id %>"
+                    data-product-name="<%= product.name %>"
+                >
+                    <i class="bi bi-trash3-fill"></i>
+                </a>
             </div>
         </div>
-        <hr />
-        <div class="info-product content" id="info-product-content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-end">
-                        <a href="/products/pdf/<%= product._id %>">
-                            <i class="bi bi-file-pdf"></i>
-                        </a>
-                        <a class="btn-edit-product" href="/products/edit/<%= product._id %>">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a
-                            class="btn-delete btn-delete-product"
-                            data-product-id="<%= product._id %>"
-                            data-product-name="<%= product.name %>"
-                        >
-                            <i class="bi bi-trash3-fill"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <p>EAN: <%= product.ean %></p>
-                    <p>Description: <%= product.description !== '' ? product.description : '---'; %></p>
-                    <p>Price (netto): <%= product.price %></p>
-                    <p>VAT: <%= product.vat %>%</p>
-                    <p>Bonus price: <%= product.bonusPercent %>%</p>
-                    <p>Manufacturer: <%= product.manufacturer[0]?.name ?? '---' %></p>
-                    <p>
-                        Categories:
-                        <% product.categories.map(function(category, index) { %>
-                            <%= category.name %>
-                            <%= index < product.categories.length - 1 ? ', ' : '' %>
-                        <% }) %>
-                    </p>
-                    <p>Is active: <%= product.active ? 'true' : 'false'; %></p>
-                </div>
-                <div class="col-8">
-                    <div class="row g-2">
-                        <% product.photos.forEach(photo => { %>
-                            <div class="col-6 col-md-4 mb-2">
-                                <div class="card">
-                                    <div class="ratio ratio-4x3">
-                                        <img src="data:<%= photo.mimeType %>;base64,<%= photo.buffer.toString('base64') %>" class="card-img-top" alt="<%= photo.originalFileName %>">
-                                    </div>
-                                    <button class="btn btn-secondary"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#photo-details-<%= photo._id %>"
-                                            aria-expanded="false"
-                                            aria-controls="photo-details-<%= photo._id %>"
-                                    >
-                                        Details
-                                    </button>
-                                    <div class="collapse" id="photo-details-<%= photo._id %>">
-                                        <div class="card-body photo-details">
-                                            <p class="card-text">OriginalFileName: <%= photo.originalFileName %></p>
-                                            <p class="card-text">Description: <%= photo.title %></p>
-                                            <p class="card-text">Description: <%= photo.description %></p>
-                                        </div>
-                                    </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <p>EAN: <%= product.ean %></p>
+            <p>Description: <%= product.description !== '' ? product.description : '---'; %></p>
+            <p>Price (netto): <%= product.price %></p>
+            <p>VAT: <%= product.vat %>%</p>
+            <p>Bonus price: <%= product.bonusPercent %>%</p>
+            <p>Manufacturer: <%= product.manufacturer[0]?.name ?? '---' %></p>
+            <p>
+                Categories:
+                <% product.categories.map(function(category, index) { %>
+                    <%= category.name %>
+                    <%= index < product.categories.length - 1 ? ', ' : '' %>
+                <% }) %>
+            </p>
+            <p>Is active: <%= product.active ? 'true' : 'false'; %></p>
+        </div>
+        <div class="col-8">
+            <div class="row g-2">
+                <% product.photos.forEach(photo => { %>
+                    <div class="col-6 col-md-4 mb-2">
+                        <div class="card">
+                            <div class="ratio ratio-4x3">
+                                <img src="data:<%= photo.mimeType %>;base64,<%= photo.buffer.toString('base64') %>" class="card-img-top" alt="<%= photo.originalFileName %>">
+                            </div>
+                            <button class="btn btn-secondary"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#photo-details-<%= photo._id %>"
+                                    aria-expanded="false"
+                                    aria-controls="photo-details-<%= photo._id %>"
+                            >
+                                Details
+                            </button>
+                            <div class="collapse" id="photo-details-<%= photo._id %>">
+                                <div class="card-body photo-details">
+                                    <p class="card-text">OriginalFileName: <%= photo.originalFileName %></p>
+                                    <p class="card-text">Description: <%= photo.title %></p>
+                                    <p class="card-text">Description: <%= photo.description %></p>
                                 </div>
                             </div>
-                        <% }) %>
+                        </div>
                     </div>
-                </div>
+                <% }) %>
             </div>
         </div>
-        <%- include("../shared/footer.ejs") %>
-        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/products/js/info.js"> </script>
-    </body>
-</html>
+    </div>
+</div>
+<script src="/products/js/info.js"> </script>
