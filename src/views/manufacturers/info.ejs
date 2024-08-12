@@ -1,65 +1,58 @@
-<html lang="en">
-    <%- include("../shared/header.ejs") %>
-    <body>
-        <%- include("../shared/navigation.ejs") %>
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                <h2><%= title %> | <%= action %></h2>
-                <button class="btn btn-secondary btn-back">back</button>
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-between align-items-center">
+        <h2><%= title %> | <%= action %></h2>
+        <button class="btn btn-secondary btn-back">back</button>
+    </div>
+</div>
+<hr />
+<div class="info-manufacturer content" id="info-manufacturer-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-end">
+                <a class="btn-edit-manufacturer" href="/manufacturers/edit/<%= manufacturer._id %>">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <a
+                    class="btn-delete btn-delete-manufacturer"
+                    data-manufacturer-id="<%= manufacturer._id %>"
+                    data-manufacturer-name="<%= manufacturer.name %>"
+                >
+                    <i class="bi bi-trash3-fill"></i>
+                </a>
             </div>
         </div>
-        <hr />
-        <div class="info-manufacturer content" id="info-manufacturer-content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-end">
-                        <a class="btn-edit-manufacturer" href="/manufacturers/edit/<%= manufacturer._id %>">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a
-                            class="btn-delete btn-delete-manufacturer"
-                            data-manufacturer-id="<%= manufacturer._id %>"
-                            data-manufacturer-name="<%= manufacturer.name %>"
-                        >
-                            <i class="bi bi-trash3-fill"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="content manufacturer-content">
-                        <h2><%= manufacturer.name %></h2>
-                        <hr />
-                        <p>short name: </p><%= manufacturer.shortName || '---' %>
-                        <br />
-                        <p>parent: </p><%= manufacturer.parentManufacturer?.name || '---' %>
-                        <br />
-                        <p>nip: </p><%= manufacturer.nip %>
-                        <br />
-                        <p>email: </p><%= manufacturer.regon || '---' %>
-                        <br />
-                        <p>address: </p><%= manufacturer.address?.street || '---' %>
-                        <br />
-                        <p>postcode: </p><%= manufacturer.address?.zipcode || '---' %>
-                        <br />
-                        <p>city: </p><%= manufacturer.address?.city || '---' %>
-                        <br />
-                        <p>country: </p><%= manufacturer.address?.country || '---' %>
-                        <br />
-                        <p>email: </p><%= manufacturer.regon || '---' %>
-                        <br />
-                        <p>www: </p><%= manufacturer.www || '---' %>
-                    </div>
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="content manufacturer-content">
+                <h2><%= manufacturer.name %></h2>
+                <hr />
+                <p>short name: </p><%= manufacturer.shortName || '---' %>
+                <br />
+                <p>parent: </p><%= manufacturer.parentManufacturer?.name || '---' %>
+                <br />
+                <p>nip: </p><%= manufacturer.nip %>
+                <br />
+                <p>email: </p><%= manufacturer.regon || '---' %>
+                <br />
+                <p>address: </p><%= manufacturer.address?.street || '---' %>
+                <br />
+                <p>postcode: </p><%= manufacturer.address?.zipcode || '---' %>
+                <br />
+                <p>city: </p><%= manufacturer.address?.city || '---' %>
+                <br />
+                <p>country: </p><%= manufacturer.address?.country || '---' %>
+                <br />
+                <p>email: </p><%= manufacturer.regon || '---' %>
+                <br />
+                <p>www: </p><%= manufacturer.www || '---' %>
             </div>
         </div>
-        <%- include("../shared/footer.ejs") %>
-        <link rel="stylesheet" href="/toastify-js/src/toastify.css">
-        <link rel="stylesheet" href="/@sweetalert2/theme-bootstrap-4/bootstrap-4.css">
-        <script src="/sweetalert2/dist/sweetalert2.min.js"></script>
-        <script src="/toastify-js/src/toastify.js"></script>
-        <script src="/sweetalert2/dist/sweetalert2.all.js"></script>
-        <script src="/manufacturers/js/info.js"></script>
-    </body>
-</html>
+    </div>
+</div>
+<link rel="stylesheet" href="/toastify-js/src/toastify.css">
+<link rel="stylesheet" href="/@sweetalert2/theme-bootstrap-4/bootstrap-4.css">
+<script src="/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="/toastify-js/src/toastify.js"></script>
+<script src="/sweetalert2/dist/sweetalert2.all.js"></script>
+<script src="/manufacturers/js/info.js"></script>
