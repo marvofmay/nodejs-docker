@@ -1,42 +1,34 @@
-<html lang="en">
-    <%- include("../shared/header.ejs") %>
-    <body>
-        <%- include("../shared/navigation.ejs") %>
-        <div class="create-category content">
-            <div class="row">
-                <div class="col-md-12 d-flex justify-content-between align-items-center">
-                    <h2><%= title %> | <%= action %></h2>
-                    <button class="btn btn-secondary btn-back">back</button>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-md-12">
-                <%- include("../shared/message.ejs") %>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                <%- include("../shared/validationErrors.ejs") %>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <form action="/categories/store" method="POST">
-                        <label for="name" class="form-label">Name:</label>
-                        <input type="text" class="form-control mb-3" name="name" id="name" value="<%= category.name %>">
-
-                        <label for="description" class="form-label">Description:</label>
-                        <textarea id="description" class="form-control mb-3" name="description"><%= category.description %></textarea>
-
-                        <div class="row offset-10 col-2">
-                            <button type="submit" id="btnSendForm" class="btn btn-success">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="create-category content">
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-between align-items-center">
+            <h2><%= title %> | <%= action %></h2>
+            <button class="btn btn-secondary btn-back">back</button>
         </div>
-        <%- include("../shared/footer.ejs") %>
-        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+        <%- include("../shared/message.ejs") %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <%- include("../shared/validationErrors.ejs") %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form action="/categories/store" method="POST">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control mb-3" name="name" id="name" value="<%= category.name %>">
+
+                <label for="description" class="form-label">Description:</label>
+                <textarea id="description" class="form-control mb-3" name="description"><%= category.description %></textarea>
+
+                <div class="row offset-10 col-2">
+                    <button type="submit" id="btnSendForm" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

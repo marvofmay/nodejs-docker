@@ -1,45 +1,38 @@
-<html lang="en">
-    <%- include("../shared/header.ejs") %>
-    <body>
-        <%- include("../shared/navigation.ejs") %>
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                <h2><%= title %> | <%= action %></h2>
-                <button class="btn btn-secondary btn-back">back</button>
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-between align-items-center">
+        <h2><%= title %> | <%= action %></h2>
+        <button class="btn btn-secondary btn-back">back</button>
+    </div>
+</div>
+<hr />
+<div class="info-category content" id="info-category-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-end">
+                <a href="/categories/pdf/<%= category._id %>">
+                    <i class="bi bi-file-pdf"></i>
+                </a>
+                <a class="btn-edit-category" href="/categories/edit/<%= category._id %>">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <a
+                    class="btn-delete btn-delete-category"
+                    data-category-id="<%= category._id %>"
+                    data-category-name="<%= category.name %>"
+                >
+                    <i class="bi bi-trash3-fill"></i>
+                </a>
             </div>
         </div>
-        <hr />
-        <div class="info-category content" id="info-category-content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-end">
-                        <a href="/categories/pdf/<%= category._id %>">
-                            <i class="bi bi-file-pdf"></i>
-                        </a>
-                        <a class="btn-edit-category" href="/categories/edit/<%= category._id %>">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a
-                            class="btn-delete btn-delete-category"
-                            data-category-id="<%= category._id %>"
-                            data-category-name="<%= category.name %>"
-                        >
-                            <i class="bi bi-trash3-fill"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="content category-content">
-                <h2><%= category.name %></h2>
-                <%= category.description %>
-            </div>
-        </div>
-        <%- include("../shared/footer.ejs") %>
-        <link rel="stylesheet" href="/toastify-js/src/toastify.css">
-        <link rel="stylesheet" href="/@sweetalert2/theme-bootstrap-4/bootstrap-4.css">
-        <script src="/sweetalert2/dist/sweetalert2.min.js"></script>
-        <script src="/toastify-js/src/toastify.js"></script>
-        <script src="/sweetalert2/dist/sweetalert2.all.js"></script>
-        <script src="/categories/js/info.js"></script>
-    </body>
-</html>
+    </div>
+    <div class="content category-content">
+        <h2><%= category.name %></h2>
+        <%= category.description %>
+    </div>
+</div>
+<link rel="stylesheet" href="/toastify-js/src/toastify.css">
+<link rel="stylesheet" href="/@sweetalert2/theme-bootstrap-4/bootstrap-4.css">
+<script src="/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="/toastify-js/src/toastify.js"></script>
+<script src="/sweetalert2/dist/sweetalert2.all.js"></script>
+<script src="/categories/js/info.js"></script>
