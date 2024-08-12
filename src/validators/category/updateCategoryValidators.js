@@ -10,6 +10,9 @@ const isCategoryNameExistsWithDifferentId = async (name, { req }) => {
 }
 
 const updateCategoryValidator = [
+    body('id')
+        .trim()
+        .notEmpty().withMessage('Category ID is required.'),
     body('name')
         .trim()
         .notEmpty().withMessage('Name is required.')

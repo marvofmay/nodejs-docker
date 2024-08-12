@@ -1,4 +1,5 @@
 const Category = require('../../models/category');
+const categoryTransformer = require("../../repositories/api/v1/category/transformer/categoryTransformer");
 
 class CategoryService {
     async createCategory(createCategoryDTO) {
@@ -36,11 +37,20 @@ class CategoryService {
                 description: updateCategoryDTO.description,
             }
             const result = await Category.updateOne({_id: categoryId}, {$set: newData});
-
             if (result.modifiedCount === 1) {
-                return { success: true, message: 'Category updated successfully' };
+                let category =  await Category.findById(categoryId);
+                category = categoryTransformer(category);
+
+                return {
+                    success: true,
+                    message: 'Category updated successfully',
+                    category: category,
+                };
             } else {
-                return {success: false, message: 'Category not found or not updated'};
+                return {
+                    success: false,
+                    message: 'Category not found or not updated'
+                };
             }
         } catch (err) {
             console.error(err);

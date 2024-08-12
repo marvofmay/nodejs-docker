@@ -22,7 +22,7 @@ const categoryUpdate = async (req, res) => {
         }
 
         const updateResult = await categoryService.updateCategory(updateCategoryDTO)
-        const category = await Category.findById(req.body._id);
+        const category = await Category.findById(req.body.id);
 
         return res.render('categories/edit', {
             title: title,
@@ -32,7 +32,10 @@ const categoryUpdate = async (req, res) => {
             actionResult: updateResult,
         });
     } catch(error) {
-        res.render('error/error', {title: 'error', message: error.message});
+        res.render('error/error', {
+            title: 'error',
+            message: error.message
+        });
     }
 }
 
