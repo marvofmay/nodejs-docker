@@ -27,6 +27,8 @@
         <li class="nav-item">
           <a class="nav-link <%= title === 'Manufacturers' ? 'active' : '' %>" href="/manufacturers">Manufacturers</a>
         </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 user-account-menu">
         <% if (user && Object.keys(user).length > 0) { %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

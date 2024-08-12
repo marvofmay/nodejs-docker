@@ -105,3 +105,8 @@ th.column-action {
 .dropdown-toggle::after {
     display: none; /* Ukrywa caret */
 }
+.user-account-menu .dropdown-item, .user-account-menu li {
+    font-size: 12px;
+    margin: 4px !important;
+    padding: 0 !important;
+}
