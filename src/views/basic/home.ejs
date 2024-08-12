@@ -1,26 +1,17 @@
-<html lang="en">
-    <%- include("../shared/header.ejs") %>
-    <body>
-        <%- include("../shared/navigation.ejs") %>
-        <div class="content">
-            <h2>Home</h2>
-            <hr />
-                <% if (env === 'development') { %>
-                <p><strong>You are in the development environment.</strong></p>
-                <% } else if (env === 'test') { %>
-                    <p><strong>You are in the test environment.</strong></p>
-                <% } else if (env === 'production') { %>
-                <p><strong>You are in the production environment.</strong></p>
-                <% } %>
-            <br />
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Quia quibusdam quaerat illo a modi tenetur ut blanditiis,
-                illum quo consectetur recusandae excepturi natus impedit rem, tempora cum fuga quae in.
-            </p>
-        </div>
-        <%- include("../shared/footer.ejs") %>
-        <script src="/@popperjs/core/dist/umd/popper.min.js"></script>
-        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
+<div class="content">
+    <h2>Home</h2>
+    <hr />
+        <% if (env === 'development') { %>
+        <p><strong>You are in the development environment.</strong></p>
+        <% } else if (env === 'test') { %>
+            <p><strong>You are in the test environment.</strong></p>
+        <% } else if (env === 'production') { %>
+        <p><strong>You are in the production environment.</strong></p>
+        <% } %>
+    <br />
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        Quia quibusdam quaerat illo a modi tenetur ut blanditiis,
+        illum quo consectetur recusandae excepturi natus impedit rem, tempora cum fuga quae in.
+    </p>
+</div>

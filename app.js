@@ -11,6 +11,7 @@ const connectDB = require('./src/config/mongodb');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./src/config/swagger');
 const dotenv = require('dotenv');
+const expressLayouts = require('express-ejs-layouts');
 
 // Import routes
 const basicRoutes = require('./src/routes/basicRoutes');
@@ -41,6 +42,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('src/public'));
 app.use(express.static('node_modules'));
 app.use(express.static('src/views'));
+app.use(expressLayouts);
+app.set('layout', 'layouts/layout');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
