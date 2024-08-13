@@ -57,22 +57,24 @@
                     <td><%= category.updatedAt ? formatDateYmdHis(category.updatedAt) : '---' %></td>
                     <td><%= category.deletedAt ? formatDateYmdHis(category.deletedAt) : '---' %></td>
                     <td>
-                        <a href="/categories/info/<%= category._id %>">
-                            <i class="bi bi-info-circle"></i>
-                        </a>
-                        <a href="/categories/pdf/<%= category._id %>">
-                            <i class="bi bi-file-pdf"></i>
-                        </a>
-                        <a href="/categories/edit/<%= category._id %>">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
                         <% if (category.deletedAt === null) { %>
-                        <a class="btn-delete btn-delete-category"
-                           data-category-id="<%= category._id %>"
-                           data-category-name="<%= category.name %>"
-                        >
-                            <i class="bi bi-trash3-fill"></i>
-                        </a>
+                            <a href="/categories/info/<%= category._id %>">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                            <a href="/categories/pdf/<%= category._id %>">
+                                <i class="bi bi-file-pdf"></i>
+                            </a>
+                            <a href="/categories/edit/<%= category._id %>">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        <% } %>
+                        <% if (category.deletedAt === null) { %>
+                            <a class="btn-delete btn-delete-category"
+                               data-category-id="<%= category._id %>"
+                               data-category-name="<%= category.name %>"
+                            >
+                                <i class="bi bi-trash3-fill"></i>
+                            </a>
                         <% } else { %>
                             <a class="btn-delete btn-restore-category"
                                data-category-id="<%= category._id %>"
