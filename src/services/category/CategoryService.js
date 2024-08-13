@@ -66,7 +66,7 @@ class CategoryService {
                 return {
                     success: false,
                     message: 'Category not found',
-                    status: 400
+                    status: 404
                 };
             }
 
@@ -103,7 +103,7 @@ class CategoryService {
                 return {
                     success: false,
                     message: 'Category not found',
-                    status: 400
+                    status: 404
                 };
             }
 
@@ -112,7 +112,6 @@ class CategoryService {
                 {deletedAt: null, updatedAt: Date.now()},
                 {new: true}
             );
-
 
             return {
                 success: true,

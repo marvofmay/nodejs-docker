@@ -51,7 +51,7 @@ const CategoryService = require('../../../../services/category/CategoryService')
  *         actionResult:
  *           success: false
  *           message: "Category not found"
- *           status: 400
+ *           status: 404
  *     DeleteCategoryResponse500:
  *       type: object
  *       properties:
@@ -92,7 +92,7 @@ const CategoryService = require('../../../../services/category/CategoryService')
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/DeleteCategoryResponse200'
- *       400:
+ *       404:
  *         description: Bad Request - Category not found or invalid request
  *         content:
  *           application/json:
