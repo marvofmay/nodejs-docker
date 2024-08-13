@@ -8,6 +8,7 @@ const categoryAjaxListController = require('../controllers/category/categoryAjax
 const categoryStoreController = require('../controllers/category/categoryStoreController');
 const categoryUpdateController = require('../controllers/category/categoryUpdateController');
 const categoryDeleteController = require('../controllers/category/categoryDeleteController');
+const categoryRestoreController = require('../controllers/category/categoryRestoreController');
 const { createCategoryValidator } = require('../validators/category/createCategoryValidators');
 const { updateCategoryValidator } = require('../validators/category/updateCategoryValidators');
 
@@ -22,5 +23,6 @@ router.post('/ajaxList', categoryAjaxListController.categoryAjaxList);
 router.post('/store', createCategoryValidator, categoryStoreController.categoryStore);
 router.put('/:id', updateCategoryValidator, categoryUpdateController.categoryUpdate);
 router.delete('/:id', categoryDeleteController.categoryDelete);
+router.patch('/:id/restore', categoryRestoreController.categoryRestore);
 
 module.exports = router;

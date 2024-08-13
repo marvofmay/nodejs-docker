@@ -73,7 +73,7 @@ class CategoryService {
             if (safe) {
                 await Category.findByIdAndUpdate(
                     categoryId,
-                    {deletedAt: new Date()},
+                    {deletedAt: Date.now()},
                     {new: true}
                 );
             } else {
@@ -91,6 +91,40 @@ class CategoryService {
             return {
                 success: false,
                 message: 'Failed to delete category',
+                status: 500
+            };
+        }
+    }
+
+    async restoreCategory (categoryId) {
+        try {
+            const category = await Category.findById(categoryId);
+            if (! category) {
+                return {
+                    success: false,
+                    message: 'Category not found',
+                    status: 400
+                };
+            }
+
+            await Category.findByIdAndUpdate(
+                categoryId,
+                {deletedAt: null, updatedAt: Date.now()},
+                {new: true}
+            );
+
+
+            return {
+                success: true,
+                message: 'Category restored successfully',
+                status: 200
+            };
+        } catch (err) {
+            console.error(err);
+
+            return {
+                success: false,
+                message: 'Failed to restore category',
                 status: 500
             };
         }

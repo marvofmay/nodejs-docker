@@ -1,4 +1,3 @@
-const Category = require('../../../../models/category');
 const UpdateCategoryDTO = require('../../../../dto/category/UpdateCategoryDTO');
 const CategoryService = require('../../../../services/category/CategoryService');
 const { validationResult} = require("express-validator");

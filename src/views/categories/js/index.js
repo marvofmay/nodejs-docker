@@ -94,6 +94,40 @@ container.addEventListener('click', function(event) {
             }
         });
     }
+
+    const btnRestoreCategory = event.target.closest('a.btn-restore-category');
+    const categoryNameToRestore = btnRestoreCategory?.getAttribute('data-category-name');
+    const categoryIdToRestore = btnRestoreCategory?.getAttribute('data-category-id');
+    if (btnRestoreCategory) {
+        const activePageItem = document.querySelector('.page-item.active');
+        if (activePageItem) {
+            const pageLink = activePageItem.querySelector('.page-link');
+            if (pageLink) {
+                page = pageLink.getAttribute('data-page');
+            }
+        }
+
+        Swal.fire({
+            title: `Do you want to restore this category \n "${categoryNameToRestore}"?`,
+            showCancelButton: true,
+            confirmButtonText: "Restore",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const endpoint = `/categories/${categoryIdToRestore}/restore`;
+                fetch(endpoint, {
+                    method: 'PATCH',
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        actionResult = data.actionResult;
+                        fetchDataFromDB();
+                    })
+                    .catch(err => console.log(err));
+            } else if (result.isDenied) {
+                e.preventDefault();
+            }
+        });
+    }
 });
 
 container.addEventListener('keyup', event => {
