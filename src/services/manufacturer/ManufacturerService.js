@@ -1,4 +1,5 @@
 const Manufacturer = require('../../models/manufacturer');
+const Category = require("../../models/category");
 
 class ManufacturerService {
     async createManufacturer(createManufacturerDTO) {
@@ -70,11 +71,7 @@ class ManufacturerService {
             }
 
             if (safe) {
-                await Manufacturer.findByIdAndUpdate(
-                    manufacturerId,
-                    {deletedAt: new Date()},
-                    {new: true}
-                );
+                await Manufacturer.findByIdAndUpdate(manufacturerId, {deletedAt: new Date()}, {new: true});
             } else {
                 await Manufacturer.findByIdAndDelete(manufacturerId);
             }
@@ -90,6 +87,35 @@ class ManufacturerService {
             return {
                 success: false,
                 message: 'Failed to delete manufacturer',
+                status: 500
+            };
+        }
+    }
+
+    async restoreManufacturer (manufacturerId) {
+        try {
+            const manufacturer = await Manufacturer.findById(manufacturerId);
+            if (! manufacturer) {
+                return {
+                    success: false,
+                    message: 'Manufacturer not found',
+                    status: 404
+                };
+            }
+
+            await Manufacturer.findByIdAndUpdate(manufacturerId, {deletedAt: null, updatedAt: Date.now()}, {new: true});
+
+            return {
+                success: true,
+                message: 'Manufacturer restored successfully',
+                status: 200
+            };
+        } catch (err) {
+            console.error(err);
+
+            return {
+                success: false,
+                message: 'Failed to restore manufacturer',
                 status: 500
             };
         }

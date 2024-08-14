@@ -29,6 +29,21 @@
                             name
                             <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="name"></i>
                         </th>
+                        <th>
+                            <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="createdAt"></i>
+                            created at
+                            <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="createdAt"></i>
+                        </th>
+                        <th>
+                            <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="updatedAt"></i>
+                            updated at
+                            <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="updatedAt"></i>
+                        </th>
+                        <th>
+                            <i class="bi bi-sort-alpha-down column-sort" data-order="asc" data-column="deletedAt"></i>
+                            deleted at
+                            <i class="bi bi-sort-alpha-up column-sort" data-order="desc" data-column="deletedAt"></i>
+                        </th>
                         <th class="col-2 text-center">action</th>
                     </tr>
                     <% let index = 1; %>
@@ -36,20 +51,35 @@
                         <tr>
                             <td><%= index + (page - 1) * pagesLimit %></td>
                             <td><%= manufacturer.name %></td>
+                            <td><%= manufacturer.createdAt ? formatDateYmdHis(manufacturer.createdAt) : '---' %></td>
+                            <td><%= manufacturer.updatedAt ? formatDateYmdHis(manufacturer.updatedAt) : '---' %></td>
+                            <td><%= manufacturer.deletedAt ? formatDateYmdHis(manufacturer.deletedAt) : '---' %></td>
                             <td>
-                                <a href="/manufacturers/info/<%= manufacturer._id %>">
-                                    <i class="bi bi-info-circle"></i>
-                                </a>
-                                <a href="/manufacturers/edit/<%= manufacturer._id %>">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a
-                                    class="btn-delete btn-delete-manufacturer"
-                                    data-manufacturer-id="<%= manufacturer._id %>"
-                                    data-manufacturer-name="<%= manufacturer.name %>"
-                                >
-                                    <i class="bi bi-trash3-fill"></i>
-                                </a>
+                                <% if (manufacturer.deletedAt === null) { %>
+                                    <a href="/manufacturers/info/<%= manufacturer._id %>">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                    <a href="/manufacturers/edit/<%= manufacturer._id %>">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                <% } %>
+                                <% if (manufacturer.deletedAt === null) { %>
+                                    <a
+                                        class="btn-delete btn-delete-manufacturer"
+                                        data-manufacturer-id="<%= manufacturer._id %>"
+                                        data-manufacturer-name="<%= manufacturer.name %>"
+                                    >
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                <% } else { %>
+                                    <a
+                                       class="btn-delete btn-restore-manufacturer"
+                                       data-manufacturer-id="<%= manufacturer._id %>"
+                                       data-manufacturer-name="<%= manufacturer.name %>"
+                                    >
+                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                    </a>
+                                <% } %>
                             </td>
                         </tr>
                         <% index++; %>

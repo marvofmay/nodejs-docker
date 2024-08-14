@@ -1,7 +1,6 @@
 const RestoreCategoryDTO = require('../../../../dto/category/RestoreCategoryDTO');
 const CategoryService = require('../../../../services/category/CategoryService');
 const { validationResult} = require("express-validator");
-const Category = require("../../../../models/category");
 
 /**
  * @swagger
