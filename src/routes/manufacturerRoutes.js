@@ -10,10 +10,12 @@ const { createManufacturerValidator } = require('../validators/manufacturer/crea
 const { updateManufacturerValidator} = require("../validators/manufacturer/updateManufacturerValidators");
 const manufacturerDeleteController = require("../controllers/manufacturer/manufacturerDeleteController");
 const manufacturerRestoreController = require("../controllers/manufacturer/manufacturerRestoreController");
+const manufacturerPDFController = require("../controllers/manufacturer/manufacturerPDFController");
 
 const router = express.Router();
 
 router.get('/create', manufacturerCreateController.manufacturerCreate);
+router.get('/pdf/:id', manufacturerPDFController.manufacturerPDF);
 router.post('/store', createManufacturerValidator, manufacturerStoreController.manufacturerStore);
 router.get('/edit/:id', manufacturerEditController.manufacturerEdit);
 router.post('/ajaxList', manufacturerAjaxListController.manufacturerAjaxList);
