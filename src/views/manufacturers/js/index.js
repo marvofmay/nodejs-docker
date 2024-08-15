@@ -94,6 +94,40 @@ container.addEventListener('click', function(event) {
             }
         });
     }
+
+    const btnRestoreManufacturer = event.target.closest('a.btn-restore-manufacturer');
+    const manufacturerNameToRestore = btnRestoreManufacturer?.getAttribute('data-manufacturer-name');
+    const manufacturerIdToRestore = btnRestoreManufacturer?.getAttribute('data-manufacturer-id');
+    if (btnRestoreManufacturer) {
+        const activePageItem = document.querySelector('.page-item.active');
+        if (activePageItem) {
+            const pageLink = activePageItem.querySelector('.page-link');
+            if (pageLink) {
+                page = pageLink.getAttribute('data-page');
+            }
+        }
+
+        Swal.fire({
+            title: `Do you want to restore this manufacturer \n "${manufacturerNameToRestore}"?`,
+            showCancelButton: true,
+            confirmButtonText: "Restore",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const endpoint = `/manufacturers/${manufacturerIdToRestore}/restore`;
+                fetch(endpoint, {
+                    method: 'PATCH',
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        actionResult = data.actionResult;
+                        fetchDataFromDB();
+                    })
+                    .catch(err => console.log(err));
+            } else if (result.isDenied) {
+                e.preventDefault();
+            }
+        });
+    }
 });
 
 container.addEventListener('keyup', event => {

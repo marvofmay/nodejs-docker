@@ -9,6 +9,7 @@ const manufacturerInfoController = require('../controllers/manufacturer/manufact
 const { createManufacturerValidator } = require('../validators/manufacturer/createManufacturerValidators');
 const { updateManufacturerValidator} = require("../validators/manufacturer/updateManufacturerValidators");
 const manufacturerDeleteController = require("../controllers/manufacturer/manufacturerDeleteController");
+const manufacturerRestoreController = require("../controllers/manufacturer/manufacturerRestoreController");
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.get('/info/:id', manufacturerInfoController.manufacturerInfo);
 router.get('/', manufacturerIndexController.manufacturerIndex);
 router.put('/:id', updateManufacturerValidator, manufacturerUpdateController.manufacturerUpdate);
 router.delete('/:id', manufacturerDeleteController.manufacturerDelete);
+router.patch('/:id/restore', manufacturerRestoreController.manufacturerRestore);
 
 module.exports = router;

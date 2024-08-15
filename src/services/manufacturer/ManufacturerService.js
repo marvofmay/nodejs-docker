@@ -1,5 +1,4 @@
 const Manufacturer = require('../../models/manufacturer');
-const Category = require("../../models/category");
 
 class ManufacturerService {
     async createManufacturer(createManufacturerDTO) {
