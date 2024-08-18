@@ -1,4 +1,5 @@
 const Product = require('../../models/product');
+const Category = require("../../models/category");
 
 class ProductService {
     async createProduct(createProductDTO) {
@@ -98,6 +99,39 @@ class ProductService {
             return {
                 success: false,
                 message: 'Failed to delete product',
+                status: 500
+            };
+        }
+    }
+
+    async restoreProduct (productId) {
+        try {
+            const product = await Product.findById(productId);
+            if (! product) {
+                return {
+                    success: false,
+                    message: 'Product not found',
+                    status: 404
+                };
+            }
+
+            await Product.findByIdAndUpdate(
+                productId,
+                {deletedAt: null, updatedAt: Date.now()},
+                {new: true}
+            );
+
+            return {
+                success: true,
+                message: 'Product restored successfully',
+                status: 200
+            };
+        } catch (err) {
+            console.error(err);
+
+            return {
+                success: false,
+                message: 'Failed to restore product',
                 status: 500
             };
         }

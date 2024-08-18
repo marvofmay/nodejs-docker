@@ -11,6 +11,7 @@ const { updateProductValidator } = require('../validators/product/updateProductV
 const multer = require('multer');
 const productDeleteController = require("../controllers/product/productDeleteController");
 const productPDFController = require("../controllers/product/productPDFController");
+const productRestoreController = require("../controllers/product/productRestoreController");
 const upload = multer();
 
 const router = express.Router();
@@ -24,5 +25,6 @@ router.post('/ajaxList', productAjaxListController.productAjaxList);
 router.post('/store', upload.array('photos'), createProductValidator, productStoreController.productStore);
 router.put('/:id', upload.array('photos'), updateProductValidator, productUpdateController.productUpdate);
 router.delete('/:id', productDeleteController.productDelete);
+router.patch('/:id/restore', productRestoreController.productRestore);
 
 module.exports = router;
