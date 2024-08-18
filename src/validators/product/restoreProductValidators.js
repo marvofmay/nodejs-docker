@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 
 const invalidCategoryId = async (value) => {
     if (! mongoose.Types.ObjectId.isValid(value)) {
-        throw new Error('Invalid category ID');
+        throw new Error('Invalid product ID');
     }
 };
 
-const restoreCategoryValidator = [
+const restoreProductValidator = [
     body('id')
         .trim()
-        .notEmpty().withMessage('Category ID is required')
+        .notEmpty().withMessage('Product ID is required')
         .bail()
         .custom(invalidCategoryId)
 ];
 
-module.exports = { restoreCategoryValidator };
+module.exports = { restoreProductValidator };
