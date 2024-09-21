@@ -1,4 +1,4 @@
-const RestoreCategoryDTO = require('../../../../dto/category/RestoreCategoryDTO');
+const RestoreCategoryDTO = require('../../../../../dist/dto/category/RestoreCategoryDTO');
 const CategoryService = require('../../../../services/category/CategoryService');
 const { validationResult} = require("express-validator");
 
